@@ -16,6 +16,8 @@ import vo.UserVO;
 
 @Controller
 public class UserController {
+	///asdoijasndkjasdnasjkdnasjk
+	
 	@Autowired
 	HttpServletRequest request;
 
