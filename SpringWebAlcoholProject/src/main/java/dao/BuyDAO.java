@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -33,7 +33,15 @@ public class BuyDAO {
 		}
 		return res;
 	}
-	public Date Sysdate() {
+	public Timestamp Sysdate() {
 		return session.selectOne("b.sysdate");
+	}
+	public List<OrderListVO> selectOrderList(Timestamp orderdate) {
+		return session.selectList("b.selectOrder", orderdate);
+		
+	}
+	public int updateOrderList(OrderListVO vo) {
+		return session.update("b.updateOrder",vo);
+		
 	}
 }

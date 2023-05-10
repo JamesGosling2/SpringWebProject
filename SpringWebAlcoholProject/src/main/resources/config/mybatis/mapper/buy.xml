@@ -29,12 +29,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{product_idx},
 		#{product_amount},
 		#{product_price},
-		#{user_idx}
+		#{user_idx},
+		#{orderlist_phonenumber}
 		)
 	</insert>
-	<select id="sysdate" resultType="java.util.Date">
+	<select id="sysdate" resultType="java.sql.Timestamp">
 		select sysdate from dual
 	</select>
+	<select id="selectOrder" parameterType="java.sql.Timestamp" resultType="orderlist">
+		select * from order_list where orderlist_date=#{orderdate}
+	</select>
+	<update id="updateOrder" parameterType="orderlist">
+		update order_list set
+		orderlist_addr=#{orderlist_addr},
+		orderlist_status=1,
+		orderlist_phonenumber=#{orderlist_phonenumber}
+		where orderlist_idx=#{orderlist_idx}
+	</update>
 </mapper>
 
 

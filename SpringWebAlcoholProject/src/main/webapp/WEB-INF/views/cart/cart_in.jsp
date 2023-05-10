@@ -209,7 +209,7 @@ function fixProducerName(){
 	</c:if>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
-	
+
 	<!-- ======= main ======= -->
 	<c:set var="producer" value="999999" />
 	<main id="main" class="main">
@@ -311,6 +311,8 @@ function fixProducerName(){
 
 	<script
 		src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/detailview_js/main.js"></script>
 	<!-- Vendor JS Files -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
