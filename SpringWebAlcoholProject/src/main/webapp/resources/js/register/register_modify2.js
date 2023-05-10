@@ -213,7 +213,7 @@ var themeObj = {
     //outlineColor: "", //테두리
 };
 
-function sample4_execDaumPostcode() {
+function sample4_execDaumPostcode2() {
     new daum.Postcode({
         oncomplete: function (data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -268,7 +268,7 @@ function sample4_execDaumPostcode() {
     }).open();
 } // end of sample4_execDaumPostcode()
 
-function send(f) {
+function send5(f) {
     alert("test");
 
     let user1_addr = f.sample4_roadAddress.value + " (" + f.sample4_postcode.value + ") " + f.sample4_detailAddress.value;
@@ -309,6 +309,9 @@ function send(f) {
 
 } // end of send()
 
+function temporary(){
+    alert("tempory");
+}
 
 
 

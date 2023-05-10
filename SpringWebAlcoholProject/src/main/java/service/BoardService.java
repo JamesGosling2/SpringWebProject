@@ -69,4 +69,9 @@ public class BoardService {
         return res;
     } // end of board_modify()
 
+    public Map<String, Object> board_reply_selectMap(int board1_ref){
+        Map<String, Object> board_reply_map = boardDAO.board_reply_selectMap(board1_ref);
+        return board_reply_map;
+    } // end of board_reply_select()
+
 } // end of class

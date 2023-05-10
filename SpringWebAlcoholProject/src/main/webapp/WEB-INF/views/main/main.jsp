@@ -9,10 +9,6 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link
@@ -49,12 +45,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">회원정보 수정</h5>
+                    <h5 class="modal-title fw-bold text-primary">회원정보 수정</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <c:choose>
                     <c:when test="${res eq 1}">
-                        <div class="modal-body">
+                        <div class="modal-body fw-bold">
                             회원정보 수정에 성공했습니다.
                         </div>
                         <div class="modal-footer">
@@ -62,11 +58,11 @@
                         </div>
                     </c:when>
                     <c:when test="${res eq 0}">
-                        <div class="modal-body">
+                        <div class="modal-body fw-bold">
                             회원정보 수정에 실패했습니다. 다시 진행해주세요.
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal">Close</button>
                         </div>
                     </c:when>
                 </c:choose>

@@ -13,7 +13,12 @@ import vo.FullViewVO;
 import vo.ReviewLsjVO;
 
 import javax.servlet.ServletContext;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ReviewLsjController {
@@ -35,7 +40,50 @@ public class ReviewLsjController {
     } // end of constructor
 
     @RequestMapping("user_reviewList.do")
-    public String user_reviewList() {
+    public String user_reviewList(Model model, int user1_idx) {
+        System.out.println("===== user_reviewList.do =====");
+        Map<String, Object> reviewMap = reviewService.user_reviewMap(user1_idx);
+        System.out.println("reviewList : " + reviewMap.get("reviewList"));
+        List<FullViewVO> productList = (List<FullViewVO>) reviewMap.get("productList");
+        System.out.println("prodcutList[0].product_thumbnail_filename : " + productList.get(0).getProduct_thumbnail_filename());
+
+        // upload 파일에 저장되어 있는 photo 읽어오기
+       /* String webPath = "/resources/upload/";
+        String savePath = app.getRealPath(webPath);
+        System.out.println("절대경로 : " + savePath);
+
+        for(int i = 0; i < reviewList.size(); i++){
+            if(!reviewList.get(i).getReview_filename().equals("no_file")){
+                File file = new File(savePath + "/" + reviewList.get(i).getReview_filename());
+                FileInputStream fis = null;
+                BufferedInputStream bis = null;
+                byte[] b_read = new byte[(int)file.length()];
+                try{
+                    if(file.exists()){
+                        fis = new FileInputStream(file);
+                        bis = new BufferedInputStream(fis);
+
+                        bis.read(b_read);
+                        System.out.println("bis.read : ");
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+                } finally {
+                    try{
+                        bis.close();
+                        fis.close();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        } // end of for*/
+
+
+
+        model.addAttribute("reviewMap", reviewMap);
+
         return Common.Review_view2.VIEW_PATH + "user_reviewList.jsp";
     } // end of user_reviewList()
 

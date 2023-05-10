@@ -137,8 +137,9 @@
                                         </div>
                                         <div class="col-12">
                                             <input type="button" class="form-control btn btn-success fw-bold"
-                                                   onclick="sample4_execDaumPostcode();"
+                                                   onclick="sample4_execDaumPostcode2();"
                                                    value="우편번호 찾기"><br>
+                                            <input type="button" class="btn btn-warning" onclick="temporary();" value="test">
                                         </div>
 
                                         <input type="text" class="form-control" id="sample4_roadAddress"
@@ -160,8 +161,9 @@
 
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary w-100" id="submit"
-                                                onclick="send(this.form);">Modify Account
+                                                onclick="send5(this.form);">Modify Account
                                         </button>
+                                        <input type="hidden" class="btn btn-warning" onclick="temporary();" value="test">
                                     </div>
                                     <div>
                                         <input type="hidden" name="user1_idx" value="${user1.user1_idx}"/>
@@ -183,15 +185,15 @@
 
         </section>
 
-
     </main><!-- End #main -->
 </div>
 
+<script src="${pageContext.request.contextPath}/resources/js/register/register_modify2.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/register/register_modify.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

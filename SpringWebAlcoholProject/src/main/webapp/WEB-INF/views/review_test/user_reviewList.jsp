@@ -9,10 +9,6 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -59,18 +55,24 @@
                 </div>
 
                 <div class="row gy-4 portfolio-container">
-                    <div class="col-3"></div>
-                    <div class="col-6 portfolio-item filter-app">
-                        <div class="portfolio-wrap">
-                            <a href="assets/img/portfolio/app-1.jpg" data-gallery="portfolio-gallery-app"
-                               class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt=""></a>
-                            <div class="portfolio-info">
-                                <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
-                                <p>Lorem ipsum, dolor sit amet consectetur</p>
+                    <c:forEach var="reviewList" items="${reviewMap.reviewList}" varStatus="status">
+                        <c:set var="index" value="${status.index}"></c:set>
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="fw-bold text-primary"><a class="text-primary" href="detailview.do?product_idx=${reviewList.product_idx}">${reviewMap.productList[index].product_name}</a> / 리뷰 작성일 : ${reviewList.review_regdate}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-text">
+                                        <p>${reviewList.review_content}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div><!-- End Portfolio Item -->
-                    <div class="col-3"></div>
+                        <!-- End Portfolio Item -->
+                        <div class="col-3"></div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

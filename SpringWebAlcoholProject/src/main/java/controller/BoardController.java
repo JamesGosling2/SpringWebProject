@@ -66,7 +66,7 @@ public class BoardController {
 
         String pageMenu = Paging.getPaging("board_list.do", nowPage, row_total, search_param, Common.Board.BLOCKLIST, Common.Board.BLOCKPAGE);
 
-        // System.out.println("pageMenu : " + pageMenu);
+        System.out.println("pageMenu : " + pageMenu);
         model.addAttribute("pageMenu", pageMenu);
         model.addAttribute("board_map", board_map);
 
@@ -80,7 +80,8 @@ public class BoardController {
         System.out.println("===== board_detail.do =====");
         System.out.println("board_idx : " + board1_idx);
         System.out.println("user1_idx : " + user1_idx);
-
+        
+        // 새로고침으로 조회수 증가 방지를 위한 session에 check 추가
         String readhitCheck = (String) session.getAttribute("readhitCheck");
 
         if(readhitCheck == null){
@@ -91,8 +92,14 @@ public class BoardController {
         BoardVO board_vo = service.board_selectOne(board1_idx);
         UserVO user_vo = service.user_selectOne(user1_idx);
 
+        // 댓글 검색
+        Map<String, Object> board_reply_map = service.board_reply_selectMap(board_vo.getBoard1_ref());
+        System.out.println("board_reply_list : " + board_reply_map.get("board_reply_list"));
+        System.out.println("user_list : " + board_reply_map.get("user_list"));
+
         model.addAttribute("board_vo", board_vo);
         model.addAttribute("user_vo", user_vo);
+        model.addAttribute("board_reply_map", board_reply_map);
 
         return Common.Board.VIEW_PATH + "board_detail.jsp";
     } // end of board_detail()

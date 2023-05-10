@@ -121,13 +121,13 @@ function send(f){
 
     if(check_user_nickname.test(user1_nickname) && check_user_phonenumber.test(user1_phonenumber) &&
         (user1_postcode != '') && (user1_detailAddress != '')){
-        alert("유효성 검사 통과");
+        // alert("유효성 검사 통과");
         document.getElementById("register_detail_form").setAttribute("onsubmit", "return true");
         f.action = "register.do";
         f.method = "get";
         f.submit();
     } else{
-        alert("유효성 검사 실패");
+        // alert("유효성 검사 실패");
         return;
     }
 } // end of send()

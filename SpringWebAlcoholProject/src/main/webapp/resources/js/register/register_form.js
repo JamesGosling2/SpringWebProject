@@ -152,13 +152,13 @@ function send1(f){
 
     if (check_user_email.test(user1_email) && check_user_pwd.test(user1_pwd) && (user1_pwd === user1_pwd_check) &&
         check_user_name.test(user1_name) && check_user_birthdate.test(user1_birthdate) && accept && isIdCheck) {
-        alert("유효성 true");
+        // alert("유효성 true");
         document.getElementById("register_form").setAttribute("onsubmit", "return true");
         f.action = "register_detail_form.do";
         f.method = "post";
         f.submit();
     } else {
-        alert("유효성 false");
+        // alert("유효성 false");
         return;
     }
 

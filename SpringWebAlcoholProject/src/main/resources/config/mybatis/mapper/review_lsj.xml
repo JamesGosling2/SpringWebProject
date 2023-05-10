@@ -22,6 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select r.*, u.user1_nickname from review r inner join user1 u on (r.user1_idx = u.user1_idx) where r.product_idx = #{product_idx}
 	</select>
 
+	<select id="review_user_select1" parameterType="int" resultType="vo.ReviewLsjVO">
+		select r.*, p.PRODUCT_NAME, p.product_thumbnail_filename from review r inner join product p on r.product_idx = p.product_idx where r.user1_idx = #{user1_idx} order by r.review_idx desc
+	</select>
+
+	<select id="review_user_select2" parameterType="int" resultType="vo.FullViewVO">
+		select r.*, p.PRODUCT_NAME, p.product_thumbnail_filename from review r inner join product p on r.product_idx = p.product_idx where r.user1_idx = #{user1_idx} order by r.review_idx desc
+	</select>
+
 </mapper>
 
 

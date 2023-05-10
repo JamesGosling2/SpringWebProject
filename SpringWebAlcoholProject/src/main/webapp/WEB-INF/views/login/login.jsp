@@ -38,12 +38,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">회원가입정보</h5>
+                    <h4 class="modal-title text-primary fw-bold">회원가입정보</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <c:choose>
                     <c:when test="${check eq 1}">
-                        <div class="modal-body">
+                        <div class="modal-body fw-bold">
                             회원가입에 성공했습니다. 로그인 해주세요.
                         </div>
                         <div class="modal-footer">
@@ -51,7 +51,7 @@
                         </div>
                     </c:when>
                     <c:when test="${check eq 2}">
-                        <div class="modal-body">
+                        <div class="modal-body fw-bold">
                             회원가입에 실패했습니다. 다시 회원가입을 진행해주세요.
                         </div>
                         <div class="modal-footer">
@@ -59,8 +59,8 @@
                         </div>
                     </c:when>
                     <c:when test="${check eq 3}">
-                        <div class="modal-body">
-                            로그인 성공!<br>
+                        <div class="modal-body fw-bold">
+                            로그인 성공!
                             <input type="hidden" value="${user_email}" id="modal_email"/><br>
                             <input type="hidden" value="${user_pwd}"/>
                         </div>
@@ -71,19 +71,19 @@
                         </div>
                     </c:when>
                     <c:when test="${check eq 4}">
-                        <div class="modal-body">
+                        <div class="modal-body fw-bold text-dark">
                             아이디 불일치!
                             <input type="hidden" value="${user_email}" id="modal_email4"/>
                             <input type="hidden" value="${user_pwd}" id="modal_pwd4"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" onclick="mismatch('${user_email}', '${user_pwd}');"
-                                    class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    class="btn btn-secondary fw-bold" data-bs-dismiss="modal">Close
                             </button>
                         </div>
                     </c:when>
                     <c:when test="${check eq 5}">
-                        <div class="modal-body">
+                        <div class="modal-body fw-bold">
                             비밀번호 불일치!
                             <input type="hidden" value="${user_email}"/>
                             <input type="hidden" value="${user_pwd}"/>
@@ -176,12 +176,15 @@
                                         <div class="invalid-feedback">Please enter your password!</div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <%--<div class="col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="true"
                                                    id="rememberMe">
                                             <label class="form-check-label" for="rememberMe">Remember me</label>
                                         </div>
+                                    </div>--%>
+                                    <div>
+                                        <br>
                                     </div>
                                     <div class="col-12">
                                         <input class="btn btn-dark w-100" id="login" type="button"
@@ -225,7 +228,7 @@
         charset="utf-8"></script>
 <script>
     function user_login(f) {
-        alert("login() 실행됨");
+        // alert("login() 실행됨");
         let user_email = f.user_email.value.trim();
         let user_pwd = f.user_pwd.value.trim();
         // alert(user_email);
