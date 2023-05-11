@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.BuyDAO;
 import util.Buy;
+import util.NicePayKey;
 import vo.FullViewVO;
 import vo.OrderListVO;
 import vo.UserVO;
 
 @Controller
-public class BuyController implements Buy {
+public class BuyController implements Buy, NicePayKey {
 
 	@Autowired
 	ServletContext app;
@@ -133,7 +135,7 @@ public class BuyController implements Buy {
 		session.setAttribute("cart", cart);
 	}
 
-	@RequestMapping("/buy_ready1.do")
+	@RequestMapping("/pay_ready1.do")
 	public String Buying(int amount, int idx, int price, HttpServletRequest request, HttpServletResponse response,
 			Model model) {
 		HttpSession session = request.getSession();
@@ -155,6 +157,8 @@ public class BuyController implements Buy {
 			model.addAttribute("size", cart.size());
 			model.addAttribute("name", buydao.selectProduct(idx).getProducer_name());
 			model.addAttribute("cost", price);
+			model.addAttribute("clientId",CLIENT_ID);
+			model.addAttribute("orderId",UUID.randomUUID());
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -163,10 +167,10 @@ public class BuyController implements Buy {
 				e1.printStackTrace();
 			}
 		}
-		return BUY_READY;
+		return PAY_READY;
 	}
 
-	@RequestMapping("/buy_readys.do")
+	@RequestMapping("/pay_readys.do")
 	public String Buying(int cost, HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
 		try {
@@ -186,6 +190,8 @@ public class BuyController implements Buy {
 			model.addAttribute("size", cart.size());
 			model.addAttribute("name", buydao.selectProduct(cart.get(0).getProduct_idx()).getProducer_name());
 			model.addAttribute("cost", cost);
+			model.addAttribute("clientId",CLIENT_ID);
+			model.addAttribute("orderId",UUID.randomUUID());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -195,14 +201,14 @@ public class BuyController implements Buy {
 				e1.printStackTrace();
 			}
 		}
-		return BUY_READY;
+		return PAY_READY;
 
 	}
 
 	@RequestMapping("pay.do")
-	public String Pay(String user1_phonenumber,String flexRadioDefault, String user1_addr, 
-			int cost, Timestamp orderdate, HttpServletRequest request, HttpServletResponse response) {
-	
+	public void Pay(String user1_phonenumber, String flexRadioDefault, String user1_addr, int cost, Timestamp orderdate,
+			HttpServletRequest request, HttpServletResponse response) {
+
 		request.getSession().setAttribute("cost", cost);
 		request.getSession().setAttribute("date", orderdate);
 		OrderListVO vo = new OrderListVO();
@@ -219,13 +225,7 @@ public class BuyController implements Buy {
 			item.setOrderlist_status(1);
 			buydao.updateOrderList(vo);
 			cart.add(item);
-		}
-		try {
-				response.sendRedirect(flexRadioDefault+"_pay.do");
-			
-		} catch (Exception e) {
-		}
 
-		return util.Common.Main.VIEW_PATH + "main.jsp";
+		}
 	}
 }

@@ -41,6 +41,9 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
+	<c:set var="subject">${name}
+	<c:if test="${size ne 1}"> 외 ${size-1}종</c:if>
+	</c:set>
 	<section
 		class="section register min-vh-80 d-flex flex-column align-items-center justify-content-center py-4">
 		<div class="container">
@@ -67,14 +70,12 @@
 								<p class="text-center small">Enter your details to purchase</p>
 							</div>
 
-							<form class="row g-3 needs-validation" action="pay.do" onsubmit="return false;"
-								id="buy_ready_form" novalidate method="get">
+							<form class="row g-3 needs-validation" action="pay.do"
+								onsubmit="return false;" id="buy_ready_form" novalidate
+								method="get">
 								<div class="col-12">
 									<label for="user1_nickname" class="form-label">구매 내역</label>
-									<div class="form-control" id="user1_nickname">
-										${name}
-										<c:if test="${size ne 1}"> 외 ${size-1}종</c:if>
-									</div>
+									<div class="form-control" id="user1_nickname">${subject}</div>
 								</div>
 
 								<div class="col-12">
@@ -138,9 +139,11 @@
 										입금</label>
 								</div>
 								<div>
-									<input type="hidden" name="user1_addr" value="">
-									<input type="hidden" name="cost" value="${cost}">
-									<input type="hidden" name="orderdate" value="${date}">
+									<input type="hidden" name="user1_addr" value=""> <input
+										type="hidden" name="cost" id="cost" value="${cost}"> <input
+										type="hidden" name="orderdate" value="${date}">
+									<input type=hidden id="clientId" value="${clientId}">
+									<input type=hidden id="orderId" value="${orderId}">
 								</div>
 
 
@@ -160,6 +163,7 @@
 		</div>
 
 	</section>
+	<script src="https://pay.nicepay.co.kr/v1/js/"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/buy/buy_ready.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

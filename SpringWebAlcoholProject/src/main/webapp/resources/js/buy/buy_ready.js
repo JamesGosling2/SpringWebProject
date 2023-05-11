@@ -106,25 +106,16 @@ function buy(f) {
 
 } // end of buy()
 
-//naver key
-var PayNaver = Naver.Pay.create({
-	"mode": "development",
-	"clientId": "클라이언트 ID",
-	"chainId": "체인 ID"
-});
 
-
-
-document.getElementById('myForm').addEventListener('submit', function(event) {
+document.getElementById('buy_ready_form').addEventListener('submit', function(event) {
     event.preventDefault(); // prevent default form submission
-
     var formData = new FormData(this); // create FormData object
     var xhr = new XMLHttpRequest(); // create XMLHttpRequest object
 
     xhr.open('POST', 'pay.do', true); // configure AJAX request
 
  	xhr.onload = function() {
-		if (xhr.status === 200) {
+		if (xhr.status == 200) {
 			pay();
     	}
    	}
@@ -132,27 +123,18 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
 });
 
 function pay(){
-	var f = document.getElementById("buy_ready_form");
-	var payMethod = f.payMethod.value;
-	switch(payMethod){
-	case 'naver':
-		PayNaver.open({
-			"merchantUserKey": "가맹점 사용자 식별키",
-			"merchantPayKey": "가맹점 주문 번호",
-			"productName": document.getElementById("user1_nickname").innerHTML,
-			"totalPayAmount": f.cost.value,
-			"taxScopeAmount": "0",
-			"taxExScopeAmount": "0",
-			"returnUrl": "결제 완료 후 결과를 받을 URL"
-		});
-		break;
-	case 'kakao':
-		//https://developers.kakao.com/docs/latest/ko/kakaopay/single-payment 
-		break;
-	case 'bank':
-		//https://start.nicepay.co.kr/
-		break;
-	}
+	
+	AUTHNICE.requestPay({
+		clientId: document.getElementById('clientId').value,
+		method: 'card',
+		orderId: document.getElementById('orderId').value,
+		amount: document.getElementById('cost').value,
+		goodsName: document.getElementById('user1_nickname').innerHTML,
+		returnUrl: 'http://localhost:9090/alcohol/bill.do',
+		fnError: function (result) {
+		alert('개발자확인용 : ' + result.errorMsg + '')
+		}
+	});
 }
 
 

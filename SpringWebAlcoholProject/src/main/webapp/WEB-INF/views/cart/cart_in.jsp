@@ -215,7 +215,7 @@ function fixProducerName(){
 	<main id="main" class="main">
 		<section id="blog" class="blog">
 			<div class="row g-5">
-				<form name="ff" id="cart" action="buy_readys.do" method="get">
+				<form name="ff" id="cart" action="pay_readys.do" method="get">
 					<input type="hidden" name="cost">
 					<c:forEach var="carts" items="${cart_in}">
 						<c:if test="${producer ne carts.producer_idx}">

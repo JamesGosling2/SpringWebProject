@@ -21,7 +21,7 @@ public class MainController {
     
     @RequestMapping("/buy.do")
     public String buy() {
-    	return Buy.BUY;
+    	return Buy.PAY;
     }
 
 

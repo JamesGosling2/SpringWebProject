@@ -366,7 +366,7 @@ pageContext.setAttribute("LF", "\n");
 	}
 	function buying(f){
 		f.method="POST";
-		f.action="buy_ready1.do";
+		f.action="pay_ready1.do";
 		f.price.value = f.totPrice.value;
 		
 		f.submit();
