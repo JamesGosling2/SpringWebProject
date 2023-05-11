@@ -10,7 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                           #{review_filename},
 		                           #{user1_idx},
 		                           #{product_idx},
-		                           sysdate
+		                           sysdate,
+		                           0
 		                           )
 	</insert>
 	
@@ -46,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<update id="review_delete" parameterType="int">
-		update review set review_del_info where review_idx = #{review_idx}
+		update review set review_del_info = -1 where review_idx = #{review_idx}
 	</update>
 </mapper>
 
