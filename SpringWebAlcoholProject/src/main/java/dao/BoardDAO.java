@@ -94,5 +94,9 @@ public class BoardDAO {
         return board_reply_map;
     } // end of board_reply_selectList()
 
+    public int board_delete(int board1_idx){
+        int res = sqlSession.update("b.board_delete", board1_idx);
+        return res;
+    } // end of board_delete()
 
 } // end of class

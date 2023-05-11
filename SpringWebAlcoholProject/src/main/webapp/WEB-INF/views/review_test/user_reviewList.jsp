@@ -23,9 +23,37 @@
     <link href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
           rel="stylesheet">
 
-
     <!-- Template Main CSS File -->
     <link href="${pageContext.request.contextPath}/resources/css/main_css/main.css" rel="stylesheet">
+
+    <style>
+        .star-ratings {
+            color: #aaa9a9;
+            position: relative;
+            unicode-bidi: bidi-override;
+            width: max-content;
+            -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+            -webkit-text-stroke-width: 1.3px;
+            -webkit-text-stroke-color: #2b2a29;
+        }
+
+        .star-ratings-fill {
+            color: #fff58c;
+            padding: 0;
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            -webkit-text-fill-color: gold;
+        }
+
+        .star-ratings-base {
+            z-index: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 <%-- header --%>
@@ -34,7 +62,7 @@
 <main id="main" class="mainContainer">
     <div class="row"><br><br><br></div>
     <section id="portfolio" class="portfolio sections-bg">
-        <div class="container border border-primary" data-aos="fade-up">
+        <div class="container" data-aos="fade-up">
 
             <div class="section-header">
                 <h2>Review List</h2>
@@ -49,34 +77,142 @@
                         <li data-filter="*" class="filter-active">리뷰 전체보기</li>
                         <li data-filter=".filter-app">작성가능한 리뷰보기</li>
                         <li data-filter=".filter-product">작성한 리뷰보기</li>
-                        <%--<li data-filter=".filter-branding">Branding</li>
-                        <li data-filter=".filter-books">Books</li>--%>
                     </ul><!-- End Portfolio Filters -->
                 </div>
 
                 <div class="row gy-4 portfolio-container">
-                    <c:forEach var="reviewList" items="${reviewMap.reviewList}" varStatus="status">
-                        <c:set var="index" value="${status.index}"></c:set>
-                        <div class="col-3"></div>
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="fw-bold text-primary"><a class="text-primary" href="detailview.do?product_idx=${reviewList.product_idx}">${reviewMap.productList[index].product_name}</a> / 리뷰 작성일 : ${reviewList.review_regdate}</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-text">
-                                        <p>${reviewList.review_content}</p>
+
+                    <div class="row gy-4 portfolio-container filter-app">
+                        <c:forEach var="reviewList" items="${reviewMap.reviewList}" varStatus="status">
+                            <c:if test="${reviewList.review_del_info ne -1}">
+                                <c:set var="index" value="${status.index}"></c:set>
+                                <div class="col-3"></div>
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-header bg-success bg-opacity-25">
+                                            <h5 class="fw-bold text-primary"><a class="text-primary"
+                                                                                href="detailview.do?product_idx=${reviewList.product_idx}">${reviewMap.productList[index].product_name}</a>
+                                                / 리뷰 작성일 : ${reviewList.review_regdate}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-text">
+                                                <span class="fw-bold text-success">상품 별점</span>
+                                                <input type="hidden" value="${reviewList.review_rating}"
+                                                       id="review_rating1">
+                                                <div class="star-ratings">
+                                                    <div class="star-ratings-fill space-x-2 text-lg"
+                                                         style="width: ${reviewList.review_rating * 20}%;">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                                    </div>
+                                                    <div class="star-ratings-base space-x-2 text-lg">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <p class="text-dark fw-bold">${reviewList.review_content}</p>
+
+                                                <c:if test="${reviewList.review_filename ne 'no_file'}">
+                                                    <hr>
+                                                    <div class="d-flex justify-content-center">
+                                                        <img class="image-fluid w-25"
+                                                             src="${pageContext.request.contextPath}/resources/upload/${reviewList.review_filename}"/>
+                                                    </div>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-end">
+                                                <input type="button" class="btn btn-success"
+                                                       onclick="location.href='review_modify_form.do?review_idx=${reviewList.review_idx}'"
+                                                       value="수정">
+                                                <input type="button" class="btn btn-danger"
+                                                       onclick="location.href='review_delete.do?review_idx=${reviewList.review_idx}'"
+                                                       value="삭제">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- End Portfolio Item -->
-                        <div class="col-3"></div>
-                    </c:forEach>
+                                <!-- End Portfolio Item -->
+                                <div class="col-3"></div>
+                            </c:if>
+                            <c:if test="${reviewList.review_del_info eq -1}">
+                                <c:set var="index" value="${status.index}"></c:set>
+                                <div class="col-3"></div>
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-header bg-success bg-opacity-25">
+                                            <h5 class="fw-bold text-primary"><a class="text-primary"
+                                                                                href="detailview.do?product_idx=${reviewList.product_idx}">${reviewMap.productList[index].product_name}</a>
+                                                / 리뷰 작성일 : ${reviewList.review_regdate}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-text">
+                                                <span class="fw-bold text-success">상품 별점</span>
+                                                <input type="hidden" value="${reviewList.review_rating}"
+                                                       id="review_rating6">
+                                                <div class="star-ratings">
+                                                    <div class="star-ratings-fill space-x-2 text-lg"
+                                                         style="width: ${reviewList.review_rating * 20}%;">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                                    </div>
+                                                    <div class="star-ratings-base space-x-2 text-lg">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <p class="text-dark fw-bold">삭제된 리뷰입니다.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Item -->
+                                <div class="col-3"></div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+
+                    <%--<div class="row gy-4 portfolio-container filter-product">
+                        <c:forEach var="reviewList" items="${reviewMap.reviewList}" varStatus="status">
+                            <c:if test="${reviewList.review_del_info eq -1}">
+                                <c:set var="index" value="${status.index}"></c:set>
+                                <div class="col-3"></div>
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-header bg-success bg-opacity-25">
+                                            <h5 class="fw-bold text-primary"><a class="text-primary"
+                                                                                href="detailview.do?product_idx=${reviewList.product_idx}">${reviewMap.productList[index].product_name}</a>
+                                                / 리뷰 작성일 : ${reviewList.review_regdate}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-text">
+                                                <span class="fw-bold text-success">상품 별점</span>
+                                                <input type="hidden" value="${reviewList.review_rating}"
+                                                       id="review_rating6">
+                                                <div class="star-ratings">
+                                                    <div class="star-ratings-fill space-x-2 text-lg"
+                                                         style="width: ${reviewList.review_rating * 20}%;">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                                    </div>
+                                                    <div class="star-ratings-base space-x-2 text-lg">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <p class="text-dark fw-bold">삭제된 리뷰입니다.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Item -->
+                                <div class="col-3"></div>
+                            </c:if>
+                        </c:forEach>
+                    </div>--%>
                 </div>
             </div>
         </div>
-
     </section>
 
 </main>
@@ -85,7 +221,6 @@
 <jsp:include page="../main/footer.jsp"></jsp:include>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>
 <!-- Vendor JS Files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

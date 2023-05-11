@@ -35,6 +35,25 @@ public class ReviewLsjDAO {
         return user_reviewMap;
     } // end of reviewList()
 
+    public ReviewLsjVO review_selectOne(int review_idx){
+        ReviewLsjVO review_vo = sqlSession.selectOne("r2.review_selectOne", review_idx);
+        return review_vo;
+    } // end of selectOne()
+
+    public FullViewVO product_selectOne(int review_idx){
+        FullViewVO product_vo = sqlSession.selectOne("r2.product_selectOne", review_idx);
+        return product_vo;
+    }
+
+    public int review_modify(ReviewLsjVO review_vo){
+        int res = sqlSession.update("r2.review_modify", review_vo);
+        return res;
+    } // end of review_modify()
+
+    public int review_delete(int review_idx){
+        int res = sqlSession.update("r2.review_delete", review_idx);
+        return res;
+    } // end of review_delete()
 
 
 } // end of class

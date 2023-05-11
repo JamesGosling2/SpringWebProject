@@ -74,4 +74,9 @@ public class BoardService {
         return board_reply_map;
     } // end of board_reply_select()
 
+    public int board_delete(int board1_idx){
+        int res = boardDAO.board_delete(board1_idx);
+        return res;
+    } // end of board_delete()
+
 } // end of class

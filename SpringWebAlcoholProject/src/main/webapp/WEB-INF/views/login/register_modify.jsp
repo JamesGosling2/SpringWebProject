@@ -48,7 +48,7 @@
                                     <p class="text-center small">Enter your personal details to modify account</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" id="register_modify_form" onsubmit="return false;" novalidate>
+                                <form class="row g-3 needs-validation" id="register_modify_form2" onsubmit="return false;" novalidate>
                                     <div class="col-12">
                                         <label for="user1_email" class="form-label">Email</label>
                                         <input type="text" name="user1_email" class="form-control"
@@ -136,27 +136,26 @@
                                             <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="col-12">
-                                            <input type="button" class="form-control btn btn-success fw-bold"
-                                                   onclick="sample4_execDaumPostcode2();"
-                                                   value="우편번호 찾기"><br>
                                             <input type="button" class="btn btn-warning" onclick="temporary();" value="test">
+                                            <input type="button" class="form-control btn btn-success fw-bold" name="postcode2"
+                                                   onclick="sample4_execDaumPostcode();" value="우편번호 찾기" />
                                         </div>
 
                                         <input type="text" class="form-control" id="sample4_roadAddress"
                                                placeholder="도로명주소"
                                                value="${fn:substring(addr, 0, start)}"
-                                               required readonly>
+                                               required readonly />
                                         <input type="text" class="form-control" id="sample4_jibunAddress"
                                                placeholder="지번주소"
                                                value=""
-                                               required readonly>
+                                               required readonly />
                                         <span id="guide" class="form-control" style="color:#999;display:none"></span>
                                         <input type="text" class="form-control" id="sample4_detailAddress"
                                                placeholder="상세주소"
                                                value="${fn:substring(addr, end2, length)}"
-                                               required>
+                                               required />
                                         <input type="text" class="form-control" id="sample4_extraAddress"
-                                               placeholder="참고항목" required readonly>
+                                               placeholder="참고항목" required readonly />
                                     </div>
 
                                     <div class="col-12">
@@ -188,12 +187,12 @@
     </main><!-- End #main -->
 </div>
 
-<script src="${pageContext.request.contextPath}/resources/js/register/register_modify2.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/register/register_modify2.js"></script>
 </body>
 </html>

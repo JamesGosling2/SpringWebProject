@@ -114,22 +114,6 @@ function birthdate_check() {
 // user_birthdate validity
 document.querySelector("#user1_birthdate").addEventListener("input", birthdate_check);
 
-function accept() {
-    let checkAccept = document.getElementById("acceptTerms").checked;
-    if (checkAccept) {
-        this.classList.add("is-valid");
-        this.classList.remove("is-invalid");
-    } else {
-        this.classList.remove("is-valid");
-        this.classList.add("is-invalid");
-    }
-} // end of accept()
-
-
-// accept validity 확인
-document.querySelector("#acceptTerms").addEventListener("input", accept);
-
-
 function idRepetitionCheck() {
     let user1_email = document.getElementById("user1_email").value;
     // alert(user1_email);
@@ -210,10 +194,10 @@ var themeObj = {
     queryTextColor: "#FFFFFF" //검색창 글자색
     //postcodeTextColor: "", //우편번호 글자색
     //emphTextColor: "", //강조 글자색
-    //outlineColor: "", //테두리
+    //outlineColor: "" //테두리
 };
 
-function sample4_execDaumPostcode2() {
+function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -238,15 +222,15 @@ function sample4_execDaumPostcode2() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample4_postcode').value = data.zonecode;
-            document.getElementById("sample4_roadAddress").value = roadAddr;
-            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+            document.getElementById('postcode').value = data.zonecode;
+            document.getElementById("roadAddress").value = roadAddr;
+            document.getElementById("jibunAddress").value = data.jibunAddress;
 
             // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
             if (roadAddr !== '') {
-                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                document.getElementById("extraAddress").value = extraRoadAddr;
             } else {
-                document.getElementById("sample4_extraAddress").value = '';
+                document.getElementById("extraAddress").value = '';
             }
 
             var guideTextBox = document.getElementById("guide");
@@ -298,7 +282,7 @@ function send5(f) {
         && check_user_nickname.test(user1_nickname) && check_user_phonenumber.test(user1_phonenumber) &&
         (user1_postcode != '') && (user1_detailAddress != '')) {
         alert("유효성 검사 통과");
-        document.getElementById("register_modify_form").setAttribute("onsubmit", "return true");
+        document.getElementById("register_modify_form2").setAttribute("onsubmit", "return true");
         f.action = "register_modify.do";
         f.method = "post";
         f.submit();
@@ -312,6 +296,7 @@ function send5(f) {
 function temporary(){
     alert("tempory");
 }
+
 
 
 

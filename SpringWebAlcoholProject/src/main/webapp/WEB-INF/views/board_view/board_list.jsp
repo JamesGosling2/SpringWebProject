@@ -53,13 +53,24 @@
                     <tbody class="text-center">
                     <c:forEach var="board_list" items="${board_map.board_list}" varStatus="status">
                         <c:set var="index" value="${status.index}"></c:set>
+                        <c:if test="${board_list.board1_del_info ne -1}">
                         <tr>
                             <td>${board_list.board1_idx}</td>
-                            <td><a href="board_detail_view.do?board1_idx=${board_list.board1_idx}&user1_idx=${board_map.user_list[index].user1_idx}">${board_list.board1_subject}</a></td>
+                            <td><a href="board_detail_view.do?board1_idx=${board_list.board1_idx}&user1_idx=${board_map.user_list[index].user1_idx}&page=${param.page}">${board_list.board1_subject}</a></td>
                             <td>${board_map.user_list[index].user1_nickname}</td>
                             <td>${board_list.board1_regdate}</td>
                             <td>${board_list.board1_readhit}</td>
                         </tr>
+                        </c:if>
+                        <c:if test="${board_list.board1_del_info eq -1}">
+                            <tr>
+                                <td>${board_list.board1_idx}</td>
+                                <td><span class="text-danger text-decoration-line-through">삭제된 게시판입니다.</span></td>
+                                <td>${board_map.user_list[index].user1_nickname}</td>
+                                <td>${board_list.board1_regdate}</td>
+                                <td>${board_list.board1_readhit}</td>
+                            </tr>
+                        </c:if>
                     </c:forEach>
                     <tr>
                         <td colspan="5" class="text-center">${pageMenu}</td>

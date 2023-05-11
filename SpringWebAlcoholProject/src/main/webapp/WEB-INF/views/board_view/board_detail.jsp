@@ -44,28 +44,6 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <%--<table class="table table-bordered border-dark caption-top">
-                    <caption class="text-center fs-1 fw-bold text-primary">게시판 보기</caption>
-                    <tr class="text-center">
-                        <th class="fw-bold">글번호</th>
-                        <td class="">${board_vo.board1_idx}</td>
-                        <th class="">조회수</th>
-                        <td class="">${board_vo.board1_readhit}</td>
-                    </tr>
-                    <tr class="text-center">
-                        <th class="">작성자</th>
-                        <td class="">${user_vo.user1_nickname}</td>
-                        <th class="">작성일</th>
-                        <td class="">${board_vo.board1_regdate}</td>
-                    </tr>
-                    <tr class="text-center">
-                        <th>글제목</th>
-                        <td colspan="3">${board_vo.board1_subject}</td>
-                    </tr>
-                    <tr>
-                        <td class="" colspan="4">${board_vo.board1_content}</td>
-                    </tr>
-                </table>--%>
                 <h1 class="text-center fs-1 fw-bold text-primary">게시판 보기</h1>
                 <div class="card">
                     <div class="card-header text-center">
@@ -90,25 +68,32 @@
                             <span class="fs-5 fw-bold text-info">조회수 : ${board_vo.board1_readhit}</span>--%>
                         </div>
                         <hr class="hr">
-                        <div class="card-text"><p>${board_vo.board1_content}</p></div>
+                        <div class="card-text">
+                            <p>${board_vo.board1_content}</p>
+                            <c:if test="${board_vo.board1_filename ne 'no_file'}">
+                                <img src="${pageContext.request.contextPath}/resources/upload/${board_vo.board1_filename}" class="image-fluid w-25">
+                            </c:if>
+                        </div>
                        <%-- <textarea id="summernote" class="summernote" name="board1_content" aria-readonly="true">
                             ${board_vo.board1_content}
                         </textarea><!-- End Summernote Editor -->--%>
                     </div>
                     <div class="card-footer text-end">
                         <c:if test="${user1.user1_idx eq user_vo.user1_idx}">
-                            <input type="button" class="btn btn-primary"
+                            <input type="button" class="btn btn-primary fw-bold"
                                    onclick="location.href='board_modify_form.do?board1_idx=${board_vo.board1_idx}&user1_idx=${user_vo.user1_idx}'"
                                    value="수정하기"/>
-                            <input type="button" class="btn btn-danger" value="삭제하기">
+                            <input type="button" class="btn btn-danger fw-bold"
+                                   onclick="location.href='board_delete.do?board1_idx=${board_vo.board1_idx}&page=${param.page}'"
+                                   value="삭제하기">
                         </c:if>
                         <c:if test="${user1 ne null}">
-                            <input type="button" class="btn btn-success"
+                            <input type="button" class="btn btn-success fw-bold"
                                    onclick="location.href='board_reply_view.do?board1_idx=${board_vo.board1_idx}&user1_idx=${user_vo.user1_idx}'"
                                    value="댓글달기"/>
                         </c:if>
-                        <input type="button" class="btn btn-secondary" value="뒤로가기"
-                               onclick="location.href='board_list.do'"/>
+                        <input type="button" class="btn btn-secondary fw-bold" value="뒤로가기"
+                               onclick="location.href='board_list.do?page=${param.page}'"/>
                     </div>
                 </div>
             </div>
@@ -125,7 +110,25 @@
                     <div class="card-body">
                         <c:forEach var="reply_list" items="${board_reply_map.board_reply_list}" varStatus="status">
                             <c:set var="index" value="${status.index}"></c:set>
-                            <p>${board_reply_map.user_list[index].user1_nickname} : ${reply_list.board1_content}</p>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-start text-dark fw-bolder">
+                                    <c:if test="${reply_list.board1_del_info ne -1}">
+                                        ${board_reply_map.user_list[index].user1_nickname} : ${reply_list.board1_content}
+                                    </c:if>
+                                    <c:if test="${reply_list.board1_del_info eq -1}">
+                                        ${board_reply_map.user_list[index].user1_nickname} : <span class="text-danger text-decoration-line-through" id="reply_delete">삭제된 댓글입니다.</span>
+                                    </c:if>
+                                </div>
+                                <div class="text-end">
+                                    <c:if test="${user1.user1_idx eq reply_list.user1_idx}">
+                                        <input type="button" class="btn btn-primary btn-sm" onclick="" value="수정"/>
+                                        <input type="button" class="btn btn-danger btn-sm" onclick="location.href='board_delete.do?board1_idx=${reply_list.board1_idx}&page=${param.page}'"
+                                               value="삭제"/>
+                                        <input type="hidden" value="${reply_list.board1_idx}" id="ajaxIdx">
+                                    </c:if>
+                                </div>
+                            </div>
+                            <hr>
                         </c:forEach>
                     </div>
                 </div>
@@ -187,7 +190,23 @@
     // 서머노트 쓰기 비활성화
     // $('#summernote').summernote('disable');
 
+    function reply_delete(){
+        alert("reply_delete()");
+        var url = "board_reply_delete.do";
+        let idx = document.getElementById("ajaxIdx").value;
+        var param = "board1_idx=" + idx;
+        sendRequest(url, param, resultFn, "get");
+    } // end of reply_delete()
 
+    function resultFn(){
+        alert(xhr.readyState);
+        alert(xhr.status);
+        if(xhr.readyState == 4 && xhr.status == 200){
+            let result = xhr.responseText;
+            alert(result);
+            document.getElementById("reply_delete").innerHTML = result;
+        }
+    } // end of sendRequest()
 
 </script>
 
