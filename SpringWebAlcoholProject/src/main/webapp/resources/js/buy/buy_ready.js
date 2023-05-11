@@ -123,10 +123,9 @@ document.getElementById('buy_ready_form').addEventListener('submit', function(ev
 });
 
 function pay(){
-	
 	AUTHNICE.requestPay({
 		clientId: document.getElementById('clientId').value,
-		method: 'card',
+		method: 'all',
 		orderId: document.getElementById('orderId').value,
 		amount: document.getElementById('cost').value,
 		goodsName: document.getElementById('user1_nickname').innerHTML,

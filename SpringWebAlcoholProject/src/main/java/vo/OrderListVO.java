@@ -62,6 +62,4 @@ public class OrderListVO {
 	public void setOrderlist_addr(String orderlist_addr) {
 		this.orderlist_addr = orderlist_addr;
 	}
-	
-
 }

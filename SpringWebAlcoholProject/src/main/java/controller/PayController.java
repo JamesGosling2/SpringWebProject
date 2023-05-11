@@ -3,6 +3,7 @@ package controller;
 import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +37,7 @@ public class PayController implements Buy, NicePayKey {
 	public String cancelDemo() {
 		return "/cancel";
 	}
-	
+
 	@RequestMapping("/bill.do")
 	public String Bill(HttpServletRequest request, Model model) {
 		UUID id = UUID.fromString(request.getParameter("orderId"));
@@ -44,7 +46,7 @@ public class PayController implements Buy, NicePayKey {
 		model.addAttribute("orderId", id);
 		model.addAttribute("clientId", CLIENT_ID);
 		model.addAttribute("resultMsg", resultMsg);
-
+		
 		if (resultCode.equalsIgnoreCase("0000")) {
 			// 결제 성공 비즈니스 로직 구현
 		} else {
@@ -53,15 +55,16 @@ public class PayController implements Buy, NicePayKey {
 
 		// 응답 request body 로그 확인
 		Enumeration<String> params = request.getParameterNames();
+
 		while (params.hasMoreElements()) {
 			String paramName = params.nextElement();
 			System.out.println(paramName + " : " + request.getParameter(paramName));
+			model.addAttribute(paramName, request.getParameter(paramName));
 		}
-
 		return PAY_RESPONSE;
 	}
 
-	@RequestMapping("/cancelAuth")
+	@RequestMapping("/cancel.do")
 	public String requestCancel(@RequestParam String tid, @RequestParam String amount, Model model) throws Exception {
 
 		HttpHeaders headers = new HttpHeaders();
@@ -74,7 +77,8 @@ public class PayController implements Buy, NicePayKey {
 		AuthenticationMap.put("reason", "test");
 		AuthenticationMap.put("orderId", UUID.randomUUID().toString());
 
-		HttpEntity<String> request = new HttpEntity<String>(objectMapper.writeValueAsString(AuthenticationMap), headers);
+		HttpEntity<String> request = new HttpEntity<String>(objectMapper.writeValueAsString(AuthenticationMap),
+				headers);
 
 		ResponseEntity<JsonNode> responseEntity = restTemplate.postForEntity(
 				"https://sandbox-api.nicepay.co.kr/v1/payments/" + tid + "/cancel", request, JsonNode.class);
@@ -91,7 +95,7 @@ public class PayController implements Buy, NicePayKey {
 			// 취소 실패 비즈니스 로직 구현
 		}
 
-		return "/response";
+		return PAY_RESPONSE;
 	}
 
 	@RequestMapping("/hook")
@@ -99,11 +103,11 @@ public class PayController implements Buy, NicePayKey {
 		String resultCode = hookMap.get("resultCode").toString();
 
 		System.out.println(hookMap);
-		
-		if (resultCode.equalsIgnoreCase("0000")) {
-            return new ResponseEntity<String>("ok", HttpStatus.OK);
-        }
 
-        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		if (resultCode.equalsIgnoreCase("0000")) {
+			return new ResponseEntity<String>("ok", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

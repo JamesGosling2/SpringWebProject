@@ -206,7 +206,7 @@ public class BuyController implements Buy, NicePayKey {
 	}
 
 	@RequestMapping("pay.do")
-	public void Pay(String user1_phonenumber, String flexRadioDefault, String user1_addr, int cost, Timestamp orderdate,
+	public void Pay(String user1_phonenumber, String user1_addr, int cost, Timestamp orderdate,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		request.getSession().setAttribute("cost", cost);

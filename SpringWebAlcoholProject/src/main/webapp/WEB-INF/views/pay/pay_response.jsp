@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>pay_response</title>
+<title>구매 현황</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -30,7 +30,49 @@
 </head>
 <body>
 성공?
-
+{
+    "resultCode": "0000",
+    "resultMsg": "정상 처리되었습니다.",
+    "tid": "UT0000113m01012111051714341073",
+    "cancelledTid": null,
+    "orderId": "c74a5960-830b-4cd8-82a9-fa1ce739a18f",
+    "ediDate": "2021-11-05T17:14:35.150+0900",
+    "signature": "63b251b31c909eebef1a9f4fcc19e77bdcb8f64fc1066a29670f8627186865cd",
+    "status": "paid",
+    "paidAt": "2021-11-05T17:14:35.000+0900",
+    "failedAt": "0",
+    "cancelledAt": "0",
+    "payMethod": "CARD",
+    "amount": 1004,
+    "balanceAmt": 1004,
+    "goodsName": "나이스페이-상품",
+    "mallReserved": null,
+    "useEscrow": false,
+    "currency": "KRW",
+    "channel": "pc",
+    "approveNo": "000000",
+    "buyerName": null,
+    "buyerTel": null,
+    "buyerEmail": "null",
+    "receiptUrl": "https://npg.nicepay.co.kr/issue/IssueLoader.do?type=0&innerWin=Y&TID=UT0000113m01012111051714341073",
+    "mallUserId": null,
+    "issuedCashReceipt": false,
+    "coupon": null,
+    "card": {
+        "cardCode": "04",
+        "cardName": "삼성",
+        "cardNum": "12341234****1234",
+        "cardQuota": 0,
+        "isInterestFree": false,
+        "cardType": "credit",
+        "canPartCancel": true,
+        "acquCardCode": "04",
+        "acquCardName": "삼성"
+    },
+    "vbank": null,
+    "cancels": null,
+    "cashReceipts": null
+}
 <script src="https://pay.nicepay.co.kr/v1/js/"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>

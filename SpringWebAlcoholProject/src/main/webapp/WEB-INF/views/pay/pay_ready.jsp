@@ -120,30 +120,12 @@
 										required> <input type="text" class="form-control"
 										id="sample4_extraAddress" placeholder="참고항목" required readonly>
 								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" value="naver"
-										name="flexRadioDefault" id="flexRadioDefault1" checked>
-									<label class="form-check-label" for="flexRadioDefault1">
-										네이버 페이 </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" value="kakao"
-										name="flexRadioDefault" id="flexRadioDefault2"> <label
-										class="form-check-label" for="flexRadioDefault2"> 카카오
-										페이 </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" value="bank"
-										name="flexRadioDefault" id="flexRadioDefault3"> <label
-										class="form-check-label" for="flexRadioDefault3"> 무통장
-										입금</label>
-								</div>
 								<div>
 									<input type="hidden" name="user1_addr" value=""> <input
 										type="hidden" name="cost" id="cost" value="${cost}"> <input
-										type="hidden" name="orderdate" value="${date}">
-									<input type=hidden id="clientId" value="${clientId}">
-									<input type=hidden id="orderId" value="${orderId}">
+										type="hidden" name="orderdate" value="${date}"> <input
+										type=hidden id="clientId" value="${clientId}"> <input
+										type=hidden id="orderId" value="${orderId}">
 								</div>
 
 
