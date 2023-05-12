@@ -41,5 +41,13 @@ public class DetailViewDAO {
 
         return review_map;
     }
+    
+    public int product_modify(FullViewVO vo) {
+    	int i = sqlSession.update("p.product_modify", vo);
+    	return i;
+    }
+    
+    
+  
 
 } // end of class

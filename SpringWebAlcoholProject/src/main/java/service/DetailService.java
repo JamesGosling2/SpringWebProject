@@ -33,5 +33,12 @@ public class DetailService {
         Map<String, Object> review_map = detailViewDAO.review_selectList2(product_idx);
         return review_map;
     } // end of review_selectList2()
+    
+    public int product_modify(FullViewVO vo) {
+    	int i = detailViewDAO.product_modify(vo);
+    	return i;
+    }
+    
+   
 
 } // end of class

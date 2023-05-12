@@ -132,6 +132,12 @@ pageContext.setAttribute("LF", "\n");
 												${vo1.product_expiration_date}
 											</span>
 										</div>
+										<c:if test="${ user1.user1_email eq 'alcohol2@gmail.com'}">
+											<div class="d-flex expi ">
+											<input class="modify" type="button" value="수정" onclick="product_modify(${ vo1.product_idx })">
+											<input class="delete" type="button" value="삭제" onclick="product_delete(${ vo1.product_idx })">
+											</div>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -370,6 +376,19 @@ pageContext.setAttribute("LF", "\n");
 		f.price.value = f.totPrice.value;
 		
 		f.submit();
+	}
+	
+	function product_delete(idx) {
+		
+		if(confirm("정말 삭제하시겠습니까?")){
+			location.href = "delete.do?product_idx="+idx;
+			
+		}else{
+			return;
+		}
+	}
+	function product_modify(idx) {
+		location.href = "modify.do?product_idx="+idx;
 	}
 </script>
 

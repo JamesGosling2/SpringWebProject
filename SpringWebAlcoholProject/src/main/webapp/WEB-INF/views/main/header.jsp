@@ -121,6 +121,14 @@
                     <!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-arrow profile">
+                    	<c:if test="${ user1.user1_email eq 'alcohol2@gmail.com'}">
+                    		<li>
+	                            <a class="dropdown-item" href="product_insert.do">
+	                                <span>상품 등록하기</span>
+	                            </a>
+                        	</li>
+                        	<hr class="dropdown-divider">
+                    	</c:if>
                         <li>
                             <a class="dropdown-item" href="purchaseItemList.do">
                                 <span>구매 목록</span>
