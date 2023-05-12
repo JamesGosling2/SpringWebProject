@@ -107,27 +107,29 @@ function sample4_execDaumPostcode() {
 } // end of sample4_execDaumPostcode()
 
 function send(f){
+    alert("send 실행 됨");
     let user1_addr = f.sample4_roadAddress.value + " (" + f.sample4_postcode.value + ") " + f.sample4_detailAddress.value;
     $("input[name=user1_addr]").attr('value', user1_addr);
 
+    let user1_nickname = f.user1_nickname.value;
+    let user1_phonenumber = f.user1_phonenumber.value;
+    let user1_postcode = f.sample4_postcode.value;
+    let user1_detailAddress = f.sample4_detailAddress.value;
 
-    const forms = document.querySelectorAll('.needs-validation');
+    let check_user_nickname = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
+    let check_user_phonenumber = /^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
 
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-
-            // form.classList.add()
-        }, false)
-    })
-
-    f.action = "register.do";
-    f.method = "get";
-    f.submit();
-
+    if(check_user_nickname.test(user1_nickname) && check_user_phonenumber.test(user1_phonenumber) &&
+        (user1_postcode != '') && (user1_detailAddress != '')){
+        alert("유효성 검사 통과");
+        document.getElementById("register_detail_form").setAttribute("onsubmit", "return true");
+        f.action = "register.do";
+        f.method = "get";
+        f.submit();
+    } else{
+        alert("유효성 검사 실패");
+        return;
+    }
 } // end of send()
 
 

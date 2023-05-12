@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import service.KakaoLoginService;
 import service.TotalService;
 import util.Common;
 import vo.UserVO;
@@ -19,6 +20,8 @@ import vo.UserVO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -36,6 +39,12 @@ public class LoginController {
     private String apiResult2 = null;
 
     private KakaoLoginBO kakaoLoginBO;
+    private KakaoLoginService kakaoLoginService;
+
+    @Autowired
+    public void setKakaoLoginService(KakaoLoginService kakaoLoginService) {
+        this.kakaoLoginService = kakaoLoginService;
+    }
 
     @Autowired
     public LoginController(TotalService service, NaverLoginBO naverLoginBO, KakaoLoginBO kakaoLoginBO, HttpSession session) {
@@ -133,9 +142,22 @@ public class LoginController {
 
     // 카카오 callback
     @RequestMapping(value = "/kakaoCallback.do", method = {RequestMethod.GET, RequestMethod.POST})
+    public String kakaoCallback(Model model, @RequestParam String code){
+        System.out.println("kakao callback 실행 됨");
+        String access_token = kakaoLoginService.getKakaoAccessToken(code);
+        System.out.println("access_token : " + access_token);
+
+        HashMap<String, Object> userInfo = kakaoLoginService.getKakaoUserInfo(access_token);
+        model.addAttribute("userInfo", userInfo);
+
+        return Common.Login.VIEW_PATH + "register_form.jsp";
+    } // end of kakaoCallback()
+
+    // 카카오 callback
+    /*@RequestMapping(value = "/kakaoCallback.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String kakaoCallback(Model model, @RequestParam String code, @RequestParam String state) throws Exception {
         System.out.println("kakao callback 실행 됨");
-        OAuth2AccessToken oAuth2AccessToken;
+        // OAuth2AccessToken oAuth2AccessToken;
         // oAuth2AccessToken = kakaoLoginBO.getAccessToken(session, code, state);
         System.out.println("code : " + code);
         String accessToken = kakaoLoginBO.getAccessToken(session, code, state);
@@ -151,7 +173,7 @@ public class LoginController {
         // 로그인 사용자 정보를 읽어옴
         // apiResult2 = kakaoLoginBO.getUserProfile(oAuth2AccessToken);
 
-        /*JSONParser jsonParser = new JSONParser();
+        *//*JSONParser jsonParser = new JSONParser();
         JSONObject jsonObj;
 
         jsonObj = (JSONObject) jsonParser.parse(apiResult2);
@@ -167,10 +189,10 @@ public class LoginController {
         // 세션에 사용자 정보 등록
         model.addAttribute("signIn", apiResult2);
         model.addAttribute("email", email);
-        model.addAttribute("name", name);*/
+        model.addAttribute("name", name);*//*
 
         return Common.Login.VIEW_PATH + "register_form.jsp";
-    } // end of kakaocallback()
+    } // end of kakaocallback()*/
 
     @RequestMapping("/naver_register_form.do")
     public String naver_register_form(Model model, String name, String email, String birthdate) {
@@ -315,4 +337,46 @@ public class LoginController {
         System.out.println("result : " + result);
         return result;
     } // end of idRepetitionCheck()
+
+    @RequestMapping("my_information_modify.do")
+    public String myInformationModify() {
+        System.out.println("----- my_information_modify.do -----");
+
+        return Common.Login.VIEW_PATH + "register_modify.jsp";
+    } // end of myInformationModify()
+
+    @RequestMapping("register_modify.do")
+    public String registerModify(Model model, UserVO vo) throws IllegalAccessException {
+
+        System.out.println("----- register_modify.do -----");
+        Object voObj = vo;
+        for(Field field : voObj.getClass().getDeclaredFields()){
+            field.setAccessible(true);
+            Object value = field.get(voObj);
+            System.out.println("field : " + field.getName() + " , value : " + value);
+        } // end of for
+
+        int res = service.update(vo);
+
+        model.addAttribute("res", res);
+        return Common.Main.VIEW_PATH + "main.jsp";
+    } // end of registerModify()
+
+    @ResponseBody
+    @RequestMapping(value = "formValid.do", produces = "application/json;charset=UTF-8")
+    public String formValid(@RequestParam String isCheck){
+        System.out.println("===== formValid.do =====");
+        String result = "";
+        System.out.println("isCheck : " + isCheck);
+
+        if(isCheck.equals("1")){
+            result = "1";
+        } else if(isCheck.equals("2")){
+            result = "2";
+        }
+
+        System.out.println("result : " + result);
+        return result;
+    } // end of formValid()
+
 } // end of class

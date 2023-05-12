@@ -44,12 +44,12 @@ public class ReviewController {
 		return Common.Review.VIEW_PATH + "user_review_board.jsp";
 	} 
 
-	@RequestMapping("/review_write.do")	
-	public String insert_form(Model model) {
-		List<ReviewVO> list = service.selectList_review();
-		model.addAttribute("review_list", list);
-		return Common.Review.VIEW_PATH + "review_write.jsp";
-	}
+//	@RequestMapping("/review_write.do")
+//	public String insert_form(Model model) {
+//		List<ReviewVO> list = service.selectList_review();
+//		model.addAttribute("review_list", list);
+//		return Common.Review.VIEW_PATH + "review_write.jsp";
+//	}
 
 	@RequestMapping("/review_register.do")
 	public String return_list(ReviewVO vo) {

@@ -40,7 +40,7 @@
                         <div class="d-flex justify-content-center py-4">
                             <a href="main.do" class="logo d-flex align-items-center w-auto">
                                 <img src="${pageContext.request.contextPath}/resources/upload/logo.jpg" alt="">
-                                <span class="d-none d-lg-block">홈페이지 이름</span>
+                                <span class="d-none d-lg-block">주당들</span>
                             </a>
                         </div><!-- End Logo -->
 
@@ -53,7 +53,7 @@
                                     <p class="text-center small">Enter your personal details to create account</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" id="register_form" novalidate>
+                                <form class="row g-3 needs-validation" onsubmit="return false;" id="register_detail_form" novalidate>
                                     <div class="col-12">
                                         <label for="user1_nickname" class="form-label">닉네임</label>
                                         <input type="text" name="user1_nickname" class="form-control" id="user1_nickname"
@@ -95,20 +95,20 @@
                                                placeholder="참고항목" required readonly>
                                     </div>
 
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary w-100" id="submit"
-                                                onclick="send(this.form);">Create Account
-                                        </button>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="small mb-0">Already have an account? <a href="login.do">Log in</a></p>
-                                    </div>
                                     <div>
                                         <input type="hidden" name="user1_name" value="${vo.user1_name}" />
                                         <input type="hidden" name="user1_pwd" value="${vo.user1_pwd}" />
                                         <input type="hidden" name="user1_email" value="${vo.user1_email}" />
                                         <input type="hidden" name="user1_birthdate" value="${vo.user1_birthdate}" />
                                         <input type="hidden" name="user1_addr" value="">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary w-100" id="submit"
+                                                onclick='send(this.form);'>Create Account</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Already have an account? <a href="login.do">Log in</a></p>
                                     </div>
                                 </form>
 
@@ -128,11 +128,11 @@
     </div>
 </main><!-- End #main -->
 
-<script src="${pageContext.request.contextPath}/resources/js/register/register_detail_form.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/register/register_detail_form.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

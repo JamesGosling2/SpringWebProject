@@ -21,6 +21,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="user_selectOne" parameterType="java.lang.String" resultType="vo.UserVO">
 		select * from user1 where user1_email = #{user_email}
 	</select>
+
+	<update id="user_update" parameterType="vo.UserVO">
+		update user1 set
+		                 user1_pwd = #{user1_pwd},
+		                 user1_phonenumber = #{user1_phonenumber},
+		                 user1_nickname = #{user1_nickname},
+		                 user1_addr = #{user1_addr}
+						 where user1_idx = #{user1_idx}
+	</update>
 </mapper>
 
 

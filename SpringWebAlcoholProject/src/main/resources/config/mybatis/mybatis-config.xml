@@ -11,6 +11,10 @@
 	<typeAliases>
 		<typeAlias type="vo.FullViewVO" alias="product"/>
 		<typeAlias type="vo.ProducerVO" alias="producer"/>		
+		<typeAlias type="vo.SearchVO" alias="search"/>
+		<typeAlias type="vo.OrderListVO" alias="orderlist"/>
+		<typeAlias type="vo.EventVO" alias="event"/>
+
 	</typeAliases>
 	
 	<mappers>
@@ -18,5 +22,11 @@
 		<mapper resource="config/mybatis/mapper/product.xml" />
 		<mapper resource="config/mybatis/mapper/review.xml" />
 		<mapper resource="config/mybatis/mapper/buy.xml" />
+		<mapper resource="config/mybatis/mapper/review_lsj.xml" />
+		<mapper resource="config/mybatis/mapper/board.xml" />
+		<mapper resource="config/mybatis/mapper/event.xml"/>
+		<!-- <mapper resource="config/mybatis/mapper/board_update.xml" />
+		<mapper resource="config/mybatis/mapper/board_delete.xml" /> -->
+
 	</mappers>
 </configuration>

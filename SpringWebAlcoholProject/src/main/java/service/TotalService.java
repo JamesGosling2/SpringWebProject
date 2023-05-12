@@ -31,4 +31,9 @@ public class TotalService {
 		return vo;
 	} // end of selectOne()
 
+	public int update(UserVO vo){
+		int res = userDao.update(vo);
+		return res;
+	} // end of update()
+
 } // end of class

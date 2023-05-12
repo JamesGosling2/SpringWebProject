@@ -2,14 +2,22 @@ package vo;
 
 public class FullViewVO {
 
-	private int product_price, product_sweet_rating, product_sourish_rating, product_cleantaste_rating,
+	private int product_price, product_amount, product_sweet_rating, product_sourish_rating, product_cleantaste_rating,
 			product_bodytaste_rating, product_sparkling_rating, product_idx, product_discount_rate, review_idx,
 			producer_idx;
 
 	private String product_name, product_type, product_capacity, product_ingredients, producer_name,
-			product_simple_content, product_detail_content1, product_detail_content2, product_expiration_date,
-			product_thumbnail_filename, product_filename1, product_filename2, product_point_snack, product_regidate;
+	product_simple_content, product_detail_content1, product_detail_content2, product_expiration_date,
+	product_thumbnail_filename, product_filename1, product_filename2, product_point_snack, product_regidate;
 	
+	public int getProduct_amount() {
+		return product_amount;
+	}
+
+	public void setProduct_amount(int product_amount) {
+		this.product_amount = product_amount;
+	}
+
 	private double product_alcohol_degree;
 
 	public int getProduct_price() {

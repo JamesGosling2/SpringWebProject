@@ -32,7 +32,10 @@ public class UserDAO {
 		return vo;
 	} // end of selectOne()
 
-
+	public int update(UserVO vo){
+		int res = sqlSession.insert("u.user_update", vo);
+		return res;
+	} // end of insert()
 
 
 

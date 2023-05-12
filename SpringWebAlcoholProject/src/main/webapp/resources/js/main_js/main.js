@@ -5,6 +5,12 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+$(document).ready(function (){
+  // $("#modalBtn").hide();
+  $("#modalBtn").trigger('click');
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 

@@ -16,8 +16,8 @@ pageContext.setAttribute("LF", "\n");
 
 <!-- Google Fonts -->
 <%--<link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-          rel="stylesheet">--%>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+              rel="stylesheet">--%>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -33,13 +33,15 @@ pageContext.setAttribute("LF", "\n");
 	crossorigin="anonymous">
 
 <%-- DetailView CSS Files--%>
-<link href="${pageContext.request.contextPath}/resources/css/detailview_css/main.css?ver=1"
-	rel="stylesheet">
+<%--<link href="${pageContext.request.contextPath}/resources/css/detailview_css/main.css?ver=1"
+          rel="stylesheet">--%>
 <link href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1"
 	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 </head>
 
 <body>
+
 	<c:if test="${isUser1 ne null}">
 		<!-- Button trigger modal -->
 		<button type="hidden" id="modalBtn" class="btn btn-primary" data-bs-toggle="modal"
@@ -64,89 +66,11 @@ pageContext.setAttribute("LF", "\n");
 	</c:if>
 
 	<!-- ======= Header ======= -->
-	<header id="header" class="header d-flex align-items-center">
+	<jsp:include page="../main/header.jsp"></jsp:include>
 
-		<div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-			<a href="main.do" class="logo d-flex align-items-center">
-				<!-- Uncomment the line below if you also wish to use an image logo -->
-				<!-- <img src="assets/img/logo.png" alt=""> -->
-				<h1>
-					주당들<span>.</span>
-				</h1>
-			</a>
-
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a href="main.do">Home</a></li>
-					<li class="nav-item dropdown"><a href="#">
-							<span>상품보기</span>
-						</a>
-						<ul class="dropdown dropdown-menu-arrow profile">
-							<li><a href="fullview.do" class="dropdown-item">
-									<span>전체상품</span>
-								</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
-							<li><a href="#">베스트</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
-							<li><a href="#">신상품</a></li>
-						</ul> <%--<li><a href="fullview.do">전체상품</a></li>
-                    <li><a href="#">신상품</a></li>
-                    <li><a href="#">베스트</a></li>--%>
-					<li><a href="#">담화배송</a></li>
-					<li><a href="#">이벤트</a></li>
-					<li><a href="#">구독</a></li>
-					<li><a href="#">Contact</a></li>
-
-
-					<c:if test="${user1 eq null}">
-						<li><a href="login.do"> 로그인 해주세요. </a></li>
-					</c:if>
-
-					<li class="nav-item dropdown"><c:if test="${user1 ne null}">
-							<a class="nav-link nav-profile d-flex align-items-center pe-0 text-decoration-none" href="#"
-								data-bs-toggle="dropdown">
-								<span class="d-none d-md-block dropdown-toggle ps-2">${user1.user1_name}</span>
-							</a>
-
-							<%--<img src="${pageContext.request.contextPath}/resources/upload/Stephan.jpg" alt="Profile" class="rounded-circle">--%>
-							<!-- End Profile Iamge Icon -->
-
-							<ul class="dropdown-menu dropdown-menu-arrow profile">
-								<li><a class="dropdown-item" href="#">
-										<span>My Profile</span>
-									</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item d-flex align-items-center" href="#">
-										<span>Account Settings</span>
-									</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item d-flex align-items-center" href="logout.do">
-										<span>Sign Out</span>
-									</a></li>
-
-							</ul>
-							<!-- End Profile Dropdown Items -->
-						</c:if></li>
-					<!-- End Profile Nav -->
-				</ul>
-			</nav>
-			<!-- .navbar -->
-
-			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
-		</div>
-	</header>
-	<!-- End Header -->
-	<!-- End Header -->
+	<div class="row">
+		<br> <br> <br>
+	</div>
 
 	<main id="main" class="main">
 		<section id="blog" class="blog">
@@ -154,9 +78,9 @@ pageContext.setAttribute("LF", "\n");
 				<div class="row g-5">
 					<div class="col-lg-8">
 						<article class="blog-details">
-							<div class="post-img border border-primary">
+							<div class="post-img">
 								<div class="row gx-4 gx-lg-5">
-									<div class="col-md-6 d-flex justify-content-center border border-primary">
+									<div class="col-md-6 d-flex justify-content-center">
 										<img
 											src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_thumbnail_filename}"
 											alt="" class="img-fluid top_img">
@@ -198,8 +122,8 @@ pageContext.setAttribute("LF", "\n");
 										</div>
 										<div class="d-flex expi">
 											<span>유통기한 : <c:if test="${empty vo1.product_expiration_date }">
-											유통기한 없음
-											</c:if> ${vo1.product_expiration_date}
+                                                유통기한 없음
+                                            </c:if> ${vo1.product_expiration_date}
 											</span>
 										</div>
 									</div>
@@ -233,7 +157,7 @@ pageContext.setAttribute("LF", "\n");
 									</div>
 								</div>
 								<div class="g">
-									<span class="gs">깰꼼함 : </span>
+									<span class="gs">깔끔함 : </span>
 									<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="100"
 										aria-valuemin="0" aria-valuemax="100">
 										<div class="progress-bar" style="width: ${vo1.product_cleantaste_rating * 10}%">${vo1.product_cleantaste_rating}</div>
@@ -244,6 +168,19 @@ pageContext.setAttribute("LF", "\n");
 									<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="100"
 										aria-valuemin="0" aria-valuemax="100">
 										<div class="progress-bar" style="width: ${vo1.product_bodytaste_rating * 10}%">${vo1.product_bodytaste_rating}</div>
+									</div>
+								</div>
+								<div class="g">
+									<span class="gs">탄산 : </span>
+									<div class="sp_g">
+										<c:choose>
+											<c:when test="${ vo1.product_sparkling_rating ne 0 }">
+												있음
+											</c:when>
+											<c:otherwise>
+												없음
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
@@ -276,28 +213,39 @@ pageContext.setAttribute("LF", "\n");
 									</div>
 								</div>
 							</div>
-							<div class="d-flex justify-content-center border border-primary">
+							<div class="d-flex justify-content-center">
 								<img class="img-fluid"
 									src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_filename1}">
 							</div>
 
-							<div class="title_1" style="text-align: center;">[${ vo1.product_name }] 어떤맛을 가지고 있나요?
-							</div>
+							<div class="title_1" style="text-align: center;">[${ vo1.product_name }] 어떤맛을 가지고 있나요?</div>
 
-							<div class="content border border-primary" style="text-align: center;">
+							<div class="content" style="text-align: center;">
 								<pre class="content">${fn:replace(vo1.product_detail_content1,LF,"<br>")}</pre>
 							</div>
 							<!-- End post content -->
-							<div class="d-flex justify-content-center border border-primary">
+							<div class="d-flex justify-content-center">
 								<img class="img-fluid"
 									src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_filename2}">
 							</div>
 
-							<div class="title_1" style="text-align: center;">[${ vo1.product_name }] 어떤음식과 어울리나요?
-							</div>
-							<div class="content border border-primary" style="text-align: center;">
+							<div class="title_1" style="text-align: center;">[${ vo1.product_name }] 어떤음식과 어울리나요?</div>
+							<div class="content" style="text-align: center;">
 								<pre class="content">${fn:replace(vo1.product_detail_content2,LF,"<br>")}</pre>
 							</div>
+
+							<div class="company">
+								<form action="producerName.do" id="go_select">
+									<input type="hidden" name="producer_name" value="${vo1.producer_name}">
+									<a target=" _blank " href=" https://icons8.com/icon/37888/wooden-beer-keg "></a>
+									<!-- 링크 -->
+									<img class="company" src=" https://img.icons8.com/office/45/000000/wooden-beer-keg.png " />
+									<!-- 아이콘 -->
+									<span class="company com_text" onclick="show(this.form);">[${ vo1.producer_name }]</span>
+								</form>
+							</div>
+
+
 							<!-- End post content -->
 						</article>
 						<!-- End blog post -->
@@ -305,14 +253,14 @@ pageContext.setAttribute("LF", "\n");
 					</div>
 
 					<div class="col-lg-4">
-						<div class="sidebar border border-primary rr_box">
+						<div class="sidebar border rr_box">
 							<div style="width: 100%;">
 								<div style="font-weight: bold; margin: 20px 0;">수량</div>
 								<div class="input_number" style="width: 100%;">
 									<div class="btn-group" role="group" aria-label="Basic example" style="width: 100%;">
-										<button type="button" class="btn btn-primary left" onclick="cal('-');">-</button>
+										<button type="button" class="btn btn-primary min_left" onclick="cal('-');">-</button>
 										<span class="btn btn-primary center" id="center">0</span>
-										<button type="button" class="btn btn-primary right" onclick="cal('+');">+</button>
+										<button type="button" class="btn btn-primary plus_right_btn" onclick="cal('+');">+</button>
 									</div>
 								</div>
 							</div>
@@ -320,20 +268,20 @@ pageContext.setAttribute("LF", "\n");
 								<div style="font-weight: bold; margin: 20px 0;">총 가격</div>
 								<div class="number" id="total_price">0</div>
 							</div>
-							<div class="shopping_basket">
-								<button type="button" class="btn btn-primary number buy"
+							<div>
+								<button type="button" class="btn btn-primary number shopping_basket"
 									onclick="shopping_basket('vo1.product_idx')">
 									<i class='bx bx-basket'>장바구니</i>
 								</button>
 							</div>
-							<div class="shopping">
-								<button type="button" class="btn btn-primary number buy"
+							<div>
+								<button type="button" class="btn btn-primary number shopping"
 									onclick="shopping('vo1.product_idx')">
 									<i class='bx bx-gift'>구매하기</i>
 								</button>
 							</div>
-							<!-- End sidebar search formn-->
 
+							</form>
 							<!-- End sidebar categories-->
 						</div>
 						<!-- End Blog Sidebar -->
@@ -343,30 +291,15 @@ pageContext.setAttribute("LF", "\n");
 			<!-- End Blog Details Section -->
 		</section>
 
+		<div>
+			<jsp:include page="product_review.jsp?review_list=${review_list}&review_map=${review_map}"></jsp:include>
+		</div>
 
 	</main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-	<footer id="footer" class="footer">
-		<div class="copyright">
-			&copy; Copyright <strong><span>GoodCheese by NiceAdmin.</span></strong>. All Rights Reserved
-		</div>
-		<div class="credits">
-			<!-- All the links in the footer should remain intact. -->
-			<!-- You can delete the links only if you purchased the pro version. -->
-			<!-- Licensing information: https://bootstrapmade.com/license/ -->
-			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-			Designed by
-			<a href="https://bootstrapmade.com/">BootstrapMade</a>
-		</div>
-	</footer>
-	<!-- End Footer -->
-
-	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-		<i class="bi bi-arrow-up-short"></i>
-	</a>
-
+	<jsp:include page="../main/footer.jsp"></jsp:include>
 
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -378,45 +311,72 @@ pageContext.setAttribute("LF", "\n");
 	<script src="${pageContext.request.contextPath}/resources/js/detailview_js/main.js"></script>
 
 	<script type="text/javascript">
-		function cal(op) {
-			var total_number = document.getElementById('total_price');
-			var price = "${vo1.product_price}";
-			var number = total_number.innerText / price
-			var center = document.getElementById('center');
-			console.log(total_number.innerText / price);
-			console.log(price);
-			if (op == '-') {
-				if (number <= 0) {
-					number = 0;
-				} else {
-					number--;
-				}
-			} else {
-				number++;
-			}
-			total_number.innerText = price * number;
-			center.innerText = number;
-		}
 
-		function shopping_basket(idx) {
-			location.href = "cartAdd.do?product_idx" + idx;
-		}
-		function shopping(idx) {
-			location.href = "용하님이 알려주신 링크.do?product_idx" + idx;
-		}
-		
-		window.onload = function () {
-			/*
-			if(${review_score} == 0){
+    window.onload = function () {
+        /*
+        if(
+        ${review_score} == 0){
 				return;
 			}
 			*/
-			console.log(${review_score});
-			var dom = document.getElementById('starpoint_${review_score}');
-			dom.checked = true;
-			console.log(dom.checked);
+        console.log(${review_score});
+        var dom = document.getElementById('starpoint_${review_score}');
+
+
+		let idx='${vo1.product_idx}';
+		document.ff.idx.value = idx;
+		var url = 'buy_product.do';
+		var param = 'idx=' + idx;
+		sendRequest(url, param, resFn, "POST")
+	}
+	let price;
+	function resFn() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			price = parseInt(xhr.responseText);
+			document.ff.price.value = price;
+			document.ff.totPrice.value = price + 3000;
 		}
-	</script>
+	}//resFn()
+	
+	function show() {
+		var dom = document.getElementById('go_select').submit();
+	}
+		
+    function cal(op) {
+        var total_number = document.getElementById('total_price');
+        var price = "${vo1.product_price}";
+        var number = total_number.innerText / price
+        var center = document.getElementById('center');
+        console.log(total_number.innerText / price);
+        console.log(price);
+        if (op == '-') {
+            if (number <= 0) {
+                number = 0;
+            } else {
+                number--;
+            }
+        } else {
+            number++;
+        }
+        total_number.innerText = price * number;
+        center.innerText = number;
+    }//cal(op)
+    
+	function cart(f) {
+		f.action = "cartAdd.do";
+		f.price.value = f.totPrice.value;
+		f.submit();
+
+	}//cart(f)
+	
+	function buying(f){
+		f.method="POST";
+		f.action="buy_ready1.do";
+		f.price.value = f.totPrice.value;
+		
+		f.submit();
+	}//buying(f)
+</script>
 
 </body>
 </html>

@@ -3,19 +3,259 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="p">
-	
+
 	<select id="product_list" resultType="product">
 		select * from product
-	</select>
-	
-	<select id="product_count" resultType="int">
-		select count(*) from product
+
 	</select>
 
-	<select id="product_selectOne" parameterType="java.lang.Integer" resultType="vo.FullViewVO">
+	<select id="product_count" resultType="int">
+		select count(*) from
+		product
+	</select>
+
+	<select id="product_selectOne" parameterType="java.lang.Integer"
+		resultType="vo.FullViewVO">
 		select * from product where product_idx = #{product_idx}
 	</select>
-	
+
+	<select id="product_search" parameterType="search"
+		resultType="product">
+		select * from product
+		<where>
+			<if test="product_type != null">
+				(
+				product_type =
+				<foreach collection="product_type" item="item"
+					separator="or product_type = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_alcohol_degree != null">
+
+				and
+				(
+				<foreach collection="product_alcohol_degree" item="item"
+					separator="or">
+					<choose>
+						<when test="item == 30">
+							product_alcohol_degree >= #{item}
+						</when>
+						<otherwise>
+							product_alcohol_degree BETWEEN #{item} AND #{item}+10
+						</otherwise>
+					</choose>
+
+				</foreach>
+				)
+			</if>
+			<if test="product_price != null">
+
+				and
+				(
+				<foreach collection="product_price" item="item"
+					separator="or">
+					<choose>
+						<when test="item == 100000">
+							product_price >= #{item}
+						</when>
+						<when test="item == 0">
+							10000 >= product_price
+						</when>
+						<when test="item == 50000">
+							product_price BETWEEN #{item} AND #{item}+50000
+						</when>
+						<otherwise>
+							product_price BETWEEN #{item} AND #{item}+20000
+						</otherwise>
+					</choose>
+				</foreach>
+				)
+			</if>
+			<if test="product_sweet_rating != null">
+
+				and
+				(
+				product_sweet_rating =
+				<foreach collection="product_sweet_rating" item="item"
+					separator="or product_sweet_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_sourish_rating != null">
+
+				and
+				(
+				product_sourish_rating =
+				<foreach collection="product_sourish_rating" item="item"
+					separator="or product_sourish_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_sparkling_rating != null">
+
+				and
+				(
+				product_sparkling_rating =
+				<foreach collection="product_sparkling_rating" item="item"
+					separator="or product_sparkling_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_bodytaste_rating  != null">
+
+				and
+				(
+				product_bodytaste_rating =
+				<foreach collection="product_bodytaste_rating" item="item"
+					separator="or product_bodytaste_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="producer_name != null">
+				and (producer_name = #{producer_name})
+			</if>
+		</where>
+	</select>
+
+	<select id="product_search_count" parameterType="search"
+		resultType="int">
+		select count(*) from product
+		<where>
+			<if test="product_type != null">
+				(
+				product_type =
+				<foreach collection="product_type" item="item"
+					separator="or product_type = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_alcohol_degree != null">
+
+				and
+				(
+				<foreach collection="product_alcohol_degree" item="item"
+					separator="or">
+					<choose>
+						<when test="item == 30">
+							product_alcohol_degree >= #{item}
+						</when>
+						<otherwise>
+							product_alcohol_degree BETWEEN #{item} AND #{item}+10
+						</otherwise>
+					</choose>
+
+				</foreach>
+				)
+			</if>
+			<if test="product_price != null">
+
+				and
+				(
+				<foreach collection="product_price" item="item"
+					separator="or">
+					<choose>
+						<when test="item == 100000">
+							product_price >= #{item}
+						</when>
+						<when test="item == 0">
+							10000 >= product_price
+						</when>
+						<when test="item == 50000">
+							product_price BETWEEN #{item} AND #{item}+50000
+						</when>
+						<otherwise>
+							product_price BETWEEN #{item} AND #{item}+20000
+						</otherwise>
+					</choose>
+				</foreach>
+				)
+			</if>
+			<if test="product_sweet_rating != null">
+
+				and
+				(
+				product_sweet_rating =
+				<foreach collection="product_sweet_rating" item="item"
+					separator="or product_sweet_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_sourish_rating != null">
+
+				and
+				(
+				product_sourish_rating =
+				<foreach collection="product_sourish_rating" item="item"
+					separator="or product_sourish_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_sparkling_rating != null">
+
+				and
+				(
+				product_sparkling_rating =
+				<foreach collection="product_sparkling_rating" item="item"
+					separator="or product_sparkling_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="product_bodytaste_rating  != null">
+
+				and
+				(
+				product_bodytaste_rating =
+				<foreach collection="product_bodytaste_rating" item="item"
+					separator="or product_bodytaste_rating = ">
+
+					#{item}
+				</foreach>
+				)
+			</if>
+			<if test="producer_name != null">
+				and (producer_name = #{producer_name})
+			</if>
+		</where>
+	</select>
+
+	<select id="product_typing_search" resultType="product"
+		parameterType="java.lang.String">
+		select * from product
+		where product_name like
+		'%'||#{search}||'%' or product_type like '%'||#{search}||'%'
+	</select>
+
+	<select id="product_typing_searchCount" resultType="int"
+		parameterType="java.lang.String">
+		select count(*) from product
+		where product_name like
+		'%'||#{search}||'%' or product_type like '%'||#{search}||'%'
+	</select>
+
+	<select id="show_producer" resultType="product"
+		parameterType="product">
+		SELECT * FROM product WHERE producer_name =
+		#{producer_name}
+	</select>
 </mapper>
 
 

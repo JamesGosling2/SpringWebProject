@@ -39,8 +39,11 @@ body{
   height: 50vh;
 }
 
+.main{
+	width : 90%;
+}
+
 .head{
-	
 	width:100%;
 	position: relative;
 	place-items: left;
@@ -50,6 +53,7 @@ body{
 	padding-top:30px;
 	
 }
+
 
 .card_title {
   font-size: 1.3rem;
@@ -273,6 +277,15 @@ p {
 	border-radius: 3px;
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	margin-bottom: 70px;
+}
+
+.search_btn{
+	width : 60px;
+	background-color:#00665b;
+	color:white;
+	height: 40px;
+	border-radius: 3px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .search_table{
