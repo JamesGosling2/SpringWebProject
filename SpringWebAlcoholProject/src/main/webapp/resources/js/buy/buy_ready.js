@@ -101,13 +101,14 @@ function buy(f) {
     if (check_user_phonenumber.test(user1_phonenumber) &&
         (user1_postcode != '') && (user1_detailAddress != '')) {
         f.setAttribute("onsubmit", "return true");
-        f.submit();
+        
     }
 
 } // end of buy()
 
 
 document.getElementById('buy_ready_form').addEventListener('submit', function(event) {
+	alert("asdf");
     event.preventDefault(); // prevent default form submission
     var formData = new FormData(this); // create FormData object
     var xhr = new XMLHttpRequest(); // create XMLHttpRequest object

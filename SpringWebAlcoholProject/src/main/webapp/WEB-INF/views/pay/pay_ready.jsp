@@ -41,8 +41,7 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-	<c:set var="subject">${name}
-	<c:if test="${size ne 1}"> 외 ${size-1}종</c:if>
+	<c:set var="subject">${name}<c:if test="${size ne 1}"> 외 ${size-1}종</c:if>
 	</c:set>
 	<section
 		class="section register min-vh-80 d-flex flex-column align-items-center justify-content-center py-4">
@@ -126,6 +125,7 @@
 										type="hidden" name="orderdate" value="${date}"> <input
 										type=hidden id="clientId" value="${clientId}"> <input
 										type=hidden id="orderId" value="${orderId}">
+										<%request.setAttribute("date", request.getParameter("date"));%>
 								</div>
 
 
@@ -146,8 +146,7 @@
 
 	</section>
 	<script src="https://pay.nicepay.co.kr/v1/js/"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/buy/buy_ready.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/buy/buy_ready.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- Vendor JS Files -->
 	<script
