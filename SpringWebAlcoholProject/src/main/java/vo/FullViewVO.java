@@ -1,5 +1,7 @@
 package vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FullViewVO {
 
 	private int product_price, product_amount, product_sweet_rating, product_sourish_rating, product_cleantaste_rating,
@@ -10,6 +12,32 @@ public class FullViewVO {
 	product_simple_content, product_detail_content1, product_detail_content2, product_expiration_date,
 	product_thumbnail_filename, product_filename1, product_filename2, product_point_snack, product_regidate;
 	
+	private MultipartFile thumbnail, filename1, filename2;
+	
+	public MultipartFile getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(MultipartFile thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public MultipartFile getFilename1() {
+		return filename1;
+	}
+
+	public void setFilename1(MultipartFile filename1) {
+		this.filename1 = filename1;
+	}
+
+	public MultipartFile getFilename2() {
+		return filename2;
+	}
+
+	public void setFilename2(MultipartFile filename2) {
+		this.filename2 = filename2;
+	}
+
 	public int getProduct_amount() {
 		return product_amount;
 	}

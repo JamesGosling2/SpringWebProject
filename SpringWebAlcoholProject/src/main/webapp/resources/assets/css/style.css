@@ -56,20 +56,54 @@ h6 {
 /*--------------------------------------------------------------
 # Page Title
 --------------------------------------------------------------*/
-.pagetitle {
-  margin-bottom: 10px;
+
+
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+
+.insertmain{
+	position : relative;
 }
 
+.card-body{
+	height : 2260px;
+}
+.card-insert{
+	height : 1330px;
+}
+
+
+.centercenter{
+	position: absolute;
+	left : 25%;
+}
+
+.pagetitle {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+
 .pagetitle h1 {
-  font-size: 24px;
+	
+  font-size: 35px;
   margin-bottom: 0;
   font-weight: 600;
   color: #012970;
 }
 
-/*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
+.submitbtn{
+	position: absolute;
+	left : 50%;
+}
+
+.col-form-label{
+	font-weight: bold;
+}
+
 .back-to-top {
   position: fixed;
   visibility: hidden;
@@ -247,7 +281,10 @@ h6 {
 }
 
 .card-body {
-  padding: 0 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
+}
+.card-insert {
+  padding: 10px 20px 20px 20px;
 }
 
 .card-img-overlay {

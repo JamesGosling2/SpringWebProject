@@ -182,7 +182,6 @@ public class BoardController {
 
         // 원본글 검색 후 저장
         BoardVO originBoard_vo = service.board_selectOne(board_vo.getBoard1_idx());
-
         // 기존글 step 모두 +1
         int res_step = service.board_update_step(originBoard_vo);
 
