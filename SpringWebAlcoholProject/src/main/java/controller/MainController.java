@@ -1,21 +1,18 @@
 package controller;
 
-import naverlogin.NaverLoginBO;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.File;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import util.Buy;
 import util.Common;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
     @RequestMapping("/")
     public String mainofmain(){
+    	
     	System.out.println("main");
         return Common.Main.VIEW_PATH+"main_of_main.jsp";
     } // main of main()

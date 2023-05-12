@@ -11,12 +11,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="select_products" parameterType="java.util.List"
 		resultType="product">
 		SELECT * FROM product WHERE product_idx IN
-		<foreach collection="list" item="orderlist" open="(" close=")" separator=",">
+		<foreach collection="list" item="orderlist" open="(" close=")"
+			separator=",">
 			#{orderlist.product_idx}
 		</foreach>
 	</select>
-	<select id="select_producer_name" parameterType="int" resultType="producer">
+	<select id="select_producer_name" parameterType="int"
+		resultType="producer">
 		select * from Producer where producer_idx=#{idx}
+	</select>
+	<insert id="insertOrder" parameterType="orderlist">
+		insert into order_list values(
+		seq_orderlist_idx.nextVal,
+		#{orderlist_addr},
+		0,
+		#{orderlist_date},
+		#{product_idx},
+		#{product_amount},
+		#{product_price},
+		#{user_idx}
+		)
+	</insert>
+	<select id="sysdate" resultType="java.util.Date">
+		select sysdate from dual
 	</select>
 </mapper>
 

@@ -1,8 +1,24 @@
 package vo;
 
+import java.util.Date;
+
 public class OrderListVO {
-	private int orderlist_idx,orderlist_status,product_idx,product_amount,user_idx;
-	private String orderlist_addr, orderlist_date;
+	private int orderlist_idx,orderlist_status,product_idx,product_amount,user_idx,product_price;
+	private String orderlist_addr;
+	private Date orderlist_date;
+	
+	public Date getOrderlist_date() {
+		return orderlist_date;
+	}
+	public void setOrderlist_date(Date orderlist_date) {
+		this.orderlist_date = orderlist_date;
+	}
+	public int getProduct_price() {
+		return product_price;
+	}
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
+	}
 	
 	public int getOrderlist_idx() {
 		return orderlist_idx;
@@ -40,11 +56,6 @@ public class OrderListVO {
 	public void setOrderlist_addr(String orderlist_addr) {
 		this.orderlist_addr = orderlist_addr;
 	}
-	public String getOrderlist_date() {
-		return orderlist_date;
-	}
-	public void setOrderlist_date(String orderlist_date) {
-		this.orderlist_date = orderlist_date;
-	}
+	
 
 }

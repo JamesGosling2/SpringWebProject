@@ -225,6 +225,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where product_name like '%'||#{search}||'%' or product_type like '%'||#{search}||'%'
 	</select>
 	
+	<insert id="product_insert" parameterType="product">
+		insert into product values(
+				seq_product_idx.nextVal,
+				#{product_name},
+				#{product_type},
+				#{product_alcohol_degree},
+				#{product_capacity},
+				#{product_price},
+				#{product_ingredients},
+				#{product_simple_content},
+				#{product_detail_content1},
+				#{product_detail_content2},
+				#{product_expiration_date},
+				#{product_thumbnail_filename},
+				#{product_filename1},
+				#{product_filename2},
+				#{product_sweet_rating},
+				#{product_sourish_rating},
+				#{product_cleantaste_rating},
+				#{product_bodytaste_rating},
+				#{product_sparkling_rating},
+				null,
+				null,
+				null,
+				#{product_point_snack},
+				#{producer_name},
+				sysdate
+				
+		)
+	</insert>
+	
+	<delete id="product_delete" parameterType="java.lang.Integer">
+		delete from product where product_idx = #{product_idx}
+	</delete>
+	
+	<update id="product_modify" parameterType="product">
+		 update product set product_name = #{product_name},
+						    product_type = #{product_type},
+						    product_alcohol_degree = #{product_alcohol_degree},
+							product_capacity = #{product_capacity},
+							product_price = #{product_price},
+							product_ingredients = #{product_ingredients},
+							product_simple_content = #{product_simple_content},
+							product_detail_content1 = #{product_detail_content1},
+							product_detail_content2 = #{product_detail_content2},
+							product_expiration_date = #{product_expiration_date},
+							product_thumbnail_filename = #{product_thumbnail_filename},
+							product_filename1 = #{product_filename1},
+							product_filename2 = #{product_filename2},
+							product_sweet_rating = #{product_sweet_rating},
+							product_sourish_rating = #{product_sourish_rating},
+							product_cleantaste_rating = #{product_cleantaste_rating},
+							product_bodytaste_rating = #{product_bodytaste_rating},
+							product_sparkling_rating = #{product_sparkling_rating},
+							product_point_snack = #{product_point_snack},
+							producer_name = #{producer_name}
+		where product_idx = #{product_idx}
+	</update>
+	
 </mapper>
 
 

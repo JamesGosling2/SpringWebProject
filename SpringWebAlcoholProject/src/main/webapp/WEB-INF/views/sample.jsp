@@ -9,8 +9,6 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
