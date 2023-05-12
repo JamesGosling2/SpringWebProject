@@ -48,7 +48,7 @@
                         <div class="card-body">
                             <div class="card-title">
                                 <h4 class="fw-bold text-primary">게시글 제목</h4>
-                                <input type="text" class="form-control fw-bold" name="board1_subject" value="${board_vo.board1_subject}">
+                                <input type="text" class="form-control fw-bold" name="board1_subject" value="${board_vo.board1_subject}의 댓글입니다." readonly />
                             </div>
                             <div>
                                 <h4 class="fw-bold text-primary">게시글 내용</h4>
@@ -59,11 +59,10 @@
                                     <img src="${pageContext.request.contextPath}/resources/upload/${board_vo.board1_filename}" class="image-fluid w-25">
                                 </c:if>
                             </div>
-                            <input type="file" name="board1_photo" id="board1_photo" >
                         </div>
                         <div class="card-footer text-end">
-                            <button class="btn btn-warning fw-bold" onclick="send(this.form);">수정하기</button>
-                            <button class="btn btn-secondary fw-bold" onclick="location.href='main.do'">취소</button>
+                            <button class="btn btn-warning fw-bold" onclick="send5(this.form);">수정하기</button>
+                            <button class="btn btn-secondary fw-bold" onclick="location.href='board_detail_view.do?board1_idx=${original_board_vo.board1_idx}&user1_idx=${original_user_vo.user1_idx}'">취소</button>
                         </div>
                     </div>
                     <input type="hidden" name="board1_idx" value="${board_vo.board1_idx}">
@@ -124,15 +123,10 @@
         fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
     });
 
-    function send(f) {
+    function send5(f) {
+        alert("dsd");
         let board_content = f.board1_content.value;
-        let board_photo = f.board1_photo.value;
         let board_subject = f.board1_subject.value;
-
-        if (board_subject.trim() == '') {
-            alert("게시판 제목을 작성해주세요.");
-            return;
-        }
 
         if (board_content.trim() == '') {
             alert("게시판 내용을 작성해주세요.");
@@ -140,7 +134,7 @@
         }
 
         f.method = "post";
-        f.action = "board_modify.do";
+        f.action = "board_reply_modify.do";
         f.submit();
     } // end of send()
 

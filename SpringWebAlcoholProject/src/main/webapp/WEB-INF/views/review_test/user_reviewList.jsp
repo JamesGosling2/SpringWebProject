@@ -75,17 +75,17 @@
                 <div>
                     <ul class="portfolio-flters">
                         <li data-filter="*" class="filter-active fw-bold text-primary">리뷰 전체보기</li>
-                        <li data-filter=".filter-possible" class="fw-bold text-success">작성한 리뷰보기</li>
-                        <li data-filter=".filter-done" class="fw-bold text-danger">삭제한 리뷰보기</li>
+                        <%--<li data-filter=".filter-possible" class="fw-bold text-success">작성한 리뷰보기</li>
+                        <li data-filter=".filter-done" class="fw-bold text-danger">삭제한 리뷰보기</li>--%>
                     </ul><!-- End Portfolio Filters -->
                 </div>
 
-                <div class="row gy-4 portfolio-container border border-primary">
+                <div class="row gy-4 portfolio-container">
 
                     <c:forEach var="reviewList" items="${reviewMap.reviewList}" varStatus="status">
                         <c:set var="index" value="${status.index}"></c:set>
-                        <div class="col-3 portfolio-item filter-app border border-danger"></div>
-                        <div class="col-6 portfolio-item filter-app border border-warning">
+                        <div class="col-3 portfolio-item filter-app"></div>
+                        <div class="col-6 portfolio-item filter-app">
                             <div class="card">
                                 <div class="card-header bg-success bg-opacity-25">
                                     <h5 class="fw-bold text-primary"><a class="text-primary"
@@ -128,21 +128,42 @@
                                     </div>
                                 </c:if>
                                 <c:if test="${reviewList.review_del_info ne -1}">
-                                <div class="card-footer">
-                                    <div class="text-end">
-                                        <input type="button" class="btn btn-success"
-                                               onclick="location.href='review_modify_form.do?review_idx=${reviewList.review_idx}'"
-                                               value="수정">
-                                        <input type="button" class="btn btn-danger"
-                                               onclick="location.href='review_delete.do?review_idx=${reviewList.review_idx}'"
-                                               value="삭제">
+                                    <div class="card-footer">
+                                        <div class="text-end">
+                                            <input type="button" class="btn btn-success"
+                                                   onclick="location.href='review_modify_form.do?review_idx=${reviewList.review_idx}'"
+                                                   value="수정">
+                                                <%--onclick="location.href='review_delete.do?review_idx=${reviewList.review_idx}'"--%>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                   data-bs-target="#basicModal">삭제
+                                            </button>
+                                            <%-- modal --%>
+                                            <div class="modal" id="basicModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title text-primary fw-bold">삭제 정보</h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body fw-bold text-start">
+                                                            정말 삭제하시겠습니까?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="location.href='review_delete.do?review_idx=${reviewList.review_idx}'">
+                                                                확인
+                                                            </button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
                                 </c:if>
                             </div>
                         </div>
                         <!-- End Portfolio Item -->
-                        <div class="col-3 portfolio-item filter-app border border-success"></div>
+                        <div class="col-3 portfolio-item filter-app"></div>
 
                     </c:forEach>
                 </div>
@@ -162,7 +183,9 @@
         crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/main_js/main.js"></script>
 <script>
+    function delete2(){
 
+    }
 </script>
 </body>
 </html>

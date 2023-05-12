@@ -107,7 +107,7 @@ function sample4_execDaumPostcode() {
 } // end of sample4_execDaumPostcode()
 
 function send(f){
-    alert("send 실행 됨");
+    // alert("Sfsdf");
     let user1_addr = f.sample4_roadAddress.value + " (" + f.sample4_postcode.value + ") " + f.sample4_detailAddress.value;
     $("input[name=user1_addr]").attr('value', user1_addr);
 

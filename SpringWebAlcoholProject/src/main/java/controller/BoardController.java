@@ -303,9 +303,43 @@ public class BoardController {
     } // end of board_reply_delete()
 
     @RequestMapping("reply_modify_form.do")
-    public String reply_modify_form(){
-        return "";
-    } // reply_modify_form()
+    public String reply_modify_form(Model model, int board1_idx, int user1_idx){
+        System.out.println("------ board_modify_form.do ------");
+        BoardVO board_vo = service.board_selectOne(board1_idx);
+        UserVO user_vo = service.user_selectOne(user1_idx);
+        BoardVO original_board_vo = service.board_selectOne(board_vo.getBoard1_ref());
+        UserVO original_user_vo = service.user_selectOne(original_board_vo.getUser1_idx());
+        System.out.println("board_vo : " + board_vo);
+        System.out.println("user_vo : " + user_vo);
+
+        model.addAttribute("board_vo", board_vo);
+        model.addAttribute("user_vo", user_vo);
+        model.addAttribute("original_board_vo", original_board_vo);
+        model.addAttribute("original_user_vo", original_user_vo);
+
+        return Common.Board.VIEW_PATH + "board_reply_modify_form.jsp";
+    } // end of board_modify_form()
+
+    @RequestMapping("board_reply_modify.do")
+    public String board_reply_modify(BoardVO board_vo){
+        System.out.println("----- board_reply_modify.do -----");
+        System.out.println("board_vo.board1_idx : " + board_vo.getBoard1_idx());
+
+        String webPath = "/resources/upload/";
+        String savePath = app.getRealPath(webPath);
+        System.out.println("절대경로 : " + savePath);
+
+        String board_filename = "no_file";
+
+        board_vo.setBoard1_filename(board_filename);
+
+        int res = service.board_modify(board_vo);
+        System.out.println("res : " + res);
+
+        BoardVO original_board_vo = service.board_selectOne(board_vo.getBoard1_ref());
+
+        return "redirect:/board_detail_view.do?board1_idx=" + original_board_vo.getBoard1_idx() + "&user1_idx=" + original_board_vo.getUser1_idx();
+    } // end of board_reply_modify()
 
 } // end of class
 

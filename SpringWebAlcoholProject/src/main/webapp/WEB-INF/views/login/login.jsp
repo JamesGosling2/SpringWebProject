@@ -183,8 +183,8 @@
                                             <label class="form-check-label" for="rememberMe">Remember me</label>
                                         </div>
                                     </div>--%>
-                                    <div>
-                                        <br>
+                                    <div class="col-12">
+                                        <label class="form-check-label text-success fw-bold">Log in with your registered email</label>
                                     </div>
                                     <div class="col-12">
                                         <input class="btn btn-dark w-100" id="login" type="button"

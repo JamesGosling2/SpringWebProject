@@ -136,7 +136,6 @@
                                             <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="col-12">
-                                            <input type="button" class="btn btn-warning" onclick="temporary();" value="test">
                                             <input type="button" class="form-control btn btn-success fw-bold" name="postcode2"
                                                    onclick="sample4_execDaumPostcode();" value="우편번호 찾기" />
                                         </div>

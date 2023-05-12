@@ -63,7 +63,7 @@
                         </div>
                         <div class="card-footer text-end">
                             <button class="btn btn-warning fw-bold" onclick="send(this.form);">수정하기</button>
-                            <button class="btn btn-secondary fw-bold" onclick="location.href='main.do'">취소</button>
+                            <button class="btn btn-secondary fw-bold" onclick="location.href='board_detail_view.do?board1_idx=${board_vo.board1_idx}&user1_idx=${board_vo.user1_idx}'">취소</button>
                         </div>
                     </div>
                     <input type="hidden" name="board1_idx" value="${board_vo.board1_idx}">

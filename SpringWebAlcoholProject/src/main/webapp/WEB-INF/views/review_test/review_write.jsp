@@ -185,7 +185,7 @@
             return;
         }
 
-        alert(review_rating);
+        // alert(review_rating);
         /*if(review_rating >= 1 && review_rating <= 5){
             alert("별점을 눌러주세요.");
             return;

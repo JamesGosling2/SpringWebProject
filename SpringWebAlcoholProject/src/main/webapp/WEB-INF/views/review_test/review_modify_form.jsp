@@ -203,7 +203,7 @@
     });
 
     function send(f){
-        alert("실행됨")
+        // alert("실행됨")
         let review_content = f.review_content.value;
         let review_rating = f.review_rating.value;
         let review_photo = f.review_photo.value;
