@@ -1,7 +1,8 @@
 package util;
 
 public interface Buy {
-	String BUY="/WEB-INF/views/buy/";
 	String CART_IN="/WEB-INF/views/cart/cart_in.jsp";
-	String BUY_READY=BUY+"buy_ready.jsp";
+	String PAY="/WEB-INF/views/pay/";
+	String PAY_READY=PAY+"pay_ready.jsp";
+	String PAY_RESPONSE=PAY+"pay_response.jsp";
 }

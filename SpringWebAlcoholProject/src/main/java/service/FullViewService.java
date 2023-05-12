@@ -51,6 +51,16 @@ public class FullViewService {
 		int product_count = fullview_dao.typing_searchCount(search);
 		return product_count;
 	}
+	
+	public int insert(FullViewVO vo) {
+		int i = fullview_dao.insert(vo);
+		return i;
+	}
+	
+	 public int delete(int product_idx) {
+	    	int i = fullview_dao.delete(product_idx);
+	    	return i;
+	    }
 
 
 

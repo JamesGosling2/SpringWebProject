@@ -14,7 +14,6 @@
 		<typeAlias type="vo.SearchVO" alias="search"/>
 		<typeAlias type="vo.OrderListVO" alias="orderlist"/>
 		<typeAlias type="vo.EventVO" alias="event"/>
-
 	</typeAliases>
 	
 	<mappers>

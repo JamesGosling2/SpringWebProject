@@ -19,7 +19,7 @@
 		<jsp:include page="../main/header.jsp"></jsp:include>
 		<div class="row"><br><br><br><br></div>
 
-		<div class="head_title d-flex justify-content-center align-items-center">
+		<div class="head_title d-flex justify-content-center align-items-center divdiv">
 
 			<img class="downdown"  src="${pageContext.request.contextPath}/resources/event_image/막걸리_2.png">
 			<%-- 안되면 밑에 경오로 수정 --%>
@@ -30,13 +30,17 @@
 		</div>
 		
 		<c:forEach var="list" items="${ event_list }" varStatus="status">
-			<div >
+			<div class="divdiv">
 				<a href="event_detail.do?event_idx=${ list.event_idx }">
 					<img class="imgimg" alt="${ list.event_thumbnail }" src="${pageContext.request.contextPath}/resources/event_image/${ list.event_thumbnail }">
 				</a>
 			</div>
 		
 		</c:forEach>
+		
+		<jsp:include page="../main/footer.jsp"></jsp:include>
+<!-- End Footer -->
+		
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>
 		<!-- Vendor JS Files -->

@@ -246,6 +246,7 @@
             <tr>
                 </c:if>
                 <td><a href="detailview.do?product_idx=${ list.product_idx }">
+                
                     <article class="allcard">
                         <img class="card__background"
                              src="${pageContext.request.contextPath}/resources/alcohol_image/${ list.product_thumbnail_filename }"
@@ -271,6 +272,7 @@
             </tr>
         </table>
     </div>
+    	
 </main>
 <!-- End #main -->
 
@@ -304,6 +306,14 @@
     var sr = "";
     var pr = "";
     var pbr = "";
+    
+    function insert(email) {
+		if(email == 'alcohol2@gmail.com'){
+			location.href = 'product_insert.do';
+		}else{
+			alert("상품등록은 관리자 권한이 필요합니다");
+		}
+	}
 
     function text(param) {
         if (param == '주종') {
