@@ -57,8 +57,6 @@ window.onload = function(){
 		const product = cards.querySelectorAll('.product');
 		
 		product.forEach((product)=>{
-			const minusBtn = product.querySelector('.minus');
-			const plusBtn = product.querySelector('.plus');
 			const amountVal = product.querySelector('.amount');
 			const price = product.querySelector('.price');
 			const checkbox = product.querySelector('.buy');
@@ -67,27 +65,8 @@ window.onload = function(){
 			let amount = parseInt(amountVal.innerHTML);
 			const priceOne = parseInt(price.innerHTML)/amount;
 			
-			minusBtn.addEventListener('click', () => {
-			    if (amount > 1) {
-			    	amountVal.innerHTML=--amount;
-			    	price.innerHTML=priceOne*amount;
-			    	
-			    	calCardTotal();
-			    	fixAmount(amount,idx.value);
-			    }
-			});
-			plusBtn.addEventListener('click', () => {
-			    if (amount < 100) {
-			    	amountVal.innerHTML=++amount;
-			    	price.innerHTML=priceOne*amount;
-			    	
-			    	calCardTotal();
-			    	fixAmount(amount,idx.value);
-			    }
-			});
-			checkbox.addEventListener('change',() => {
-				calCardTotal();
-			})
+
+
 			removeEle.addEventListener('click',()=>{
 				var idx = product.querySelector('.idx').value;
 				removeElem(idx);
@@ -161,23 +140,21 @@ function fixProducerName(){
     var idxs=[];
     const url = "findProdcerName.do";
     var names;
-   	    	
     producerNames.forEach((producerName) => {
         idxs.push(parseInt(producerName.innerHTML));
     });
-	    let data= { idxs: idxs };
-	    const xhr = new XMLHttpRequest();
-	    xhr.open("POST", url);
-	    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	    xhr.onreadystatechange = function() {
-	    	if (xhr.readyState === 4 && xhr.status === 200) {
-	        	const names = JSON.parse(xhr.responseText);
-	        	producerNames.forEach((producerName, idx) => {
-	            	producerName.innerHTML = names[idx];
-	        	});
-	    	}
-	    };
-    
+    let data= { idxs: idxs };
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const names = JSON.parse(xhr.responseText);
+        producerNames.forEach((producerName, idx) => {
+            producerName.innerHTML = names[idx];
+        });
+      }
+    };
     xhr.send(JSON.stringify(data));
 }
 </script>
@@ -209,7 +186,6 @@ function fixProducerName(){
 			</div>
 		</div>
 	</c:if>
-	
 	<!-- ======= Header ======= -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
 
@@ -217,96 +193,22 @@ function fixProducerName(){
 	<c:set var="producer" value="999999" />
 	<main id="main" class="main">
 		<section id="blog" class="blog">
-			<div class="row g-5">
-				<form name="ff" id="cart" action="pay_readys.do" method="post">
-					<input type="hidden" name="cost">
-					<c:forEach var="carts" items="${cart_in}">
-						<c:if test="${producer ne carts.producer_idx}">
-							<c:set var="producer" value="${carts.producer_idx}" />
-							<div class="card col-lg-6">
-								<div class="card-body producer_name">${producer}</div>
-								<hr>
-								<c:forEach var="cart" items="${cart_in}">
-									<c:if test="${producer eq cart.producer_idx}">
-										<div class="card-body product">
-											<input type="hidden" class="idx" value="${cart.product_idx}">
-											<table style="width: 100%;">
-												<tr>
-													<td rowspan="3"><input class="form-check-input buy"
-														type="checkbox" checked></td>
-													<td rowspan="2"><img
-														style="width: 53px; height: 68px;"
-														src="${pageContext.request.contextPath}/resources/alcohol_image/${cart.product_thumbnail_filename}">
-													</td>
-													<td>${cart.product_name}</td>
-													<td style="text-align: right;"><input type="button"
-														value="X" class="removeEle"></td>
-												</tr>
-												<tr>
-													<td>
-														<div class="btn-group">
-															<button type="button"
-																class="btn btn-outline-primary minus">-</button>
-															<button type="button"
-																class="btn btn-outline-primary amount" disabled>${cart.product_amount}</button>
-															<button type="button"
-																class="btn btn-outline-primary plus">+</button>
-														</div>
-													</td>
-													<td class="price rights">${cart.product_price*cart.product_amount}</td>
-												</tr>
-												<tr>
-													<td colspan="4"><hr></td>
-												</tr>
-											</table>
-										</div>
-									</c:if>
-								</c:forEach>
-								<div class="card-body">
-									<table style="width: 100%;">
-										<tr>
-											<td>상품금액</td>
-											<td class="totPrice rights"></td>
-										</tr>
-										<tr>
-											<td>배송비</td>
-											<td class="deliveryFee rights"></td>
-										</tr>
-										<tr>
-											<td>총 금액</td>
-											<td class="totCost rights"></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</c:if>
-					</c:forEach>
-					<div class="col-lg-4">
-						<div class="sidebar border border-primary rr_box">
-							<table style="width: 100%;">
-								<tr>
-									<td>총 상품금액</td>
-									<td id="totPrice" class="rights">0</td>
-								</tr>
-								<tr>
-									<td>총 배송비</td>
-									<td id="totDeliv" class="rights">0</td>
-								</tr>
-								<tr>
-									<td>총 금액</td>
-									<td id="totCost" class="rights">0</td>
-								</tr>
-							</table>
-							<div class="shopping">
-								<button type="button" class="btn btn-primary number buy"
-									onclick="this.form.submit();">
-									<i class='bx bx-gift'>구매하기</i>
-								</button>
-							</div>
-						</div>
+
+			<c:forEach var="carts" items="${cart}">
+				<c:if test="${producer ne carts.producer_idx}">
+					<c:set var="producer" value="${carts.producer_idx}" />
+					<div class="card">
+						<div class="card-body producer_name">${producer}</div>
+						<hr>
+						<c:forEach var="cart" items="${cart_in}">
+							
+											<img style="width: 53px; height: 68px;"
+												src="${pageContext.request.contextPath}/resources/alcohol_image/${cart.cart.product_thumbnail_filename}">
+		
+						</c:forEach>
 					</div>
-				</form>
-			</div>
+				</c:if>
+			</c:forEach>
 		</section>
 	</main>
 	<!-- ======= Footer ======= -->
