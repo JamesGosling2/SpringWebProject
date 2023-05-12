@@ -34,7 +34,6 @@ public class DetailViewController {
 		this.reviewService = reviewService;
 	} // end of constructor
 
-
 //    @RequestMapping("/detailview.do")
 //    public String detailview(Model model, FullViewVO vo){
 //        System.out.println("------ detailView.do ------");
@@ -160,6 +159,18 @@ public class DetailViewController {
 	}
 
 
-	// sdfssdfsdf
+	@RequestMapping("/producerName.do")
+	public String showProducer(Model model, FullViewVO vo) {
+		
+		System.out.println(vo.getProducer_name());
+		List<FullViewVO> producer_list =  detailService.show_producer(vo);
+		int count = producer_list.size();
+		
+		model.addAttribute("producer_name", vo.getProducer_name());
+		model.addAttribute("product_count",count);
+		model.addAttribute("product_list",producer_list);
+		
+		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
+	}
 
 } // end of class
