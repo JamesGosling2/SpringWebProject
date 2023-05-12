@@ -1,0 +1,43 @@
+@charset "UTF-8";
+body{
+	margin : 0;
+	padding : 0;
+}
+
+div{
+	text-align: center; /* 가운데 정렬 */
+	margin-bottom:  50px;
+	word-break:break-all;
+}
+
+.head_title {
+	margin-top : 20px;
+    text-align: center; /* 가운데 정렬 */
+	height : 100px;
+}
+
+.imgimg{
+	width : 70%;
+	border-radius: 15px;
+	box-shadow: gray 5px 5px 10px;
+}
+
+.imgimg:hover{
+	width : 71%;
+}
+
+.namename{
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.downdown{
+	height : 70px;
+	
+}
+
+.detaildetail{
+	width:100%;
+}
+
+

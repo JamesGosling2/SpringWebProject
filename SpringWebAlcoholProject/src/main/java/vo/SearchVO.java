@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SearchVO {
 	
 	private ArrayList<String> product_type, product_alcohol_degree, product_price, product_sweet_rating, 
-							  product_sourish_rating, product_sparkling_rate, product_bodytaste_rating;
+							  product_sourish_rating, product_sparkling_rating, product_bodytaste_rating;
 
 	public ArrayList<String> getProduct_type() {
 		return product_type;
@@ -47,13 +47,6 @@ public class SearchVO {
 		this.product_sourish_rating = product_sourish_rating;
 	}
 
-	public ArrayList<String> getProduct_sparkling_rate() {
-		return product_sparkling_rate;
-	}
-
-	public void setProduct_sparkling_rate(ArrayList<String> product_sparkling_rate) {
-		this.product_sparkling_rate = product_sparkling_rate;
-	}
 
 	public ArrayList<String> getProduct_bodytaste_rating() {
 		return product_bodytaste_rating;
@@ -61,6 +54,14 @@ public class SearchVO {
 
 	public void setProduct_bodytaste_rating(ArrayList<String> product_bodytaste_rating) {
 		this.product_bodytaste_rating = product_bodytaste_rating;
+	}
+
+	public ArrayList<String> getProduct_sparkling_rating() {
+		return product_sparkling_rating;
+	}
+
+	public void setProduct_sparkling_rating(ArrayList<String> product_sparkling_rating) {
+		this.product_sparkling_rating = product_sparkling_rating;
 	}
 
 	

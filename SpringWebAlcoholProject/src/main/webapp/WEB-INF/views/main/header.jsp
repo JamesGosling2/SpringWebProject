@@ -101,9 +101,9 @@
                                        <li><a href="#">신상품</a></li>
                                        <li><a href="#">베스트</a></li>--%>
                 <li><a href="#">담화배송</a></li>
-                <li><a href="#">이벤트</a></li>
+                <li><a href="event.do">이벤트</a></li>
                 <li><a href="#">구독</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="board_list.do">자유게시판</a></li>
 
 
                 <c:if test="${user1 eq null}">

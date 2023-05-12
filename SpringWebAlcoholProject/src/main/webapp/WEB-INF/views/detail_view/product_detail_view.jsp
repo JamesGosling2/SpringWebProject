@@ -75,59 +75,58 @@ pageContext.setAttribute("LF", "\n");
 	<!-- ======= Header ======= -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
 
-	<main id="main" class="main">
-		<section id="blog" class="blog">
-			<div class="container" data-aos="fade-up">
-				<div class="row g-5">
-					<div class="col-lg-8">
-						<article class="blog-details">
-							<div class="post-img border border-primary">
-								<div class="row gx-4 gx-lg-5">
-									<div
-										class="col-md-6 d-flex justify-content-center border border-primary">
-										<img
+<div class="row"><br><br><br></div>
+
+<main id="main" class="main">
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+            <div class="row g-5">
+                <div class="col-lg-8">
+                    <article class="blog-details">
+                        <div class="post-img border border-primary">
+                            <div class="row gx-4 gx-lg-5">
+                                <div class="col-md-6 d-flex justify-content-center border border-primary">
+                                    <img
 											src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_thumbnail_filename}"
 											alt="" class="img-fluid top_img">
-									</div>
-									<div class="col-md-6 right_box">
-										<div class="d-flex"
-											style="font-size: 27px; font-weight: bold; color: #808080; margin-top: 5px;">
-											${vo1.product_name}</div>
-										<div class="d-flex"
-											style="font-size: 18px; font-weight: bold; color: #c8c8c8; margin-bottom: 5px;">
-											${vo1.product_simple_content}</div>
-										<div class="d-flex" style="margin-bottom: 20px;">
-											<div class="starpoint_wrap">
-												<div class="starpoint_box">
-													<c:forEach var="i" begin="1" end="10">
-														<label for="starpoint_${i / 2.0}" class="label_star"
-															title="${i / 2.0}"> <span class="blind">${i/2.0}점</span>
-														</label>
-														<input type="radio" id="starpoint_${i / 2.0}"
-															class="star_radio">
-													</c:forEach>
-													<span class="starpoint_bg"></span>
-												</div>
-											</div>
-											<span>${review_score}</span>
-										</div>
-										<div class="d-flex a_info">
-											<span>주종 : ${vo1.product_type}</span>
-										</div>
-										<div class="d-flex a_info">
-											<span>도수 : ${vo1.product_alcohol_degree}%</span>
-										</div>
-										<div class="d-flex a_info" style="margin-bottom: 30px;">
-											<span>용량 : ${vo1.product_capacity}</span>
-										</div>
-										<div class="d-flex"></div>
-										<div class="fs-5 mb-5 sell" style="margin-bottom: 10px;">
-											판매가격 : <span class="price"><fmt:formatNumber
-													value="${vo1.product_price}" pattern="#,###" />원</span>
-										</div>
-										<div class="d-flex expi">
-											<span>유통기한 : <c:if
-													test="${empty vo1.product_expiration_date }">
+                                </div>
+                                <div class="col-md-6 right_box">
+                                    <div class="d-flex"
+                                         style="font-size: 27px; font-weight: bold; color: #808080; margin-top: 5px;">
+                                        ${vo1.product_name}</div>
+                                    <div class="d-flex"
+                                         style="font-size: 18px; font-weight: bold; color: #c8c8c8; margin-bottom: 5px;">
+                                        ${vo1.product_simple_content}</div>
+                                    <div class="d-flex" style="margin-bottom: 20px;">
+                                        <div class="starpoint_wrap">
+                                            <div class="starpoint_box">
+                                                <c:forEach var="i" begin="1" end="10">
+                                                    <label for="starpoint_${i / 2.0}" class="label_star" title="${i / 2.0}"> <span
+                                                            class="blind">${i/2.0}점</span>
+                                                    </label>
+                                                    <input type="radio" id="starpoint_${i / 2.0}" class="star_radio">
+                                                </c:forEach>
+                                                <span class="starpoint_bg"></span>
+                                            </div>
+                                        </div>
+                                        <span>${review_score}</span>
+                                    </div>
+                                    <div class="d-flex a_info">
+                                        <span>주종 : ${vo1.product_type}</span>
+                                    </div>
+                                    <div class="d-flex a_info">
+                                        <span>도수 : ${vo1.product_alcohol_degree}%</span>
+                                    </div>
+                                    <div class="d-flex a_info" style="margin-bottom: 30px;">
+                                        <span>용량 : ${vo1.product_capacity}</span>
+                                    </div>
+                                    <div class="d-flex"></div>
+                                    <div class="fs-5 mb-5 sell" style="margin-bottom: 10px;">
+                                        판매가격 : <span class="price"><fmt:formatNumber value="${vo1.product_price}"
+                                                                                     pattern="#,###" />원</span>
+                                    </div>
+                                    <div class="d-flex expi">
+											<span>유통기한 : <c:if test="${empty vo1.product_expiration_date }">
                                                 유통기한 없음
                                             </c:if>
 												${vo1.product_expiration_date}
@@ -367,7 +366,7 @@ pageContext.setAttribute("LF", "\n");
 	}
 	function buying(f){
 		f.method="POST";
-		f.action="buy_ready1.do";
+		f.action="pay_ready1.do";
 		f.price.value = f.totPrice.value;
 		
 		f.submit();

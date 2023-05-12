@@ -56,6 +56,15 @@ public class FullViewController {
 		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
 	}
 	
+	@RequestMapping("/typing_search.do")
+	public String typing_search(Model model, String search) {
+		List<FullViewVO> product_list = service.typing_search(search);
+		int product_count = service.typing_searchCount(search);
+		model.addAttribute("product_list", product_list);
+		model.addAttribute("product_count", product_count);
+		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
+	}
+	
 	
 
 }

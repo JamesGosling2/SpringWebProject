@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,6 +13,7 @@ import util.Common;
 public class MainController {
     @RequestMapping("/")
     public String mainofmain(){
+    	System.out.println("main");
         return Common.Main.VIEW_PATH+"main_of_main.jsp";
     } // main of main()
 
@@ -20,7 +24,7 @@ public class MainController {
     
     @RequestMapping("/buy.do")
     public String buy() {
-    	return Buy.BUY;
+    	return Buy.PAY;
     }
 
 

@@ -39,14 +39,13 @@
             href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
             rel="stylesheet">
 
+
     <!-- Template Main CSS File -->
-    <link href="${pageContext.request.contextPath}/resources/css/fullview_css/main.css" rel="stylesheet">
+    <link
+            href="${pageContext.request.contextPath}/resources/css/fullview_css/main.css"
+            rel="stylesheet">
 
 </head>
-<body>
-<!-- ======= Header ======= -->
-<jsp:include page="../main/header.jsp"></jsp:include>
-
 <body>
 <c:if test="${isUser1 ne null}">
     <!-- Button trigger modal -->
@@ -75,6 +74,9 @@
         </div>
     </div>
 </c:if>
+
+<!-- ======= Header ======= -->
+<jsp:include page="../main/header.jsp"></jsp:include>
 
 <main id="main" class="main">
     <div class="head">
@@ -188,6 +190,8 @@
                             <option value="중간">중간</option>
                             <option value="강한">강한</option>
                         </div>
+                    </div>
+
                 </td>
 
                 <!-- 바디감 -->
@@ -203,17 +207,26 @@
                             <option value="중간">중간</option>
                             <option value="강한">강한</option>
                         </div>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input class="search_btn" type="button" value="검색" onclick="search();">
+                    </div>
+
                 </td>
 
             </tr>
         </table>
 
-        <input type="button" value="검색" onclick="search();">
+        <form>
+            <div align="right" class="right">
 
-        <div align="right" class="right">
-            <input class="search" type="search" placeholder="검색어를 입력해주세요">
-            <input class="search_button" type="button" value="search">
-        </div>
+                <input name="search" class="search" type="search" placeholder="검색어를 입력해주세요">
+                <input name="search_btn" class="search_button" type="button" value="search"
+                       onclick="typing_search(this.form);">
+            </div>
+        </form>
     </div>
 
     <div class="head">
@@ -224,47 +237,45 @@
 
 
     <!-- Full view -->
-    <table>
-        <tr>
-            <c:forEach var="list" items="${ product_list }" varStatus="status">
-            <c:if test="${status.index%5==0}">
-        </tr>
-        <tr>
-            </c:if>
-            <td><a href="detailview.do?product_idx=${ list.product_idx }">
-                <article class="allcard">
-                    <img class="card__background"
-                         <%-- 이클립스 --%>
-                         <%--src="/alcohol/resources/alcohol_image/${ list.product_thumbnail_filename }"--%>
-                         <%-- 인텔리제이 --%>
-                         src="${pageContext.request.contextPath}/resources/alcohol_image/${ list.product_thumbnail_filename }"
-                         alt="${ list.product_name }" width="1920" height="2193"/>
-                    <div class="card__content | flow">
-                        <div class="card__content--container | flow">
-                            <h2 class="card__title">${ list.product_name }</h2>
-                            <p class="card__description">${ list.product_simple_content }
-                            </p>
+    <div class="intinite">
+        <table>
+            <tr>
+                <c:forEach var="list" items="${ product_list }" varStatus="status">
+                <c:if test="${status.index%5==0}">
+            </tr>
+            <tr>
+                </c:if>
+                <td><a href="detailview.do?product_idx=${ list.product_idx }">
+                    <article class="allcard">
+                        <img class="card__background"
+                             src="${pageContext.request.contextPath}/resources/alcohol_image/${ list.product_thumbnail_filename }"
+                             alt="${ list.product_name }" width="1920" height="2193"/>
+                        <div class="card__content | flow">
+                            <div class="card__content--container | flow">
+                                <h2 class="card__title">${ list.product_name }</h2>
+                                <p class="card__description">${ list.product_simple_content }
+                                </p>
+                            </div>
                         </div>
+                    </article>
+
+                    <div class="product">
+                        <h3 class="h3">${ list.product_name }</h3>
+                        <h4 class="h4">
+                            <span class="full">${ list.product_price }</span>원
+                        </h4>
+                        <hr>
                     </div>
-                </article>
-
-                <div class="product">
-                    <h3 class="h3">${ list.product_name }</h3>
-                    <h4 class="h4">
-                        <span class="full">${ list.product_price }</span>원
-                    </h4>
-                    <hr>
-                </div>
-            </a></td>
-            </c:forEach>
-        </tr>
-    </table>
-
+                </a></td>
+                </c:forEach>
+            </tr>
+        </table>
+    </div>
 </main>
 <!-- End #main -->
 
-<!-- ======= Footer ======= -->
 <jsp:include page="../main/footer.jsp"></jsp:include>
+<!-- End Footer -->
 
 <a href="#"
    class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -285,6 +296,14 @@
 <script>
     var txt = "";
     var servlet = "";
+    var select = [];
+    var pt = "";
+    var pad = "";
+    var pp = "";
+    var wr = "";
+    var sr = "";
+    var pr = "";
+    var pbr = "";
 
     function text(param) {
         if (param == '주종') {
@@ -302,6 +321,7 @@
         } else if (param == '바디감') {
             txt = "바디감";
         }
+
 
         Array.prototype.search = function (elem) {
             for (var i = 0; i < this.length; i++) {
@@ -428,6 +448,7 @@
             },
 
             setSelectionsString: function () {
+
                 var selects = this.getSelectionsString().split(", ");
                 $(this.selector + ".multiselect > .title").attr("title",
                     selects);
@@ -437,6 +458,7 @@
                 if (selects.length > 6) {
                     var _selects = this.getSelectionsString().split(", ");
                     _selects = _selects.splice(0, 6);
+                    alert(_selects);
                     $(this.selector + ".multiselect > .title > .text")
                         .text(_selects + " [...]");
                 } else {
@@ -475,8 +497,72 @@
                 } else if (txt == "바디감") {
                     menu = "product_bodytaste_rating";
                 }
-                servlet += "&" + menu + "=" + this.selections[this.selections.length - 1];
 
+
+                select = this.selections;
+
+                if (txt == "주종") {
+                    menu = "product_type";
+                    if (select != null) {
+                        pt = "";
+                        for (var i = 0; i < select.length; i++) {
+                            pt += "&product_type=" + select[i];
+                        }
+                    }
+                    //alert(pt);
+
+                } else if (txt == "도수") {
+                    menu = "product_alcohol_degree";
+                    if (select != null) {
+                        pad = "";
+                        for (var i = 0; i < select.length; i++) {
+                            pad += "&product_alcohol_degree=" + select[i];
+                        }
+                    }
+
+                } else if (txt == "가격") {
+                    menu = "product_price"
+                    if (select != null) {
+                        pp = "";
+                        for (var i = 0; i < select.length; i++) {
+                            pp += "&product_price=" + select[i];
+                        }
+                    }
+                } else if (txt == "단맛") {
+                    menu = "product_sweet_rating";
+                    if (select != null) {
+                        wr = "";
+                        for (var i = 0; i < select.length; i++) {
+                            wr += "&product_sweet_rating=" + select[i];
+                        }
+                    }
+                } else if (txt == "신맛") {
+                    menu = "product_sourish_rating";
+                    if (select != null) {
+                        sr = "";
+                        for (var i = 0; i < select.length; i++) {
+                            sr += "&product_sourish_rating=" + select[i];
+                        }
+                    }
+                } else if (txt == "탄산") {
+                    menu = "product_sparkling_rating";
+                    if (select != null) {
+                        pr = "";
+                        for (var i = 0; i < select.length; i++) {
+                            pr += "&product_sparkling_rating=" + select[i];
+                        }
+                    }
+                } else if (txt == "바디감") {
+                    menu = "product_bodytaste_rating";
+                    if (select != null) {
+                        pbr = "";
+                        for (var i = 0; i < select.length; i++) {
+                            pbr += "&product_bodytaste_rating=" + select[i];
+                        }
+                    }
+                }
+
+                servlet = pt + pad + pp + wr + sr + pr + pbr;
 
                 //alert(servlet);
 
@@ -484,9 +570,11 @@
             },
 
             getSelectionsString: function () {
-                if (this.selections.length > 0)
+
+                if (this.selections.length > 0) {
+
                     return this.selections.join(", ");
-                else
+                } else
                     return txt;
             },
 
@@ -499,6 +587,7 @@
                 this.selections = arr;
                 this.selectionStatus();
                 this.setSelectionsString();
+
             },
         };
 
@@ -536,7 +625,23 @@
     };
 
     function search() {
+
+        //lert(select);
+
         location.href = "search.do?" + servlet;
+    }
+
+    function typing_search(f) {
+        let search = f.search.value;
+
+        if (search == null || search.trim() == "") {
+            alert("검색어를 입력해주세요");
+        } else {
+            f.action = "typing_search.do";
+            f.submit();
+
+        }
+
     }
 
 

@@ -41,7 +41,17 @@ public class FullViewService {
 		int product_count = fullview_dao.selectSearchCount(vo);
 		return product_count;
 	}
-
 	
+	public List<FullViewVO> typing_search(String search){
+		List<FullViewVO> list = fullview_dao.typing_search(search);
+		return list;
+	}
+	
+	public int typing_searchCount(String search) {
+		int product_count = fullview_dao.typing_searchCount(search);
+		return product_count;
+	}
+
+
 
 }

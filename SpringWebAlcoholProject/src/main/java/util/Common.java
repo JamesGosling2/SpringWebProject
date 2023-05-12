@@ -32,5 +32,21 @@ public class Common {
 	public static class Review{
 		public static final String VIEW_PATH = "/WEB-INF/views/review/";
 	}
+	
+	public static class Event{
+		public static final String VIEW_PATH = "/WEB-INF/views/event/";
+	}
+
+	public static class Board{
+		public static final String VIEW_PATH = "/WEB-INF/views/board_view/";
+
+		// 한 페이지에 보여줄 게시글 갯수
+		public final static int BLOCKLIST = 5;
+
+		// 한 화면에 보여질 페이지 메뉴 수
+		// < 1 2 3 >
+		public final static int BLOCKPAGE = 3;
+
+	} // end of Board class
 
 } // end of class
