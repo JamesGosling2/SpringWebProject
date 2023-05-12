@@ -168,6 +168,15 @@ public class FullViewDAO {
 		return product_count;
 	}
 	
+	public int insert(FullViewVO vo) {
+		int i = sqlSession.insert("p.product_insert", vo);
+		return i;
+	}
+	
+    public int delete(int product_idx) {
+    	int i = sqlSession.delete("p.product_delete", product_idx);
+    	return i;
+    }
 	
 	
 	

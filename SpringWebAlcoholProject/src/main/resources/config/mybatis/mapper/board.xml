@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="b">
+<mapper namespace="b2">
 	<select id="board_list1" resultType="vo.BoardVO">
 		select b.*, u.user1_name from board1 b inner join user1 u on b.user1_idx = u.user1_idx
 	</select>

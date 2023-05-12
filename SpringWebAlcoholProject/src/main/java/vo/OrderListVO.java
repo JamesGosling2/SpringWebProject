@@ -1,16 +1,30 @@
 package vo;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 public class OrderListVO {
 	private int orderlist_idx,orderlist_status,product_idx,product_amount,user_idx,product_price;
-	private String orderlist_addr;
-	private Date orderlist_date;
+	private String orderlist_addr,orderlist_phonenumber;
+	private Timestamp orderlist_date;
+	private UUID pay_id;
+	public UUID getPay_id() {
+		return pay_id;
+	}
+	public void setPay_id(UUID pay_id) {
+		this.pay_id = pay_id;
+	}
+	public String getOrderlist_phonenumber() {
+		return orderlist_phonenumber;
+	}
+	public void setOrderlist_phonenumber(String orderlist_phonenumber) {
+		this.orderlist_phonenumber = orderlist_phonenumber;
+	}
 	
-	public Date getOrderlist_date() {
+	public Timestamp getOrderlist_date() {
 		return orderlist_date;
 	}
-	public void setOrderlist_date(Date orderlist_date) {
+	public void setOrderlist_date(Timestamp orderlist_date) {
 		this.orderlist_date = orderlist_date;
 	}
 	public int getProduct_price() {
@@ -56,6 +70,4 @@ public class OrderListVO {
 	public void setOrderlist_addr(String orderlist_addr) {
 		this.orderlist_addr = orderlist_addr;
 	}
-	
-
 }

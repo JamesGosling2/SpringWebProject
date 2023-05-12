@@ -161,21 +161,23 @@ function fixProducerName(){
     var idxs=[];
     const url = "findProdcerName.do";
     var names;
+   	    	
     producerNames.forEach((producerName) => {
         idxs.push(parseInt(producerName.innerHTML));
     });
-    let data= { idxs: idxs };
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const names = JSON.parse(xhr.responseText);
-        producerNames.forEach((producerName, idx) => {
-            producerName.innerHTML = names[idx];
-        });
-      }
-    };
+	    let data= { idxs: idxs };
+	    const xhr = new XMLHttpRequest();
+	    xhr.open("POST", url);
+	    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    xhr.onreadystatechange = function() {
+	    	if (xhr.readyState === 4 && xhr.status === 200) {
+	        	const names = JSON.parse(xhr.responseText);
+	        	producerNames.forEach((producerName, idx) => {
+	            	producerName.innerHTML = names[idx];
+	        	});
+	    	}
+	    };
+    
     xhr.send(JSON.stringify(data));
 }
 </script>
@@ -207,15 +209,16 @@ function fixProducerName(){
 			</div>
 		</div>
 	</c:if>
+	
 	<!-- ======= Header ======= -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
-	
+
 	<!-- ======= main ======= -->
 	<c:set var="producer" value="999999" />
 	<main id="main" class="main">
 		<section id="blog" class="blog">
 			<div class="row g-5">
-				<form name="ff" id="cart" action="buy_readys.do" method="get">
+				<form name="ff" id="cart" action="pay_readys.do" method="post">
 					<input type="hidden" name="cost">
 					<c:forEach var="carts" items="${cart_in}">
 						<c:if test="${producer ne carts.producer_idx}">
@@ -283,15 +286,15 @@ function fixProducerName(){
 							<table style="width: 100%;">
 								<tr>
 									<td>총 상품금액</td>
-									<td id="totPrice" class="rights"></td>
+									<td id="totPrice" class="rights">0</td>
 								</tr>
 								<tr>
 									<td>총 배송비</td>
-									<td id="totDeliv" class="rights"></td>
+									<td id="totDeliv" class="rights">0</td>
 								</tr>
 								<tr>
 									<td>총 금액</td>
-									<td id="totCost" class="rights"></td>
+									<td id="totCost" class="rights">0</td>
 								</tr>
 							</table>
 							<div class="shopping">
@@ -311,6 +314,8 @@ function fixProducerName(){
 
 	<script
 		src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/detailview_js/main.js"></script>
 	<!-- Vendor JS Files -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

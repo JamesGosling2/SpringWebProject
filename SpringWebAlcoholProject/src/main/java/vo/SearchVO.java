@@ -3,9 +3,19 @@ package vo;
 import java.util.ArrayList;
 
 public class SearchVO {
-	
-	private ArrayList<String> product_type, product_alcohol_degree, product_price, product_sweet_rating, 
-							  product_sourish_rating, product_sparkling_rating, product_bodytaste_rating;
+
+	private ArrayList<String> product_type, product_alcohol_degree, product_price, product_sweet_rating,
+			product_sourish_rating, product_sparkling_rating, product_bodytaste_rating;
+
+	private String producer_name;
+
+	public String getProducer_name() {
+		return producer_name;
+	}
+
+	public void setProducer_name(String producer_name) {
+		this.producer_name = producer_name;
+	}
 
 	public ArrayList<String> getProduct_type() {
 		return product_type;
@@ -47,7 +57,6 @@ public class SearchVO {
 		this.product_sourish_rating = product_sourish_rating;
 	}
 
-
 	public ArrayList<String> getProduct_bodytaste_rating() {
 		return product_bodytaste_rating;
 	}
@@ -63,7 +72,5 @@ public class SearchVO {
 	public void setProduct_sparkling_rating(ArrayList<String> product_sparkling_rating) {
 		this.product_sparkling_rating = product_sparkling_rating;
 	}
-
-	
 
 }
