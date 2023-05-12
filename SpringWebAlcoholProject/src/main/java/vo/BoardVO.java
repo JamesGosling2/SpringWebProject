@@ -3,9 +3,17 @@ package vo;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardVO {
-    private int board1_idx, user1_idx, board1_readhit, board1_ref, board1_step, board1_depth;
+    private int board1_idx, user1_idx, board1_readhit, board1_ref, board1_step, board1_depth, board1_del_info;
     private String board1_content, board1_subject, board1_regdate, board1_filename;
     private MultipartFile board1_photo;
+
+    public int getBoard1_del_info() {
+        return board1_del_info;
+    }
+
+    public void setBoard1_del_info(int board1_del_info) {
+        this.board1_del_info = board1_del_info;
+    }
 
     public int getBoard1_idx() {
         return board1_idx;

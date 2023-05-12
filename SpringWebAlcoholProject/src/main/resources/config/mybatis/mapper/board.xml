@@ -12,11 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="board_page_select1" parameterType="java.util.HashMap" resultType="vo.BoardVO">
-		select b.*, u.* from ( select RANK() OVER(order by board1_idx desc) no, b.* from board1 b) b inner join user1 u on b.user1_idx = u.user1_idx where (no between #{ start } AND #{ end }) and (b.board1_idx = b.board1_ref)
+		select b.*, u.* from ( select RANK() OVER(order by board1_idx desc) no, b.* from board1 b where b.board1_idx = b.board1_ref) b inner join user1 u on b.user1_idx = u.user1_idx where (no between #{ start } AND #{ end }) and (b.board1_idx = b.board1_ref)
 	</select>
 
 	<select id="board_page_select2" parameterType="java.util.HashMap" resultType="vo.UserVO">
-		select b.*, u.* from ( select RANK() OVER(order by board1_idx desc) no, b.* from board1 b) b inner join user1 u on b.user1_idx = u.user1_idx where (no between #{ start } AND #{ end }) and (b.board1_idx = b.board1_ref)
+		select b.*, u.* from ( select RANK() OVER(order by board1_idx desc) no, b.* from board1 b where b.board1_idx = b.board1_ref) b inner join user1 u on b.user1_idx = u.user1_idx where (no between #{ start } AND #{ end }) and (b.board1_idx = b.board1_ref)
 	</select>
 
 	<select id="board_count" parameterType="java.util.HashMap" resultType="int">
@@ -34,7 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                          #{board1_step},
 		                          #{board1_depth},
 		                          #{user1_idx},
-		                          #{board1_filename}
+		                          #{board1_filename},
+		                          0
 								 )
 	</insert>
 	
@@ -65,7 +66,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									  #{board1_step},
 									  #{board1_depth},
 									  #{user1_idx},
-									  #{board1_filename}
+									  #{board1_filename},
+		                           	  0
 								  )
 	</insert>
 
@@ -82,4 +84,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						  where board1_idx = #{board1_idx}
 	</update>
 
+	<select id="board_reply_select1" parameterType="int" resultType="vo.BoardVO">
+		select b.*, u.* from board1 b inner join user1 u on b.user1_idx = u.user1_idx where board1_ref = #{board1_ref} and board1_idx != board1_ref order by board1_step
+	</select>
+
+	<select id="board_reply_select2" parameterType="int" resultType="vo.UserVO">
+		select b.*, u.* from board1 b inner join user1 u on b.user1_idx = u.user1_idx where board1_ref = #{board1_ref} and board1_idx != board1_ref order by board1_step
+	</select>
+
+	<update id="board_delete" parameterType="int">
+		update board1 set board1_del_info = -1 where board1_idx = #{board1_idx}
+	</update>
 </mapper>

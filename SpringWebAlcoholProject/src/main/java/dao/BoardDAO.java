@@ -85,5 +85,18 @@ public class BoardDAO {
         return res;
     } // end of modify()
 
+    public Map<String, Object> board_reply_selectMap(int board1_ref){
+        List<BoardVO> board_reply_list = sqlSession.selectList("b.board_reply_select1", board1_ref);
+        List<UserVO> user_list = sqlSession.selectList("b.board_reply_select2", board1_ref);
+        Map<String, Object> board_reply_map = new HashMap<String, Object>();
+        board_reply_map.put("board_reply_list", board_reply_list);
+        board_reply_map.put("user_list", user_list);
+        return board_reply_map;
+    } // end of board_reply_selectList()
+
+    public int board_delete(int board1_idx){
+        int res = sqlSession.update("b.board_delete", board1_idx);
+        return res;
+    } // end of board_delete()
 
 } // end of class

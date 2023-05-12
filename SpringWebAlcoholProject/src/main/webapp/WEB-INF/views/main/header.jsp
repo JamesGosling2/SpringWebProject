@@ -100,9 +100,9 @@
                     <%--<li><a href="fullview.do">전체상품</a></li>
                                        <li><a href="#">신상품</a></li>
                                        <li><a href="#">베스트</a></li>--%>
-                <li><a href="#">담화배송</a></li>
+                <%--<li><a href="#">담화배송</a></li>--%>
                 <li><a href="event.do">이벤트</a></li>
-                <li><a href="#">구독</a></li>
+                <%--<li><a href="#">구독</a></li>--%>
                 <li><a href="board_list.do">자유게시판</a></li>
 
 
@@ -146,7 +146,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="user_reviewList.do">
+                            <a class="dropdown-item" href="user_reviewList.do?user1_idx=${user1.user1_idx}">
                                 <span>리뷰 목록</span>
                             </a>
                         </li>

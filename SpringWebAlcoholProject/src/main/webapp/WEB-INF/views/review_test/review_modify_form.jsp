@@ -9,10 +9,6 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -97,29 +93,60 @@
                             <div class="card-body">
                                 <div class="card-title"></div>
                                 <textarea id="summernote" class="summernote" name="review_content">
-
-                            </textarea><!-- End Summernote Editor -->
+                                    ${review_vo.review_content}
+                                </textarea><!-- End Summernote Editor -->
                                 <span class="fw-bold text-success fs-4">상품 별점</span>
                                 <fieldset>
-                                    <input type="radio" name="review_rating" value="5" id="rate1"><label
-                                        for="rate1">★</label>
-                                    <input type="radio" name="review_rating" value="4" id="rate2"><label
-                                        for="rate2">★</label>
-                                    <input type="radio" name="review_rating" value="3" id="rate3"><label
-                                        for="rate3">★</label>
-                                    <input type="radio" name="review_rating" value="2" id="rate4"><label
-                                        for="rate4">★</label>
-                                    <input type="radio" name="review_rating" value="1" id="rate5"><label
-                                        for="rate5">★</label>
+                                    <c:if test="${review_vo.review_rating eq 5}">
+                                        <input type="radio" name="review_rating" value="5" id="rate1" checked><label
+                                            for="rate1">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating ne 5}">
+                                        <input type="radio" name="review_rating" value="5" id="rate1"><label
+                                            for="rate1">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating eq 4}">
+                                        <input type="radio" name="review_rating" value="4" id="rate2" checked><label
+                                            for="rate2">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating ne 4}">
+                                        <input type="radio" name="review_rating" value="4" id="rate2"><label
+                                            for="rate2">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating eq 3}">
+                                        <input type="radio" name="review_rating" value="3" id="rate3" checked><label
+                                            for="rate3">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating ne 3}">
+                                        <input type="radio" name="review_rating" value="3" id="rate3"><label
+                                            for="rate3">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating eq 2}">
+                                        <input type="radio" name="review_rating" value="2" id="rate4" checked><label
+                                            for="rate4">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating ne 2}">
+                                        <input type="radio" name="review_rating" value="2" id="rate4"><label
+                                            for="rate4">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating eq 1}">
+                                        <input type="radio" name="review_rating" value="1" id="rate5" checked><label
+                                            for="rate5">★</label>
+                                    </c:if>
+                                    <c:if test="${review_vo.review_rating ne 1}">
+                                        <input type="radio" name="review_rating" value="1" id="rate5"><label
+                                            for="rate5">★</label>
+                                    </c:if>
                                 </fieldset>
                                 <br>
                                 <input type="file" name="review_photo" id="review_photo">
                             </div>
                             <div class="card-footer text-end">
                                 <button class="btn btn-primary" onclick="send(this.form);">등록하기</button>
-                                <button class="btn btn-secondary" onclick="location.href='main.do'">취소</button>
+                                <button class="btn btn-secondary" onclick="location.href='user_reviewList.do?user1_idx=${user1.user1_idx}'">취소</button>
                             </div>
                         </div>
+                        <input type="hidden" name="review_idx" value="${review_vo.review_idx}">
                         <input type="hidden" name="product_idx" value="${product_vo.product_idx}">
                         <input type="hidden" name="user1_idx" value="${user1.user1_idx}">
                     </form>
@@ -176,6 +203,7 @@
     });
 
     function send(f){
+        // alert("실행됨")
         let review_content = f.review_content.value;
         let review_rating = f.review_rating.value;
         let review_photo = f.review_photo.value;
@@ -197,10 +225,9 @@
         }*/
 
         f.method = "post";
-        f.action = "review_insert.do";
+        f.action = "review_modify.do";
         f.submit();
     } // end of send()
-
 
 </script>
 </body>
