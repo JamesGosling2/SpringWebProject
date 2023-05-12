@@ -39,9 +39,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectProductName" resultType="String">
 		select product_name from product where product_idx=#{product_idx}
 	</select>
-	<select id="selectdate" resultType="orderlist">
+	<!--<select id="selectdate" resultType="orderlist">
 		SELECT DISTINCT orderlist_date, pay_id FROM order_list WHERE user_idx = #{user_idx}
-	</select>
+	</select>-->
 	<select id="selectOrder" parameterType="orderlist" resultType="orderlist">
 		select * from order_list where orderlist_date=#{orderlist_date} AND user_idx=#{user_idx}
 	</select>
@@ -55,13 +55,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		orderlist_phonenumber=#{orderlist_phonenumber}
 		where orderlist_idx=#{orderlist_idx}
 	</update>
-	<update id="updateOrderPaid" parameterType="orderlist">
+	<!--<update id="updateOrderPaid" parameterType="orderlist">
 		update order_list set
 		orderlist_status=2,
 		pay_id=#{pay_id},
 		orderlist_date=#{orderlist_date}
 		where orderlist_idx=#{orderlist_idx}
-	</update>
+	</update>-->
 </mapper>
 
 

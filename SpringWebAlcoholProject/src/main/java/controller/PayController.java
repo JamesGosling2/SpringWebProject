@@ -1,39 +1,28 @@
 package controller;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.OffsetDateTime;
-import java.util.Base64;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import dao.BuyDAO;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-
-import dao.BuyDAO;
 import util.Buy;
 import util.NicePayKey;
 import vo.OrderListVO;
 import vo.UserVO;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+import java.util.*;
 
 @Controller
 public class PayController implements Buy, NicePayKey {
@@ -47,6 +36,8 @@ public class PayController implements Buy, NicePayKey {
 	public String cancelDemo() {
 		return "/cancel";
 	}
+
+
 
 	@RequestMapping("/bill.do")
 	public String Bill(HttpServletRequest request, HttpServletResponse response, Model model) {
