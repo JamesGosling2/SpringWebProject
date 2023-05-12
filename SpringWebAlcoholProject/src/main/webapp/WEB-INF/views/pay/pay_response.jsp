@@ -44,119 +44,16 @@
 .lefts {
 	text-align: left;
 }
+
+.card {
+	margin-bottom: 10px;
+}
 </style>
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-window.onload = function(){
-	const cards = document.querySelectorAll('.card');
-	fixProducerName();
-	calCardTotal();
-	cards.forEach((cards) => {
-		const product = cards.querySelectorAll('.product');
-		
-		product.forEach((product)=>{
-			const amountVal = product.querySelector('.amount');
-			const price = product.querySelector('.price');
-			const checkbox = product.querySelector('.buy');
-			const removeEle = product.querySelector('.removeEle');
-			const idx = product.querySelector('.idx');
-			let amount = parseInt(amountVal.innerHTML);
-			const priceOne = parseInt(price.innerHTML)/amount;
-			
-
-
-			removeEle.addEventListener('click',()=>{
-				var idx = product.querySelector('.idx').value;
-				removeElem(idx);
-				product.remove();
-				calCardTotal();
-			});
-		});				
-	});
-}
-function fixAmount(amount,idx){
-	var url="fixAmount.do";
-	var param="idx="+idx+"&amount="+amount;
-	sendRequest(url,param,(response)=>{},"GET");
-}
-
-function calCardTotal(){
-	const cards = document.querySelectorAll('.card');
-	cards.forEach((cards) => {
-		const product = cards.querySelectorAll('.product');
-		const totPrice = cards.querySelector('.totPrice');
-		const deliveryFee = cards.querySelector('.deliveryFee');
-		const totCost = cards.querySelector('.totCost');
-		let totprice=0;
-		product.forEach((product)=>{
-			const checkbox = product.querySelector('.buy');
-			const price = product.querySelector('.price');
-			if(checkbox.checked)
-				totprice+=parseInt(price.innerHTML);
-		});
-		totPrice.innerHTML=totprice;
-		if(totprice==0){
-			deliveryFee.innerHTML=0;
-			totCost.innerHTML=0;
-		}else{
-			deliveryFee.innerHTML=3000;
-			totCost.innerHTML=totprice+3000;
-		}
-	});
-	calTotal();
-}
-
-function calTotal(){
-	const totPrice = document.querySelectorAll('.totPrice');
-	const deliveryFee = document.querySelectorAll('.deliveryFee');
-	const totCost = document.querySelectorAll('.totCost');
-	var price=0;
-	var fee=0;
-	var cost=0;
 	
-	totPrice.forEach((tot)=>{
-		price+=parseInt(tot.innerHTML);	
-	});
-	deliveryFee.forEach((tot)=>{
-		fee+=parseInt(tot.innerHTML);	
-	});
-	cost=price+fee;
-	document.getElementById("totPrice").innerHTML=price;
-	document.getElementById("totDeliv").innerHTML=fee;
-	document.getElementById("totCost").innerHTML=cost;
-	document.ff.cost.value=cost;
-}
-
-function removeElem(idx){
-	var url="remove_cart_in.do";
-	var param="idx="+idx;
-	sendRequest(url,param,(response)=>{},"GET");
-}
-
-function fixProducerName(){
-    const producerNames = document.querySelectorAll('.producer_name');
-    var idxs=[];
-    const url = "findProdcerName.do";
-    var names;
-    producerNames.forEach((producerName) => {
-        idxs.push(parseInt(producerName.innerHTML));
-    });
-    let data= { idxs: idxs };
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const names = JSON.parse(xhr.responseText);
-        producerNames.forEach((producerName, idx) => {
-            producerName.innerHTML = names[idx];
-        });
-      }
-    };
-    xhr.send(JSON.stringify(data));
-}
 </script>
 
 </head>
@@ -190,30 +87,58 @@ function fixProducerName(){
 	<jsp:include page="../main/header.jsp"></jsp:include>
 
 	<!-- ======= main ======= -->
-	<c:set var="producer" value="999999" />
-	<main id="main" class="main">
-		<section id="blog" class="blog">
 
-			<c:forEach var="carts" items="${cart}">
-				<c:if test="${producer ne carts.producer_idx}">
-					<c:set var="producer" value="${carts.producer_idx}" />
-					<div class="card">
-						<div class="card-body producer_name">${producer}</div>
-						<hr>
-						<c:forEach var="cart" items="${cart_in}">
-							
-											<img style="width: 53px; height: 68px;"
-												src="${pageContext.request.contextPath}/resources/alcohol_image/${cart.cart.product_thumbnail_filename}">
-		
-						</c:forEach>
+	<main id="main" class="main">
+		<section id="blog" class="blog" style="text-align:center;">
+			<!-- CartVO carts
+	String name, id;
+	private int cost;
+	boolean isPaid;
+	List<OrderListVO> cart; -->
+			<c:forEach var="cart" items="${carts}">
+				<c:set var="producer" value="99999999" />
+				<form class="card" style="width: 720px;">
+					<input type="hidden">
+					<div class="card-body">
+						<p>${cart.name}</p>
+						<p>총 가격 ${cart.cost}원 입니다.</p>
 					</div>
-				</c:if>
+					<c:if test="${!cart.isPaid}">
+						<button class="btn btn-primary"
+							onclick="cancelCart('${cart.cart.get(0).orderlist_date}');">구매 취소</button>
+					</c:if>
+					<hr>
+					<c:forEach var="cart_in" items="${cart.cart}">
+						<c:if
+							test="${producer ne products[cart_in.product_idx].producer_idx}">
+							<c:set var="producer"
+								value="${products[cart_in.product_idx].producer_idx}" />
+							<div class="card-body">
+								<div>${producers[producer].producer_name}</div>
+							</div>
+							<div class="card-body row row-col-3">
+								<c:forEach var="item" items="${cart.cart}">
+									<c:set var="item_idx" value="${item.product_idx}" />
+									<c:if test="${producer eq products[item_idx].producer_idx}">
+										<div class="col">
+											<p>${products[item_idx].product_name}</p>
+											<img style="height: 200px;"
+												src="${pageContext.request.contextPath}/resources/alcohol_image/${products[item_idx].product_thumbnail_filename}">
+
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</c:if>
+					</c:forEach>
+				</form>
 			</c:forEach>
 		</section>
 	</main>
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
-
+	<script
+		src="${pageContext.request.contextPath}/resources/js/buy/buy_response.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>
 	<script

@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.BuyDAO;
+import dao.DetailViewDAO;
 import util.Buy;
 import util.NicePayKey;
 import vo.CartVO;
 import vo.FullViewVO;
 import vo.OrderListVO;
+import vo.ProducerVO;
 import vo.UserVO;
 
 @Controller
@@ -38,6 +41,9 @@ public class BuyController implements Buy, NicePayKey {
 
 	@Autowired
 	BuyDAO buydao;
+
+	@Autowired
+	DetailViewDAO productDao;
 
 	@RequestMapping("/buy_product.do")
 	@ResponseBody
@@ -60,7 +66,7 @@ public class BuyController implements Buy, NicePayKey {
 			if (item.getProduct_idx() == idx) {
 				cart.remove(item);
 				item.setProduct_amount(amount);
-				item.setProduct_price(price/amount);
+				item.setProduct_price((price - 3000) / amount);
 				cart.add(item);
 				isExist = true;
 				break;
@@ -70,7 +76,7 @@ public class BuyController implements Buy, NicePayKey {
 			OrderListVO cart_input = new OrderListVO();
 			cart_input.setProduct_idx(idx);
 			cart_input.setProduct_amount(amount);
-			cart_input.setProduct_price(price/amount);
+			cart_input.setProduct_price(price / amount);
 			cart.add(cart_input);
 		}
 		session.setAttribute("cart", cart);
@@ -155,12 +161,11 @@ public class BuyController implements Buy, NicePayKey {
 			item.setOrderlist_date(date);
 			item.setProduct_amount(amount);
 			item.setProduct_idx(idx);
-			item.setProduct_price(price/amount);
+			item.setProduct_price((price - 3000) / amount);
 			item.setOrderlist_addr(user.getUser1_addr());
 			item.setOrderlist_phonenumber(user.getUser1_phonenumber());
 			cart.add(item);
 			buydao.insertOrder(cart);
-			session.removeAttribute("cart");
 			model.addAttribute("date", date);
 			model.addAttribute("size", cart.size());
 			model.addAttribute("name", buydao.selectProduct(idx).getProducer_name());
@@ -224,7 +229,7 @@ public class BuyController implements Buy, NicePayKey {
 		vo.setOrderlist_addr(user1_addr);
 		vo.setOrderlist_status(1);
 		vo.setOrderlist_phonenumber(user1_phonenumber);
-		List<OrderListVO> cart = buydao.selectOrderList(orderdate,user.getUser1_idx());
+		List<OrderListVO> cart = buydao.selectOrderList(orderdate, user.getUser1_idx());
 		for (int i = 0; i < cart.size(); i++) {
 			OrderListVO item = cart.get(i);
 			vo.setOrderlist_idx(item.getOrderlist_idx());
@@ -237,30 +242,84 @@ public class BuyController implements Buy, NicePayKey {
 
 		}
 	}
-	
+
 	@RequestMapping("pay_list.do")
 	public String pay_list(HttpServletRequest request, Model model) {
-		HttpSession session= request.getSession();
+		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("user1");
-		List<OrderListVO> dates = buydao.selectDate(user.getUser1_idx());
-		Map<Timestamp, CartVO> cart = new HashMap<Timestamp, CartVO>();
-		
-		for (OrderListVO OL : dates) {
-			CartVO vo = new CartVO();
-			vo.setCart(buydao.selectOrderList(OL.getOrderlist_date(), user.getUser1_idx()));
-			vo.setName(buydao.selectProductName(vo.getCart().get(0).getProduct_idx()));
-			
-			int cost=0;
-			for (OrderListVO cal : vo.getCart()) {
-				cost+=cal.getProduct_price()*cal.getProduct_amount();
+		int idx = user.getUser1_idx();
+		List<OrderListVO> dates = buydao.selectDate(idx);
+		if (dates.size() != 0) {
+			List<CartVO> cart = new ArrayList<CartVO>();
+			Map<Integer, FullViewVO> products = new HashMap<Integer, FullViewVO>();
+			Map<Integer, ProducerVO> producers = new HashMap<Integer, ProducerVO>();
+
+			for (OrderListVO OL : dates) {
+				CartVO vo = new CartVO();
+				vo.setCart(buydao.selectOrderList(OL.getOrderlist_date(), idx));
+				vo.setName(buydao.selectProductName(vo.getCart().get(0).getProduct_idx()).getProduct_name());
+				for (OrderListVO cal : vo.getCart()) {
+					products.put(cal.getProduct_idx(), productDao.selectOne(cal.getProduct_idx()));
+
+					int producer_idx = products.get(cal.getProduct_idx()).getProducer_idx();
+					producers.put(producer_idx, buydao.selectProducer(producer_idx));
+
+					if (!cal.getPay_id().equals("0")) {
+						vo.setId(cal.getPay_id());
+						vo.setIsPaid(true);
+					}
+				}
+
+				if (vo.getCart().size() > 1) {
+					vo.setName(vo.getName() + " 외 " + (vo.getCart().size() - 1) + "종");
+				}
+				Comparator<OrderListVO> comparator1 = new Comparator<OrderListVO>() {
+					@Override
+					public int compare(OrderListVO cart1, OrderListVO cart2) {
+						int idx1 = buydao.selectProduct(cart1.getProduct_idx()).getProducer_idx();
+						int idx2 = buydao.selectProduct(cart2.getProduct_idx()).getProducer_idx();
+						return Integer.compare(idx1, idx2); // 내림차순으로 변경
+					}
+				};
+				int cost = 0;
+				vo.sortCart(comparator1);
+				for (OrderListVO Ol : vo.getCart()) {
+					int producer_idx = 9999999;
+					if (Ol.getProduct_amount() != 0) {
+						cost += Ol.getProduct_price() * Ol.getProduct_amount();
+						int pd_idx = products.get(Ol.getProduct_idx()).getProducer_idx();
+						if (pd_idx != producer_idx) {
+							producer_idx = pd_idx;
+							cost += 3000;
+						}
+					}
+				}
+				vo.setCost(cost);
+				cart.add(vo);
 			}
-			if(vo.getCart().size()>1)
-				vo.setName(vo.getName()+" 외 "+(vo.getCart().size()-1)+"종");
-			vo.setCost(cost);
-			cart.put(OL.getOrderlist_date(), vo);
+
+			Comparator<CartVO> comparator2 = new Comparator<CartVO>() {
+				@Override
+				public int compare(CartVO cart1, CartVO cart2) {
+					Timestamp date1 = cart1.getCart().get(0).getOrderlist_date();
+					Timestamp date2 = cart2.getCart().get(0).getOrderlist_date();
+					return date2.compareTo(date1); // 내림차순으로 변경
+				}
+			};
+			cart.sort(comparator2);
+			model.addAttribute("carts", cart);
+			model.addAttribute("products", products);
+			model.addAttribute("producers", producers);
+
 		}
-		model.addAttribute("cart", cart);
-		
 		return PAY_RESPONSE;
+	}
+
+	@RequestMapping("removeBuy.do")
+	@ResponseBody
+	public void removeCart(Timestamp date, HttpServletResponse response, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user1");
+		buydao.deleteCart(date, user.getUser1_idx());
 	}
 }

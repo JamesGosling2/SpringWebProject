@@ -32,26 +32,19 @@ public class PayController implements Buy, NicePayKey {
 	private final RestTemplate restTemplate = new RestTemplate();
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
-	@RequestMapping(value = "/cancel")
-	public String cancelDemo() {
-		return "/cancel";
-	}
-
-
-
 	@RequestMapping("/bill.do")
 	public String Bill(HttpServletRequest request, HttpServletResponse response, Model model) {
-		
+
 		HttpSession session = request.getSession();
 		UUID id = UUID.fromString(request.getParameter("orderId"));
 		String resultCode = request.getParameter("resultCode");
 		Timestamp date = Timestamp.valueOf(request.getParameter("date"));
 		UserVO user = (UserVO) session.getAttribute("user1");
 		if (resultCode.equalsIgnoreCase("0000")) {
-			List<OrderListVO> pay_list=buydao.selectOrderList(date,user.getUser1_idx());
+			List<OrderListVO> pay_list = buydao.selectOrderList(date, user.getUser1_idx());
 			for (int i = 0; i < pay_list.size(); i++) {
-				Timestamp paidDate=Timestamp.from(OffsetDateTime.parse(request.getParameter("paidAt")).toInstant());
-				buydao.updateOrderlistPaid(pay_list.get(i).getOrderlist_idx(),id,paidDate);
+				Timestamp paidDate = Timestamp.from(OffsetDateTime.parse(request.getParameter("paidAt")).toInstant());
+				buydao.updateOrderlistPaid(pay_list.get(i).getOrderlist_idx(), id, paidDate);
 			}
 			// 결제 성공 비즈니스 로직 구현
 		} else {
@@ -59,13 +52,13 @@ public class PayController implements Buy, NicePayKey {
 		}
 
 		// 응답 request body 로그 확인
-		Enumeration<String> params = request.getParameterNames();
-
-		while (params.hasMoreElements()) {
-			String paramName = params.nextElement();
-			System.out.println(paramName + " : " + request.getParameter(paramName));
-			model.addAttribute(paramName, request.getParameter(paramName));
-		}
+//		Enumeration<String> params = request.getParameterNames();
+//
+//		while (params.hasMoreElements()) {
+//			String paramName = params.nextElement();
+//			System.out.println(paramName + " : " + request.getParameter(paramName));
+//			model.addAttribute(paramName, request.getParameter(paramName));
+//		}
 		try {
 			response.sendRedirect("pay_list.do");
 		} catch (IOException e) {
@@ -76,7 +69,8 @@ public class PayController implements Buy, NicePayKey {
 	}
 
 	@RequestMapping("/cancel.do")
-	public String requestCancel(@RequestParam String tid, @RequestParam String amount, Model model) throws Exception {
+	public String requestCancel(@RequestParam String tid, @RequestParam String amount, Model model,
+			HttpServletResponse response) throws Exception {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization",
@@ -106,6 +100,12 @@ public class PayController implements Buy, NicePayKey {
 			// 취소 실패 비즈니스 로직 구현
 		}
 
+		try {
+			response.sendRedirect("pay_list.do");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return PAY_RESPONSE;
 	}
 

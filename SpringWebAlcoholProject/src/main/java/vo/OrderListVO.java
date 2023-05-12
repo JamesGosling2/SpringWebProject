@@ -5,14 +5,17 @@ import java.util.UUID;
 
 public class OrderListVO {
 	private int orderlist_idx,orderlist_status,product_idx,product_amount,user_idx,product_price;
-	private String orderlist_addr,orderlist_phonenumber;
+	private String orderlist_addr,orderlist_phonenumber, pay_id;
 	private Timestamp orderlist_date;
-	private UUID pay_id;
-	public UUID getPay_id() {
+	
+	public String getPay_id() {
 		return pay_id;
 	}
-	public void setPay_id(UUID pay_id) {
+	public void setPay_id(String pay_id) {
 		this.pay_id = pay_id;
+	}
+	public void setPay_id(UUID pay_id) {
+		this.pay_id = pay_id.toString();
 	}
 	public String getOrderlist_phonenumber() {
 		return orderlist_phonenumber;

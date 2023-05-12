@@ -101,14 +101,12 @@ function buy(f) {
     if (check_user_phonenumber.test(user1_phonenumber) &&
         (user1_postcode != '') && (user1_detailAddress != '')) {
         f.setAttribute("onsubmit", "return true");
-        
     }
 
 } // end of buy()
 
 
 document.getElementById('buy_ready_form').addEventListener('submit', function(event) {
-	alert("asdf");
     event.preventDefault(); // prevent default form submission
     var formData = new FormData(this); // create FormData object
     var xhr = new XMLHttpRequest(); // create XMLHttpRequest object
@@ -130,9 +128,10 @@ function pay(){
 		orderId: document.getElementById('orderId').value,
 		amount: document.getElementById('cost').value,
 		goodsName: document.getElementById('user1_nickname').innerHTML,
-		returnUrl: 'http://localhost:9090/alcohol/bill.do',
+		returnUrl: 'http://localhost:9095/alcohol/bill.do',
 		fnError: function (result) {
 		alert('개발자확인용 : ' + result.errorMsg + '')
+		location.href="pay_list.do";
 		}
 	});
 }

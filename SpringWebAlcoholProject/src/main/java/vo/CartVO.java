@@ -1,28 +1,36 @@
 package vo;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 public class CartVO {
-	private String name;
+	
+	private String name, id;
 	private int cost;
-	private UUID id;
+	private boolean isPaid = false;
 	private List<OrderListVO> cart;
-	private boolean isPaid;
+	
+	public void sortCart(Comparator<OrderListVO> comparator) {
+		cart.sort(comparator);
+	}
+	
+	public void setPaid(boolean isPaid) {
+		this.isPaid = isPaid;
+	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public boolean isPaid() {
+	public boolean getIsPaid() {
 		return isPaid;
 	}
 
-	public void setPaid(boolean isPaid) {
+	public void setIsPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
 
