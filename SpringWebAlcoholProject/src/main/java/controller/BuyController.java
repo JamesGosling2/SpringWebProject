@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -197,6 +198,7 @@ public class BuyController implements Buy, NicePayKey {
 				item.setOrderlist_addr(user.getUser1_addr());
 				item.setOrderlist_phonenumber(user.getUser1_phonenumber());
 			}
+
 			buydao.insertOrder(cart);
 			session.removeAttribute("cart");
 			model.addAttribute("date", date);
@@ -214,6 +216,29 @@ public class BuyController implements Buy, NicePayKey {
 				e1.printStackTrace();
 			}
 		}
+		return PAY_READY;
+
+	}
+
+	@RequestMapping("/pay_ready.do")
+	public String Buying(int cost, @RequestBody CartVO cart, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		session.removeAttribute("cart");
+		model.addAttribute("date", cart.getCart().get(0).getOrderlist_date());
+		model.addAttribute("size", cart.getCart().size());
+		model.addAttribute("name", buydao.selectProduct(cart.getCart().get(0).getProduct_idx()).getProducer_name());
+		model.addAttribute("cost", cost);
+		model.addAttribute("clientId", CLIENT_ID);
+		model.addAttribute("orderId", UUID.randomUUID());
+
+		try {
+			response.sendRedirect("login.do");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 		return PAY_READY;
 
 	}
@@ -264,10 +289,16 @@ public class BuyController implements Buy, NicePayKey {
 					int producer_idx = products.get(cal.getProduct_idx()).getProducer_idx();
 					producers.put(producer_idx, buydao.selectProducer(producer_idx));
 
-					if (!cal.getPay_id().equals("0")) {
+					if (!cal.getPay_id().equals("1"))
 						vo.setId(cal.getPay_id());
-						vo.setIsPaid(true);
-					}
+				}
+
+				vo.setOrderlist_status(vo.getCart().get(0).getOrderlist_status());
+				if (vo.getOrderlist_status() < 2)
+					vo.setId(UUID.randomUUID().toString());
+				else {
+					vo.setId(vo.getCart().get(0).getPay_id());
+					vo.setTid(vo.getCart().get(0).getTid());
 				}
 
 				if (vo.getCart().size() > 1) {
@@ -307,6 +338,7 @@ public class BuyController implements Buy, NicePayKey {
 				}
 			};
 			cart.sort(comparator2);
+			model.addAttribute("clientID", CLIENT_ID);
 			model.addAttribute("carts", cart);
 			model.addAttribute("products", products);
 			model.addAttribute("producers", producers);

@@ -36,7 +36,8 @@ public class PayController implements Buy, NicePayKey {
 	public String Bill(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		HttpSession session = request.getSession();
-		UUID id = UUID.fromString(request.getParameter("orderId"));
+		String id = request.getParameter("orderId");
+		String tid = request.getParameter("tid");
 		String resultCode = request.getParameter("resultCode");
 		Timestamp date = Timestamp.valueOf(request.getParameter("date"));
 		UserVO user = (UserVO) session.getAttribute("user1");
@@ -44,7 +45,7 @@ public class PayController implements Buy, NicePayKey {
 			List<OrderListVO> pay_list = buydao.selectOrderList(date, user.getUser1_idx());
 			for (int i = 0; i < pay_list.size(); i++) {
 				Timestamp paidDate = Timestamp.from(OffsetDateTime.parse(request.getParameter("paidAt")).toInstant());
-				buydao.updateOrderlistPaid(pay_list.get(i).getOrderlist_idx(), id, paidDate);
+				buydao.updateOrderlistPaid(pay_list.get(i).getOrderlist_idx(), id, paidDate, tid);
 			}
 			// 결제 성공 비즈니스 로직 구현
 		} else {
@@ -52,6 +53,7 @@ public class PayController implements Buy, NicePayKey {
 		}
 
 		// 응답 request body 로그 확인
+
 //		Enumeration<String> params = request.getParameterNames();
 //
 //		while (params.hasMoreElements()) {
@@ -68,18 +70,17 @@ public class PayController implements Buy, NicePayKey {
 		return PAY_RESPONSE;
 	}
 
-	@RequestMapping("/cancel.do")
-	public String requestCancel(@RequestParam String tid, @RequestParam String amount, Model model,
-			HttpServletResponse response) throws Exception {
-
+	@RequestMapping("/refund.do")
+	public String requestCancel(@RequestParam String tid, String orderId,@RequestParam(defaultValue = "없음") String reason,
+			Model model, HttpServletResponse response) throws Exception {
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization",
 				"Basic " + Base64.getEncoder().encodeToString((CLIENT_ID + ":" + SECRET_KEY).getBytes()));
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		Map<String, Object> AuthenticationMap = new HashMap<String, Object>();
-		AuthenticationMap.put("amount", amount);
-		AuthenticationMap.put("reason", "test");
+		AuthenticationMap.put("reason", reason);
 		AuthenticationMap.put("orderId", UUID.randomUUID().toString());
 
 		HttpEntity<String> request = new HttpEntity<String>(objectMapper.writeValueAsString(AuthenticationMap),

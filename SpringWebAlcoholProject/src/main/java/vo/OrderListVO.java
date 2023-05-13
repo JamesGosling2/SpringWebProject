@@ -5,8 +5,15 @@ import java.util.UUID;
 
 public class OrderListVO {
 	private int orderlist_idx,orderlist_status,product_idx,product_amount,user_idx,product_price;
-	private String orderlist_addr,orderlist_phonenumber, pay_id;
+	private String orderlist_addr,orderlist_phonenumber, pay_id, tid;
 	private Timestamp orderlist_date;
+
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 	
 	public String getPay_id() {
 		return pay_id;

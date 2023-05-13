@@ -59,7 +59,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update order_list set
 		orderlist_status=2,
 		pay_id=#{pay_id},
-		orderlist_date=#{orderlist_date}
+		orderlist_date=#{orderlist_date},
+		tid=#{tid}
 		where orderlist_idx=#{orderlist_idx}
 	</update>
 	<delete id="deleteCart" parameterType="orderlist">

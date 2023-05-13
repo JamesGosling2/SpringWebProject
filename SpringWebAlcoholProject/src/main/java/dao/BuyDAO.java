@@ -51,11 +51,12 @@ public class BuyDAO {
 		return session.update("b.updateOrder",vo);
 		
 	}
-	public int updateOrderlistPaid(int orderlist_idx, UUID id, Timestamp paidDate) {
+	public int updateOrderlistPaid(int orderlist_idx, String id, Timestamp paidDate, String tid) {
 		OrderListVO vo= new OrderListVO();
 		vo.setOrderlist_idx(orderlist_idx);
 		vo.setPay_id(id);
 		vo.setOrderlist_date(paidDate);
+		vo.setTid(tid);
 		return session.update("b.updateOrderPaid",vo);
 		
 	}
