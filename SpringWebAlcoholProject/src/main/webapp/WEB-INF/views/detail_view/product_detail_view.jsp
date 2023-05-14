@@ -42,6 +42,7 @@ pageContext.setAttribute("LF", "\n");
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
+
 </head>
 
 <body>

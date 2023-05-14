@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -39,12 +40,13 @@ public class PayController implements Buy, NicePayKey {
 		String id = request.getParameter("orderId");
 		String tid = request.getParameter("tid");
 		String resultCode = request.getParameter("resultCode");
-		Timestamp date = Timestamp.valueOf(request.getParameter("date"));
+		
+		Timestamp date = (Timestamp)session.getAttribute("date");
 		UserVO user = (UserVO) session.getAttribute("user1");
 		if (resultCode.equalsIgnoreCase("0000")) {
 			List<OrderListVO> pay_list = buydao.selectOrderList(date, user.getUser1_idx());
 			for (int i = 0; i < pay_list.size(); i++) {
-				Timestamp paidDate = Timestamp.from(OffsetDateTime.parse(request.getParameter("paidAt")).toInstant());
+				Timestamp paidDate = Timestamp.from(OffsetDateTime.parse(request.getParameter("paidAt"),DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")).toInstant());
 				buydao.updateOrderlistPaid(pay_list.get(i).getOrderlist_idx(), id, paidDate, tid);
 			}
 			// 결제 성공 비즈니스 로직 구현
@@ -71,18 +73,20 @@ public class PayController implements Buy, NicePayKey {
 	}
 
 	@RequestMapping("/refund.do")
-	public String requestCancel(@RequestParam String tid, String orderId,@RequestParam(defaultValue = "없음") String reason,
-			Model model, HttpServletResponse response) throws Exception {
-		
+	public String requestCancel(@RequestParam String tid, String orderId,@RequestParam(defaultValue = "없음") String reason, Timestamp date,
+			Model model, HttpServletResponse response, HttpServletRequest requests) throws Exception {
+		UserVO user= (UserVO)requests.getSession().getAttribute("user1");
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization",
 				"Basic " + Base64.getEncoder().encodeToString((CLIENT_ID + ":" + SECRET_KEY).getBytes()));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-
+		if(reason.isBlank()) {
+			reason="없음";
+		}
 		Map<String, Object> AuthenticationMap = new HashMap<String, Object>();
 		AuthenticationMap.put("reason", reason);
 		AuthenticationMap.put("orderId", UUID.randomUUID().toString());
-
+		
 		HttpEntity<String> request = new HttpEntity<String>(objectMapper.writeValueAsString(AuthenticationMap),
 				headers);
 
@@ -96,6 +100,7 @@ public class PayController implements Buy, NicePayKey {
 		System.out.println(responseNode.toString());
 
 		if (resultCode.equalsIgnoreCase("0000")) {
+			buydao.updateOrderRefund(user.getUser1_idx(),date);
 			// 취소 성공 비즈니스 로직 구현
 		} else {
 			// 취소 실패 비즈니스 로직 구현

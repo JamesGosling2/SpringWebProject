@@ -19,6 +19,7 @@ import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -167,9 +168,10 @@ public class BuyController implements Buy, NicePayKey {
 			item.setOrderlist_phonenumber(user.getUser1_phonenumber());
 			cart.add(item);
 			buydao.insertOrder(cart);
+			
 			model.addAttribute("date", date);
 			model.addAttribute("size", cart.size());
-			model.addAttribute("name", buydao.selectProduct(idx).getProducer_name());
+			model.addAttribute("name", buydao.selectProduct(idx).getProduct_name());
 			model.addAttribute("cost", price);
 			model.addAttribute("clientId", CLIENT_ID);
 			model.addAttribute("orderId", UUID.randomUUID());
@@ -203,7 +205,7 @@ public class BuyController implements Buy, NicePayKey {
 			session.removeAttribute("cart");
 			model.addAttribute("date", date);
 			model.addAttribute("size", cart.size());
-			model.addAttribute("name", buydao.selectProduct(cart.get(0).getProduct_idx()).getProducer_name());
+			model.addAttribute("name", buydao.selectProduct(cart.get(0).getProduct_idx()).getProduct_name());
 			model.addAttribute("cost", cost);
 			model.addAttribute("clientId", CLIENT_ID);
 			model.addAttribute("orderId", UUID.randomUUID());
@@ -220,24 +222,17 @@ public class BuyController implements Buy, NicePayKey {
 
 	}
 
-	@RequestMapping("/pay_ready.do")
-	public String Buying(int cost, @RequestBody CartVO cart, HttpServletRequest request,
+	@RequestMapping(value = "pay_ready.do")
+	public String Buying(int cost, Timestamp date, String name, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		HttpSession session = request.getSession();
-
-		session.removeAttribute("cart");
-		model.addAttribute("date", cart.getCart().get(0).getOrderlist_date());
-		model.addAttribute("size", cart.getCart().size());
-		model.addAttribute("name", buydao.selectProduct(cart.getCart().get(0).getProduct_idx()).getProducer_name());
+		System.out.println(date);
+		request.setAttribute("date", date);
+		model.addAttribute("date", date);
+		model.addAttribute("size", 1);
+		model.addAttribute("name", name);
 		model.addAttribute("cost", cost);
 		model.addAttribute("clientId", CLIENT_ID);
 		model.addAttribute("orderId", UUID.randomUUID());
-
-		try {
-			response.sendRedirect("login.do");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 
 		return PAY_READY;
 
@@ -264,7 +259,6 @@ public class BuyController implements Buy, NicePayKey {
 			item.setOrderlist_status(1);
 			buydao.updateOrderList(vo);
 			cart.add(item);
-
 		}
 	}
 

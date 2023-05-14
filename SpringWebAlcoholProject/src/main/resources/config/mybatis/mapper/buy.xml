@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{product_price},
 		#{user_idx},
 		#{orderlist_phonenumber},
+		0,
 		0
 		)
 	</insert>
@@ -62,6 +63,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		orderlist_date=#{orderlist_date},
 		tid=#{tid}
 		where orderlist_idx=#{orderlist_idx}
+	</update>
+	<update id="updateRefund" parameterType="orderlist">
+		update order_list set
+		orderlist_status=9
+		where orderlist_date=#{orderlist_date} AND user_idx=#{user_idx}
 	</update>
 	<delete id="deleteCart" parameterType="orderlist">
 		delete from order_list where user_idx=#{user_idx} AND orderlist_date=#{orderlist_date}

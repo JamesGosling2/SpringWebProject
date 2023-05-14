@@ -73,4 +73,11 @@ public class BuyDAO {
 		vo.setUser_idx(user_idx);
 		return session.delete("b.deleteCart", vo);
 	}
+	public int updateOrderRefund(int user_idx, Timestamp date) {
+		OrderListVO vo = new OrderListVO();
+		vo.setOrderlist_date(date);
+		vo.setUser_idx(user_idx);
+		return session.update("b.updateRefund",vo);
+		
+	}
 }

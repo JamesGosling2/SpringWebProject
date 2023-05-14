@@ -52,9 +52,7 @@
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-	
-</script>
+
 
 </head>
 <body>
@@ -95,83 +93,99 @@
 	private int cost;
 	boolean isPaid;
 	List<OrderListVO> cart; -->
-			<c:forEach var="cart" items="${carts}">
-				<c:set var="producer" value="99999999" />
-				<div class="card" style="width: 720px;">
-					<input type="hidden">
-					<div class="card-body">
-						<p>${cart.name}</p>
-						<c:choose>
-							<c:if test="${cart.orderlist_status eq 9}">
-								<p>환불된 내역입니다.</p>
-								<button type="button" class="btn btn-primary"
-									onclick="cancelCart('${cart.cart.get(0).orderlist_date}',this);">삭제하기</button>
-							</c:if>
-							<c:when test="${cart.orderlist_status lt 2}">
-								<p>총 가격 ${cart.cost}원 입니다.</p>
-								<div class="btn-group">
-									<button
-										onclick="cancelCart('${cart.cart.get(0).orderlist_date}',this);"
-										type="button" class="btn btn-primary">구매 취소</button>
-									<form action="buy_ready.do" method="post">
-										<button onclick="pay('${cart}',this.form);">결제하기</button>
-										<input type="hidden" name="cost">
-										<input type="hidden" name="cart">
-									</form>
-
-
-								</div>
-							</c:when>
-							<c:when test="${cart.orderlist_status eq 2}">
-								<p>총 가격 ${cart.cost}원 결제 완료</p>
-								<form action="refund.do" method="POST">
-									<input type="hidden" name="tid" value="${cart.tid}"> <input
-										type="hidden" name="orderId" value="${cart.id}"> <input
-										name="reason" placeholder="환불 사유">
+			<div class="row row-col-3">
+				<c:forEach var="cart" items="${carts}">
+					<c:set var="producer" value="99999999" />
+					<div class="card col-4">
+						<input type="hidden">
+						<div class="card-body">
+							<p>${cart.name}</p>
+							<c:choose>
+								<c:when test="${cart.orderlist_status eq 9}">
+									<p>환불된 내역입니다.</p>
 									<button type="button" class="btn btn-primary"
-										onclick="this.form.submit();">환불하기</button>
-								</form>
-							</c:when>
-
-						</c:choose>
-					</div>
-					<hr>
-					<c:forEach var="cart_in" items="${cart.cart}">
-						<c:if
-							test="${producer ne products[cart_in.product_idx].producer_idx}">
-							<c:set var="producer"
-								value="${products[cart_in.product_idx].producer_idx}" />
-							<div class="card-body">
-								<div>${producers[producer].producer_name}</div>
-							</div>
-							<div class="card-body row row-col-3">
-								<c:forEach var="item" items="${cart.cart}">
-									<c:set var="item_idx" value="${item.product_idx}" />
-									<c:if test="${producer eq products[item_idx].producer_idx}">
-										<div class="col">
-											<p>${products[item_idx].product_name}</p>
-											<img style="height: 200px;"
-												src="${pageContext.request.contextPath}/resources/alcohol_image/${products[item_idx].product_thumbnail_filename}">
-											<p>${item.amount}개</p>
-											<p>${item.product_price}원</p>
-											<c:choose>
-												<c:when test="${item.orderlist_status eq 3}">
-													<div class="btn-group">
-														<button type="button" class="btn btn-primary">작성한
-															리뷰보기</button>
-														<button type="button" class="btn btn-primary">리뷰
-															작성하기</button>
-													</div>
-												</c:when>
-											</c:choose>
+										onclick="cancelCart('${cart.cart.get(0).orderlist_date}',this);">삭제하기</button>
+								</c:when>
+								<c:when test="${cart.orderlist_status lt 2}">
+									<script>
+										function beforeSubmit(f) {
+											f.cart.value = JSON
+													.stringify('${cart.cart}');
+											return true;
+										}
+									</script>
+									<p>총 가격 ${cart.cost}원 입니다.</p>
+									<form action="pay_ready.do" method="POST"
+										onsubmit="return beforeSubmit(this);">
+										<div class="btn-group">
+											<button
+												onclick="cancelCart('${cart.cart.get(0).orderlist_date}',this);"
+												type="button" class="btn btn-primary">구매 취소</button>
+											<button class="btn btn-primary" onclick="this.form.submit();"
+												type="submit">결제하기</button>
 										</div>
-									</c:if>
-								</c:forEach>
-							</div>
-						</c:if>
-					</c:forEach>
-				</div>
-			</c:forEach>
+										<input type="hidden" name="cost" value="${cart.cost}">
+										<input type="hidden" name="name" value="${cart.name}">
+										<input type="hidden" name="date"
+											value="${cart.cart.get(0).orderlist_date}">
+									</form>
+								</c:when>
+								<c:when test="${cart.orderlist_status eq 2}">
+									<p>총 가격 ${cart.cost}원 결제 완료</p>
+									<form action="refund.do" method="POST">
+										<input type="hidden" name="tid" value="${cart.tid}"> <input
+											type="hidden" name="orderId" value="${cart.id}"> <input
+											name="reason" placeholder="환불 사유"><input name="date" type="hidden"
+											value="${cart.cart.get(0).orderlist_date}">
+										<button type="button" class="btn btn-primary"
+											onclick="this.form.submit();">환불하기</button>
+									</form>
+								</c:when>
+								<c:when test="${cart.orderlist_status eq 3}">
+									<p>총 가격 ${cart.cost}원</p>
+									<p>배송 완료</p>
+								</c:when>
+
+							</c:choose>
+						</div>
+						<hr>
+						<c:forEach var="cart_in" items="${cart.cart}">
+							<c:if
+								test="${producer ne products[cart_in.product_idx].producer_idx}">
+								<c:set var="producer"
+									value="${products[cart_in.product_idx].producer_idx}" />
+								<div class="card-body">
+									<div>${producers[producer].producer_name}</div>
+								</div>
+								<div class="card-body row row-col-3">
+									<c:forEach var="item" items="${cart.cart}">
+										<c:set var="item_idx" value="${item.product_idx}" />
+										<c:if test="${producer eq products[item_idx].producer_idx}">
+											<div class="col-4">
+												<p>${products[item_idx].product_name}</p>
+												<img style="height: 200px;"
+													src="${pageContext.request.contextPath}/resources/alcohol_image/${products[item_idx].product_thumbnail_filename}">
+												<p>${item.product_amount}개</p>
+												<p>${item.product_price}원</p>
+												<c:choose>
+													<c:when test="${item.orderlist_status eq 3}">
+														<form action="review_write.do">
+															<button type="button" class="btn btn-primary">리뷰
+																작성하기</button>
+															<input type="hidden" name="product_idx" value="${item_idx}">
+														</form>
+													</c:when>
+												</c:choose>
+											</div>
+										</c:if>
+									</c:forEach>
+									<hr>
+								</div>
+							</c:if>
+						</c:forEach>
+					</div>
+				</c:forEach>
+			</div>
 		</section>
 	</main>
 	<!-- ======= Footer ======= -->

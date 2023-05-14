@@ -50,9 +50,10 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/js/cart_in.js"></script>
-
+<link href="/alcohol/resources/css/main_css/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
 	<c:if test="${isUser1 ne null}">
@@ -87,101 +88,105 @@
 	<c:set var="producer" value="999999" />
 	<main id="main" class="main">
 		<section id="blog" class="blog">
-			<div class="row g-5">
-				<form name="ff" id="cart" action="pay_readys.do" method="post">
-					<input type="hidden" name="cost">
+
+			<form name="ff" id="cart" action="pay_readys.do" method="post"
+				class="row g-5">
+				<input type="hidden" name="cost">
+				<div class="col-8">
 					<c:forEach var="carts" items="${cart_in}">
 						<c:if test="${producer ne carts.producer_idx}">
 							<c:set var="producer" value="${carts.producer_idx}" />
-							<div class="card col-lg-6">
-								<div class="card-body producer_name">${producer}</div>
-								<hr>
-								<c:forEach var="cart" items="${cart_in}">
-									<c:if test="${producer eq cart.producer_idx}">
-										<div class="card-body product">
-											<input type="hidden" class="idx" value="${cart.product_idx}">
-											<table style="width: 100%;">
-												<tr>
-													<td rowspan="3"><input class="form-check-input buy"
-														type="checkbox" checked></td>
-													<td rowspan="2"><img
-														style="width: 53px; height: 68px;"
-														src="${pageContext.request.contextPath}/resources/alcohol_image/${cart.product_thumbnail_filename}">
-													</td>
-													<td>${cart.product_name}</td>
-													<td style="text-align: right;"><input type="button"
-														value="X" class="removeEle"></td>
-												</tr>
-												<tr>
-													<td>
-														<div class="btn-group">
-															<button type="button"
-																class="btn btn-outline-primary minus">-</button>
-															<button type="button"
-																class="btn btn-outline-primary amount" disabled>${cart.product_amount}</button>
-															<button type="button"
-																class="btn btn-outline-primary plus">+</button>
-														</div>
-													</td>
-													<td class="price rights">${cart.product_price*cart.product_amount}</td>
-												</tr>
-												<tr>
-													<td colspan="4"><hr></td>
-												</tr>
-											</table>
-										</div>
-									</c:if>
-								</c:forEach>
-								<div class="card-body">
-									<table style="width: 100%;">
-										<tr>
-											<td>상품금액</td>
-											<td class="totPrice rights"></td>
-										</tr>
-										<tr>
-											<td>배송비</td>
-											<td class="deliveryFee rights"></td>
-										</tr>
-										<tr>
-											<td>총 금액</td>
-											<td class="totCost rights"></td>
-										</tr>
-									</table>
-								</div>
+							<div class="card">
+								<article class="blog-details">
+									<div class="card-body producer_name">${producer}</div>
+									<hr>
+									<c:forEach var="cart" items="${cart_in}">
+										<c:if test="${producer eq cart.producer_idx}">
+											<div class="card-body product">
+												<input type="hidden" class="idx" value="${cart.product_idx}">
+												<table style="width: 100%;">
+													<tr>
+														<td rowspan="3"><input class="form-check-input buy"
+															type="checkbox" checked></td>
+														<td rowspan="2"><img
+															style="width: 53px; height: 68px;"
+															src="${pageContext.request.contextPath}/resources/alcohol_image/${cart.product_thumbnail_filename}">
+														</td>
+														<td class="lefts">${cart.product_name}</td>
+														<td class="rights"><input type="button" value="X"
+															class="removeEle"></td>
+													</tr>
+													<tr>
+														<td class="lefts">
+															<div class="btn-group">
+																<button type="button"
+																	class="btn btn-outline-primary minus">-</button>
+																<button type="button"
+																	class="btn btn-outline-primary amount" disabled>${cart.product_amount}</button>
+																<button type="button"
+																	class="btn btn-outline-primary plus">+</button>
+															</div>
+														</td>
+														<td class="price rights">${cart.product_price*cart.product_amount}</td>
+													</tr>
+													<tr>
+														<td colspan="4"><hr></td>
+													</tr>
+												</table>
+											</div>
+										</c:if>
+									</c:forEach>
+									<div class="card-body">
+										<table style="width: 100%;">
+											<tr>
+												<td>상품금액</td>
+												<td class="totPrice rights"></td>
+											</tr>
+											<tr>
+												<td>배송비</td>
+												<td class="deliveryFee rights"></td>
+											</tr>
+											<tr>
+												<td>총 금액</td>
+												<td class="totCost rights"></td>
+											</tr>
+										</table>
+									</div>
+								</article>
 							</div>
 						</c:if>
 					</c:forEach>
-					<div class="col-lg-4">
-						<div class="sidebar border border-primary rr_box">
-							<table style="width: 100%;">
-								<tr>
-									<td>총 상품금액</td>
-									<td id="totPrice" class="rights">0</td>
-								</tr>
-								<tr>
-									<td>총 배송비</td>
-									<td id="totDeliv" class="rights">0</td>
-								</tr>
-								<tr>
-									<td>총 금액</td>
-									<td id="totCost" class="rights">0</td>
-								</tr>
-							</table>
-							<div class="shopping">
-								<button type="button" class="btn btn-primary number buy"
-									onclick="this.form.submit();">
-									<i class='bx bx-gift'>구매하기</i>
-								</button>
-							</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="sidebar border border-primary rr_box" style="position: fixed;">
+						<table style="width: 100%;">
+							<tr>
+								<td>총 상품금액</td>
+								<td id="totPrice" class="rights">0</td>
+							</tr>
+							<tr>
+								<td>총 배송비</td>
+								<td id="totDeliv" class="rights">0</td>
+							</tr>
+							<tr>
+								<td>총 금액</td>
+								<td id="totCost" class="rights">0</td>
+							</tr>
+						</table>
+						<div class="shopping">
+							<button type="button" class="btn btn-primary number buy"
+								onclick="this.form.submit();">
+								<i class='bx bx-gift'>구매하기</i>
+							</button>
 						</div>
 					</div>
-				</form>
+				</div>
+			</form>
 			</div>
 		</section>
 	</main>
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
-
 	<script
 		src="${pageContext.request.contextPath}/resources/js/register/mainjs.js"></script>
 	<script
