@@ -26,7 +26,6 @@ pageContext.setAttribute("LF", "\n");
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
 	rel='stylesheet'>
 
-
 <!-- Vendor CSS Files -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -38,7 +37,7 @@ pageContext.setAttribute("LF", "\n");
 <%--<link href="${pageContext.request.contextPath}/resources/css/detailview_css/main.css?ver=1"
               rel="stylesheet">--%>
 <link
-	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1">
+	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1"
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
@@ -405,18 +404,6 @@ pageContext.setAttribute("LF", "\n");
         sendRequest(url, param, resFn, "POST")
     }
     let price;
-
-    function resFn() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            price = parseInt(xhr.responseText);
-            document.ff.price.value = price;
-            document.ff.totPrice.value = price + 3000;
-        }
-    }//resFn()
-
-    function show() {
-        var dom = document.getElementById('go_select').submit();
-    }
 
     function cal(op) {
         var total_number = document.getElementById('total_price');

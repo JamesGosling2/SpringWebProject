@@ -243,7 +243,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 	    <div class="content">
 	      <p class="title">AI소믈리에가 <br> 당신에게 꼭 맞는 <br> 술을 찾아드려요</p>
 	    </div>
-	    <img src="/alcohol/resources/startbootstrap-agency-gh-pages/assets/img/alcohol_2.jpg" />
+	    <img src="${pageContext.request.contextPath}/resources/startbootstrap-agency-gh-pages/assets/img/alcohol_2.jpg" />
 	  </div>
 	</div>
 	<form>
