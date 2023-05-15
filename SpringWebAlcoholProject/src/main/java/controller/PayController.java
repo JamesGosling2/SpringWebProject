@@ -80,7 +80,7 @@ public class PayController implements Buy, NicePayKey {
 		headers.set("Authorization",
 				"Basic " + Base64.getEncoder().encodeToString((CLIENT_ID + ":" + SECRET_KEY).getBytes()));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		if(reason.isBlank()) {
+		if(reason.isEmpty()) {
 			reason="없음";
 		}
 		Map<String, Object> AuthenticationMap = new HashMap<String, Object>();
