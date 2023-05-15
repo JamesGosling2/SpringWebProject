@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -125,7 +126,6 @@
 										type="hidden" name="orderdate" value="${date}"> <input
 										type=hidden id="clientId" value="${clientId}"> <input
 										type=hidden id="orderId" value="${orderId}">
-										<%request.setAttribute("date", request.getParameter("date"));%>
 								</div>
 
 
