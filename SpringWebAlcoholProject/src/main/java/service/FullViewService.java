@@ -57,10 +57,20 @@ public class FullViewService {
 		return i;
 	}
 	
-	 public int delete(int product_idx) {
+	public int delete(int product_idx) {
 	    	int i = fullview_dao.delete(product_idx);
 	    	return i;
-	    }
+	}
+	
+	public List<FullViewVO> recommend(SearchVO vo){
+		List<FullViewVO> list = fullview_dao.recommend(vo);
+		return list;
+	}
+	public int recommend_count(SearchVO vo) {
+		int count = fullview_dao.recommend_count(vo);
+		return count;
+	}
+	 
 
 
 

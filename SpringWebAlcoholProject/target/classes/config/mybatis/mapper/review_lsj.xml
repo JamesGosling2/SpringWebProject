@@ -10,7 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                           #{review_filename},
 		                           #{user1_idx},
 		                           #{product_idx},
-		                           sysdate
+		                           sysdate,
+		                           0
 		                           )
 	</insert>
 	
@@ -22,6 +23,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select r.*, u.user1_nickname from review r inner join user1 u on (r.user1_idx = u.user1_idx) where r.product_idx = #{product_idx}
 	</select>
 
+	<select id="review_user_select1" parameterType="int" resultType="vo.ReviewLsjVO">
+		select r.*, p.PRODUCT_NAME, p.product_thumbnail_filename from review r inner join product p on r.product_idx = p.product_idx where r.user1_idx = #{user1_idx} order by r.review_idx desc
+	</select>
+
+	<select id="review_user_select2" parameterType="int" resultType="vo.FullViewVO">
+		select r.*, p.PRODUCT_NAME, p.product_thumbnail_filename from review r inner join product p on r.product_idx = p.product_idx where r.user1_idx = #{user1_idx} order by r.review_idx desc
+	</select>
+
+	<select id="review_selectOne" parameterType="int" resultType="vo.ReviewLsjVO">
+		select * from review where review_idx = #{review_idx}
+	</select>
+
+	<select id="product_selectOne" parameterType="int" resultType="vo.FullViewVO">
+		select r.*, p.* from review r inner join product p on r.product_idx = p.prodcut_idx where review_idx = #{review_idx}
+	</select>
+
+	<update id="review_modify" parameterType="vo.ReviewLsjVO">
+		update review set review_content = #{review_content},
+		                  review_rating = #{review_rating},
+		                  review_filename = #{review_filename}
+		                  where review_idx = #{review_idx}
+	</update>
+
+	<update id="review_delete" parameterType="int">
+		update review set review_del_info = -1 where review_idx = #{review_idx}
+	</update>
 </mapper>
 
 

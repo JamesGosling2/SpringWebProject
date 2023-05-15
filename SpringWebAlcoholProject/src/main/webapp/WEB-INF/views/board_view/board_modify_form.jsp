@@ -55,12 +55,15 @@
                                 <textarea id="summernote" class="summernote" name="board1_content">
                                     ${board_vo.board1_content}
                                 </textarea><!-- End Summernote Editor -->
+                                <c:if test="${board_vo.board1_filename ne 'no_file'}">
+                                    <img src="${pageContext.request.contextPath}/resources/upload/${board_vo.board1_filename}" class="image-fluid w-25">
+                                </c:if>
                             </div>
                             <input type="file" name="board1_photo" id="board1_photo" >
                         </div>
                         <div class="card-footer text-end">
                             <button class="btn btn-warning fw-bold" onclick="send(this.form);">수정하기</button>
-                            <button class="btn btn-secondary fw-bold" onclick="location.href='main.do'">취소</button>
+                            <button class="btn btn-secondary fw-bold" onclick="location.href='board_detail_view.do?board1_idx=${board_vo.board1_idx}&user1_idx=${board_vo.user1_idx}'">취소</button>
                         </div>
                     </div>
                     <input type="hidden" name="board1_idx" value="${board_vo.board1_idx}">

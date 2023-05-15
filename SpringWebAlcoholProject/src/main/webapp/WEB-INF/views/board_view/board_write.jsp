@@ -60,7 +60,7 @@
                         </div>
                         <div class="card-footer text-end">
                             <button class="btn btn-primary" onclick="send(this.form);">등록하기</button>
-                            <button class="btn btn-secondary" onclick="location.href='main.do'">취소</button>
+                            <button class="btn btn-secondary" onclick="location.href='board_list.do'">취소</button>
                         </div>
                     </div>
                     <input type="hidden" name="user1_idx" value="${user1.user1_idx}">

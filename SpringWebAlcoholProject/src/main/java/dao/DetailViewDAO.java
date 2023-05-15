@@ -3,6 +3,8 @@ package dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import util.Common.full_view;
 import vo.FullViewVO;
 import vo.ReviewLsjVO;
 import vo.UserVO;
@@ -46,8 +48,13 @@ public class DetailViewDAO {
     	int i = sqlSession.update("p.product_modify", vo);
     	return i;
     }
-    
-    
-  
+
+    public List<FullViewVO> show_producer(FullViewVO vo){
+    	
+    	List<FullViewVO> list = sqlSession.selectList("p.show_producer", vo);
+    	
+    	return list;
+    	
+    }
 
 } // end of class

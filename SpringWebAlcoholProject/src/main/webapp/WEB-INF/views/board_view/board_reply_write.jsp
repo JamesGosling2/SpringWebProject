@@ -57,7 +57,6 @@
 
                                     </textarea><!-- End Summernote Editor -->
                                 </div>
-                                <input type="file" name="board1_photo" id="board1_photo">
                             </div>
                             <div class="card-footer text-end">
                                 <button class="btn btn-primary" onclick="send(this.form);">등록하기</button>
@@ -124,9 +123,8 @@
     });
 
     function send(f) {
+        // alert("sdfds");
         let board1_content = f.board1_content.value;
-        let board1_photo = f.board1_photo.value;
-        let board1_subject = f.board1_subject.value;
 
         if (board1_content.trim() == '') {
             alert("댓글 내용을 작성해주세요.");

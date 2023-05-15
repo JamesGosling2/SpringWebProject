@@ -178,6 +178,65 @@ public class FullViewDAO {
     	return i;
     }
 	
+    public List<FullViewVO> recommend(SearchVO vo){
+    	ArrayList<String> sweet = new ArrayList<String>();
+    	if(vo.getProduct_sweet_rating() != null) {
+    		int sweet_param = Integer.parseInt(vo.getProduct_sweet_rating().get(0));
+    		if(sweet_param == 10 || sweet_param == 9) {
+    			sweet.add("9");
+    			sweet.add("10");
+    			sweet.add("8");
+    		}else {
+    			sweet.add(Integer.toString(sweet_param));
+    			sweet.add(Integer.toString(sweet_param+1));
+    			sweet.add(Integer.toString(sweet_param-1));
+    		}
+    	}else {
+    		sweet.add("0");
+    	}
+    	vo.setProduct_sweet_rating(sweet);
+    	
+    	ArrayList<String> sour = new ArrayList<String>();
+    	if(vo.getProduct_sourish_rating() != null) {
+    		int sour_param = Integer.parseInt(vo.getProduct_sourish_rating().get(0));
+    		if(sour_param == 10 || sour_param == 9) {
+    			sour.add("9");
+    			sour.add("10");
+    			sour.add("8");
+    		}else {
+    			sour.add(Integer.toString(sour_param));
+    			sour.add(Integer.toString(sour_param+1));
+    			sour.add(Integer.toString(sour_param-1));
+    		}
+    	}else {
+    		sour.add("0");
+    	}
+    	vo.setProduct_sourish_rating(sour);
+    	
+    	ArrayList<String> body = new ArrayList<String>();
+    	if(vo.getProduct_bodytaste_rating() != null) {
+    		int body_param = Integer.parseInt(vo.getProduct_bodytaste_rating().get(0));
+    		if(body_param == 10 || body_param == 9) {
+    			body.add("9");
+    			body.add("10");
+    			body.add("8");
+    		}else {
+    			body.add(Integer.toString(body_param));
+    			body.add(Integer.toString(body_param+1));
+    			body.add(Integer.toString(body_param-1));
+    		}
+    	}else if(vo.getProduct_bodytaste_rating() == null){
+    		body.add("0");
+    	}
+    	vo.setProduct_bodytaste_rating(body);
+    	List<FullViewVO> list = sqlSession.selectList("p.recommend", vo);
+    	return list;
+    	
+    }
+    public int recommend_count(SearchVO vo) {
+    	int count = sqlSession.selectOne("p.recommend_count", vo);
+    	return count;
+    }
 	
 	
 	

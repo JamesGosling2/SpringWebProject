@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.net.URISyntaxException;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,7 @@ public class MainController {
     
     @RequestMapping("/buy.do")
     public String buy() {
-    	return Buy.BUY;
+    	return Buy.PAY;
     }
 
 
