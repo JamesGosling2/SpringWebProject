@@ -107,7 +107,7 @@ function sample4_execDaumPostcode() {
 } // end of sample4_execDaumPostcode()
 
 function send(f){
-    alert("send 실행 됨");
+    // alert("Sfsdf");
     let user1_addr = f.sample4_roadAddress.value + " (" + f.sample4_postcode.value + ") " + f.sample4_detailAddress.value;
     $("input[name=user1_addr]").attr('value', user1_addr);
 
@@ -121,13 +121,13 @@ function send(f){
 
     if(check_user_nickname.test(user1_nickname) && check_user_phonenumber.test(user1_phonenumber) &&
         (user1_postcode != '') && (user1_detailAddress != '')){
-        alert("유효성 검사 통과");
+        // alert("유효성 검사 통과");
         document.getElementById("register_detail_form").setAttribute("onsubmit", "return true");
         f.action = "register.do";
         f.method = "get";
         f.submit();
     } else{
-        alert("유효성 검사 실패");
+        // alert("유효성 검사 실패");
         return;
     }
 } // end of send()

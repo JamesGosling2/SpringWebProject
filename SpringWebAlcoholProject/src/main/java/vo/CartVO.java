@@ -1,29 +1,33 @@
 package vo;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 public class CartVO {
-	private String name;
+	
+	private String name, id, tid;
 	private int cost;
-	private UUID id;
+	private int orderlist_status;
 	private List<OrderListVO> cart;
-	private boolean isPaid;
 
-	public UUID getId() {
+	public int getOrderlist_status() {
+		return orderlist_status;
+	}
+
+	public void setOrderlist_status(int orderlist_status) {
+		this.orderlist_status = orderlist_status;
+	}
+	
+	public void sortCart(Comparator<OrderListVO> comparator) {
+		cart.sort(comparator);
+	}
+	
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
-	}
-
-	public boolean isPaid() {
-		return isPaid;
-	}
-
-	public void setPaid(boolean isPaid) {
-		this.isPaid = isPaid;
 	}
 
 	public String getName() {
@@ -48,6 +52,14 @@ public class CartVO {
 
 	public void setCart(List<OrderListVO> cart) {
 		this.cart = cart;
+	}
+
+	public String getTid() {
+		return tid;
+	}
+
+	public void setTid(String tid) {
+		this.tid = tid;
 	}
 
 }

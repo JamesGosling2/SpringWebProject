@@ -9,10 +9,6 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -45,7 +41,7 @@
             <div class="col-10">
                 <table class="table table-bordered border-success caption-top">
                     <caption class="fs-2 fw-bold text-success">List of board</caption>
-                    <thead class="table-primary border border-primary">
+                    <thead class="table-primary border border-success bg-success">
                     <tr class="text-center">
                         <th style="width:10%;">No</th>
                         <th style="width:45%;">제목</th>
@@ -57,13 +53,24 @@
                     <tbody class="text-center">
                     <c:forEach var="board_list" items="${board_map.board_list}" varStatus="status">
                         <c:set var="index" value="${status.index}"></c:set>
+                        <c:if test="${board_list.board1_del_info ne -1}">
                         <tr>
                             <td>${board_list.board1_idx}</td>
-                            <td><a href="board_detail_view.do?board1_idx=${board_list.board1_idx}&user1_idx=${board_map.user_list[index].user1_idx}">${board_list.board1_subject}</a></td>
-                            <td>${board_map.user_list[index].user1_name}</td>
+                            <td><a href="board_detail_view.do?board1_idx=${board_list.board1_idx}&user1_idx=${board_map.user_list[index].user1_idx}&page=${param.page}">${board_list.board1_subject}</a></td>
+                            <td>${board_map.user_list[index].user1_nickname}</td>
                             <td>${board_list.board1_regdate}</td>
                             <td>${board_list.board1_readhit}</td>
                         </tr>
+                        </c:if>
+                        <c:if test="${board_list.board1_del_info eq -1}">
+                            <tr>
+                                <td>${board_list.board1_idx}</td>
+                                <td><span class="text-danger text-decoration-line-through">삭제된 게시판입니다.</span></td>
+                                <td>${board_map.user_list[index].user1_nickname}</td>
+                                <td>${board_list.board1_regdate}</td>
+                                <td>${board_list.board1_readhit}</td>
+                            </tr>
+                        </c:if>
                     </c:forEach>
                     <tr>
                         <td colspan="5" class="text-center">${pageMenu}</td>
@@ -73,7 +80,7 @@
                         <tfoot>
                         <tr>
                             <td colspan="5" class="text-end">
-                                <input type="button" class="btn btn-primary" value="글쓰기"
+                                <input type="button" class="btn btn-primary fw-bold" value="글쓰기"
                                        onclick="location.href='board_write.do'"/>
                             </td>
                         </tr>

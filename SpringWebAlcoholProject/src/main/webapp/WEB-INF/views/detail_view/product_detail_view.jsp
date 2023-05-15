@@ -16,8 +16,8 @@ pageContext.setAttribute("LF", "\n");
 
 <!-- Google Fonts -->
 <%--<link href="https://fonts.gstatic.com" rel="preconnect">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-              rel="stylesheet">--%>
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+                  rel="stylesheet">--%>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -36,12 +36,13 @@ pageContext.setAttribute("LF", "\n");
 
 <%-- DetailView CSS Files--%>
 <%--<link href="${pageContext.request.contextPath}/resources/css/detailview_css/main.css?ver=1"
-          rel="stylesheet">--%>
+              rel="stylesheet">--%>
 <link
 	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1"
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
+
 </head>
 
 <body>
@@ -75,63 +76,75 @@ pageContext.setAttribute("LF", "\n");
 	<!-- ======= Header ======= -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
 
-<div class="row"><br><br><br></div>
+	<div class="row">
+		<br> <br> <br>
+	</div>
 
-<main id="main" class="main">
-    <section id="blog" class="blog">
-        <div class="container" data-aos="fade-up">
-            <div class="row g-5">
-                <div class="col-lg-8">
-                    <article class="blog-details">
-                        <div class="post-img border border-primary">
-                            <div class="row gx-4 gx-lg-5">
-                                <div class="col-md-6 d-flex justify-content-center border border-primary">
-                                    <img
+	<main id="main" class="main">
+		<section id="blog" class="blog">
+			<div class="container" data-aos="fade-up">
+				<div class="row g-5">
+					<div class="col-lg-8">
+						<article class="blog-details">
+							<div class="post-img">
+								<div class="row gx-4 gx-lg-5">
+									<div class="col-md-6 d-flex justify-content-center">
+										<img
 											src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_thumbnail_filename}"
 											alt="" class="img-fluid top_img">
-                                </div>
-                                <div class="col-md-6 right_box">
-                                    <div class="d-flex"
-                                         style="font-size: 27px; font-weight: bold; color: #808080; margin-top: 5px;">
-                                        ${vo1.product_name}</div>
-                                    <div class="d-flex"
-                                         style="font-size: 18px; font-weight: bold; color: #c8c8c8; margin-bottom: 5px;">
-                                        ${vo1.product_simple_content}</div>
-                                    <div class="d-flex" style="margin-bottom: 20px;">
-                                        <div class="starpoint_wrap">
-                                            <div class="starpoint_box">
-                                                <c:forEach var="i" begin="1" end="10">
-                                                    <label for="starpoint_${i / 2.0}" class="label_star" title="${i / 2.0}"> <span
-                                                            class="blind">${i/2.0}점</span>
-                                                    </label>
-                                                    <input type="radio" id="starpoint_${i / 2.0}" class="star_radio">
-                                                </c:forEach>
-                                                <span class="starpoint_bg"></span>
-                                            </div>
-                                        </div>
-                                        <span>${review_score}</span>
-                                    </div>
-                                    <div class="d-flex a_info">
-                                        <span>주종 : ${vo1.product_type}</span>
-                                    </div>
-                                    <div class="d-flex a_info">
-                                        <span>도수 : ${vo1.product_alcohol_degree}%</span>
-                                    </div>
-                                    <div class="d-flex a_info" style="margin-bottom: 30px;">
-                                        <span>용량 : ${vo1.product_capacity}</span>
-                                    </div>
-                                    <div class="d-flex"></div>
-                                    <div class="fs-5 mb-5 sell" style="margin-bottom: 10px;">
-                                        판매가격 : <span class="price"><fmt:formatNumber value="${vo1.product_price}"
-                                                                                     pattern="#,###" />원</span>
-                                    </div>
-                                    <div class="d-flex expi">
-											<span>유통기한 : <c:if test="${empty vo1.product_expiration_date }">
+									</div>
+									<div class="col-md-6 right_box">
+										<div class="d-flex"
+											style="font-size: 27px; font-weight: bold; color: #808080; margin-top: 5px;">
+											${vo1.product_name}</div>
+										<div class="d-flex"
+											style="font-size: 18px; font-weight: bold; color: #c8c8c8; margin-bottom: 5px;">
+											${vo1.product_simple_content}</div>
+										<div class="d-flex" style="margin-bottom: 20px;">
+											<div class="starpoint_wrap">
+												<div class="starpoint_box">
+													<c:forEach var="i" begin="1" end="10">
+														<label for="starpoint_${i / 2.0}" class="label_star"
+															title="${i / 2.0}"> <span class="blind">${i/2.0}점</span>
+														</label>
+														<input type="radio" id="starpoint_${i / 2.0}"
+															class="star_radio">
+													</c:forEach>
+													<span class="starpoint_bg"></span>
+												</div>
+											</div>
+											<span>${review_score}</span>
+										</div>
+										<div class="d-flex a_info">
+											<span>주종 : ${vo1.product_type}</span>
+										</div>
+										<div class="d-flex a_info">
+											<span>도수 : ${vo1.product_alcohol_degree}%</span>
+										</div>
+										<div class="d-flex a_info" style="margin-bottom: 30px;">
+											<span>용량 : ${vo1.product_capacity}</span>
+										</div>
+										<div class="d-flex"></div>
+										<div class="fs-5 mb-5 sell" style="margin-bottom: 10px;">
+											판매가격 : <span class="price"><fmt:formatNumber
+													value="${vo1.product_price}" pattern="#,###" />원</span>
+										</div>
+										<div class="d-flex expi">
+											<span>유통기한 : <c:if
+													test="${empty vo1.product_expiration_date }">
                                                 유통기한 없음
                                             </c:if>
 												${vo1.product_expiration_date}
 											</span>
 										</div>
+										<c:if test="${ user1.user1_email eq 'alcohol2@gmail.com'}">
+											<div class="d-flex expi ">
+												<input class="modify" type="button" value="수정"
+													onclick="product_modify(${ vo1.product_idx })"> <input
+													class="delete" type="button" value="삭제"
+													onclick="product_delete(${ vo1.product_idx })">
+											</div>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -169,7 +182,7 @@ pageContext.setAttribute("LF", "\n");
 									</div>
 								</div>
 								<div class="g">
-									<span class="gs">깰꼼함 : </span>
+									<span class="gs">깔끔함 : </span>
 									<div class="progress" role="progressbar"
 										aria-label="Basic example" aria-valuenow="100"
 										aria-valuemin="0" aria-valuemax="100">
@@ -184,6 +197,19 @@ pageContext.setAttribute("LF", "\n");
 										aria-valuemin="0" aria-valuemax="100">
 										<div class="progress-bar"
 											style="width: ${vo1.product_bodytaste_rating * 10}%">${vo1.product_bodytaste_rating}</div>
+									</div>
+								</div>
+								<div class="g">
+									<span class="gs">탄산 : </span>
+									<div class="sp_g">
+										<c:choose>
+											<c:when test="${ vo1.product_sparkling_rating ne 0 }">
+                                            있음
+                                        </c:when>
+											<c:otherwise>
+                                            없음
+                                        </c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
@@ -218,7 +244,7 @@ pageContext.setAttribute("LF", "\n");
 									</div>
 								</div>
 							</div>
-							<div class="d-flex justify-content-center border border-primary">
+							<div class="d-flex justify-content-center">
 								<img class="img-fluid"
 									src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_filename1}">
 							</div>
@@ -226,22 +252,35 @@ pageContext.setAttribute("LF", "\n");
 							<div class="title_1" style="text-align: center;">[${ vo1.product_name }]
 								어떤맛을 가지고 있나요?</div>
 
-							<div class="content border border-primary"
-								style="text-align: center;">
+							<div class="content" style="text-align: center;">
 								<pre class="content">${fn:replace(vo1.product_detail_content1,LF,"<br>")}</pre>
 							</div>
 							<!-- End post content -->
-							<div class="d-flex justify-content-center border border-primary">
+							<div class="d-flex justify-content-center">
 								<img class="img-fluid"
 									src="${pageContext.request.contextPath}/resources/alcohol_image/${vo1.product_filename2}">
 							</div>
 
 							<div class="title_1" style="text-align: center;">[${ vo1.product_name }]
 								어떤음식과 어울리나요?</div>
-							<div class="content border border-primary"
-								style="text-align: center;">
+							<div class="content" style="text-align: center;">
 								<pre class="content">${fn:replace(vo1.product_detail_content2,LF,"<br>")}</pre>
 							</div>
+
+							<div class="company">
+								<form action="producerName.do" id="go_select">
+									<input type="hidden" name="producer_name"
+										value="${vo1.producer_name}"> <a target=" _blank "
+										href=" https://icons8.com/icon/37888/wooden-beer-keg "></a>
+									<!-- 링크 -->
+									<img class="company"
+										src=" https://img.icons8.com/office/45/000000/wooden-beer-keg.png " />
+									<!-- 아이콘 -->
+									<span class="company com_text" onclick="show(this.form);">[${ vo1.producer_name }]</span>
+								</form>
+							</div>
+
+
 							<!-- End post content -->
 						</article>
 						<!-- End blog post -->
@@ -249,8 +288,7 @@ pageContext.setAttribute("LF", "\n");
 					</div>
 
 					<div class="col-lg-4">
-						<div class="sidebar border border-primary rr_box">
-							<!-- End sidebar search formn-->
+						<div class="sidebar border rr_box">
 							<form name="ff">
 								<input name="idx" type="hidden"> <input name="price"
 									type="hidden"> <input name="amount" type="hidden"
@@ -294,7 +332,7 @@ pageContext.setAttribute("LF", "\n");
 			<!-- End Blog Details Section -->
 		</section>
 
-		<div class="border border-primary">
+		<div>
 			<jsp:include
 				page="product_review.jsp?review_list=${review_list}&review_map=${review_map}"></jsp:include>
 		</div>
@@ -319,58 +357,80 @@ pageContext.setAttribute("LF", "\n");
 	<script type="text/javascript">
 
     window.onload = function () {
-        /*
-        if(
-        ${review_score} == 0){
-				return;
-			}
-			*/
+
         console.log(${review_score});
         var dom = document.getElementById('starpoint_${review_score}');
 
 
-		let idx='${vo1.product_idx}';
-		document.ff.idx.value = idx;
-		var url = 'buy_product.do';
-		var param = 'idx=' + idx;
-		sendRequest(url, param, resFn, "POST")
-	}
-	let price;
-	function resFn() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			price = parseInt(xhr.responseText);
-			document.ff.price.value = price;
-			document.ff.totPrice.value = price + 3000;
-		}
-	}
-		
+        let idx = '${vo1.product_idx}';
+        document.ff.idx.value = idx;
+        var url = 'buy_product.do';
+        var param = 'idx=' + idx;
+        sendRequest(url, param, resFn, "POST")
+    }
+    let price;
 
-	function cal(op) {
-		const f = document.ff;
-		var amount = parseInt(f.amount.value);
-		
-		if (op == '+') {
-			f.amount.value = ++amount;
-			f.totPrice.value = amount*price+3000;
-		} else if (op == '-' && amount > 1) {
-			f.amount.value = --amount;
-			f.totPrice.value = amount*price+3000;
-		}
-		document.getElementById("amount").innerHTML=amount;
-	}
-	function cart(f) {
-		f.action = "cartAdd.do";
-		f.price.value = f.totPrice.value;
-		f.submit();
+    function resFn() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            price = parseInt(xhr.responseText);
+            document.ff.price.value = price;
+            document.ff.totPrice.value = price + 3000;
+        }
+    }//resFn()
 
-	}
-	function buying(f){
-		f.method="POST";
-		f.action="pay_ready1.do";
-		f.price.value = f.totPrice.value;
-		
-		f.submit();
-	}
+    function show() {
+        var dom = document.getElementById('go_select').submit();
+    }
+
+    function cal(op) {
+        var total_number = document.getElementById('total_price');
+        var price = "${vo1.product_price}";
+        var number = total_number.innerText / price
+        var center = document.getElementById('center');
+        console.log(total_number.innerText / price);
+        console.log(price);
+        if (op == '-') {
+            if (number <= 0) {
+                number = 0;
+            } else {
+                number--;
+            }
+        } else {
+            number++;
+        }
+        total_number.innerText = price * number;
+        center.innerText = number;
+    }//cal(op)
+
+    function cart(f) {
+        f.action = "cartAdd.do";
+        f.price.value = f.totPrice.value;
+        f.submit();
+
+    }//cart(f)
+
+    function buying(f) {
+        f.method = "POST";
+        f.action = "pay_ready1.do";
+        f.price.value = f.totPrice.value;
+
+        f.submit();
+    }
+
+    function product_delete(idx) {
+
+        if (confirm("정말 삭제하시겠습니까?")) {
+            location.href = "delete.do?product_idx=" + idx;
+
+        } else {
+            return;
+        }
+    }
+
+    function product_modify(idx) {
+        location.href = "modify.do?product_idx=" + idx;
+
+    }//buying(f)
 </script>
 
 </body>

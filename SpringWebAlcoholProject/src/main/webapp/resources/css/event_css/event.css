@@ -4,7 +4,7 @@ body{
 	padding : 0;
 }
 
-div{
+.divdiv{
 	text-align: center; /* 가운데 정렬 */
 	margin-bottom:  50px;
 	word-break:break-all;

@@ -74,10 +74,10 @@
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">아이디 중복 검사</h1>
+                                                                <h1 class="modal-title fs-5 text-primary fw-bold" id="exampleModalLabel">아이디 중복 검사</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <div class="modal-body">
+                                                            <div class="modal-body fw-bold">
                                                                 <span id="idCheckSpan"></span>
                                                             </div>
                                                             <div class="modal-footer">

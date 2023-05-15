@@ -40,13 +40,13 @@ public class Paging {
 //-----그룹페이지처리 이전 --------------------------------------------------------------------------------------------
         if(isPrevPage){
             sb.append("<nav aria-label=\"Page navigation example\">\n" +
-                    "  <ul class=\"pagination\">\n" +
+                    "  <ul class=\"pagination justify-content-center\">\n" +
                     "    <li class=\"page-item\">\n" +
                     "      <a class=\"page-link\" href=\'" +pageURL+"?page=");
             //sb.append(nowPage - blockPage);
-            sb.append( startPage-1 );
+            sb.append( nowPage-1 );
             sb.append("&"+searchParam);
-            sb.append("'\" aria-label=\"Previous\">\n" +
+            sb.append("' aria-label=\"Previous\">\n" +
                     "        <span aria-hidden=\"true\">&laquo;</span>\n" +
                     "      </a>\n" +
                     "    </li>");
@@ -59,7 +59,7 @@ public class Paging {
             //sb.append(nowPage - blockPage);
             sb.append( startPage );
             sb.append("&"+searchParam);
-            sb.append("'\" aria-label=\"Previous\">\n" +
+            sb.append("' aria-label=\"previous\">\n" +
                     "        <span aria-hidden=\"true\">&laquo;</span>\n" +
                     "      </a>\n" +
                     "    </li>");
@@ -69,7 +69,7 @@ public class Paging {
         for(int i=startPage; i<= endPage ;i++){
             if(i>totalPage)break;
             if(i == nowPage){ //현재 있는 페이지
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href='");
+                sb.append("<li class=\"page-item\"><a class=\"page-link bg-primary text-light\" href='");
                 sb.append(pageURL+"?page=");
                 sb.append(i);
                 sb.append("&"+searchParam);
@@ -97,7 +97,7 @@ public class Paging {
             sb.append("<li class=\"page-item\">\n" +
                     "      <a class=\"page-link\" href='");
             sb.append(pageURL+"?page=");
-            sb.append(endPage + 1);
+            sb.append(nowPage + 1);
 			/*if(nowPage+blockPage > totalPage)nowPage = totalPage;
 			else
 				nowPage = nowPage+blockPage;
