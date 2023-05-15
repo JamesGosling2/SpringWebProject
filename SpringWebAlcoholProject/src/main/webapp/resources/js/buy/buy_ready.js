@@ -130,7 +130,7 @@ function pay(){
 		goodsName: document.getElementById('user1_nickname').innerHTML,
 		returnUrl: 'http://localhost:9095/alcohol/bill.do',
 		fnError: function (result) {
-		alert('개발자확인용 : ' + result.errorMsg + '')
+		alert(result.errorMsg);
 		location.href="pay_list.do";
 		}
 	});
