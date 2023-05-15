@@ -38,7 +38,7 @@ pageContext.setAttribute("LF", "\n");
 <%--<link href="${pageContext.request.contextPath}/resources/css/detailview_css/main.css?ver=1"
               rel="stylesheet">--%>
 <link
-	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1">
+	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1"
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
@@ -376,27 +376,7 @@ pageContext.setAttribute("LF", "\n");
 
         console.log(${review_score});
         var dom = document.getElementById('starpoint_${review_score}');
-		dom.checked = true;
 
-        let idx = '${vo1.product_idx}';
-        document.ff.idx.value = idx;
-        var url = 'buy_product.do';
-        var param = 'idx=' + idx;
-        sendRequest(url, param, resFn, "POST")
-    }
-    let price;
-
-    function resFn() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            price = parseInt(xhr.responseText);
-            document.ff.price.value = price;
-            document.ff.totPrice.value = price + 3000;
-        }
-    }//resFn()
-
-    function show() {
-        var dom = document.getElementById('go_select').submit();
-    }
 
         let idx = '${vo1.product_idx}';
         document.ff.idx.value = idx;
