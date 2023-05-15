@@ -315,6 +315,10 @@
 			
 		}
 		function modify(f) {
+			var fileCheck = document.getElementById("thumbnail").value;
+			var fileCheck1 = document.getElementById("filename1").value;
+			var fileCheck2 = document.getElementById("filename2").value;
+			
 			if(f.product_name.value == null || f.product_name.value.trim() == ""){
 				alert("상품명을 기입해주세요");
 				return false;
@@ -348,13 +352,13 @@
 			}else if(f.product_sparkling_rating.value == "::탄산 유무를 선택하세요::"){
 				alert("상품의 탄산 유무를 선택해주세요");
 				return false;
-			}else if(f.thumbnail == null){
+			}else if(!fileCheck){
 				alert("상품의 썸네일을 등록해주세요");
 				return false;
-			}else if(f.filename1 == null){
+			}else if(!fileCheck1){
 				alert("상품의 상세사진1을 등록해주세요");
 				return false;
-			}else if(f.filename2 == null){
+			}else if(!fileCheck2){
 				alert("상품의 상세사진2를 등록해주세요");
 				return false;
 			}

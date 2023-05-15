@@ -9,10 +9,6 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link
@@ -47,6 +43,7 @@
 
 </head>
 <body>
+
 <c:if test="${isUser1 ne null}">
     <!-- Button trigger modal -->
     <button type="hidden" id="modalBtn" class="btn btn-primary"
@@ -81,7 +78,7 @@
 <main id="main" class="main">
     <div class="head">
         <h3 class="fullview">전체상품</h3>
-        <h5 class="introduce">주당들의 모든 술을 만나보세요!</h5>
+        <h3 class="introduce">당신에게 안성맞춤인 술들을 알아가세요!</h3>
     </div>
 
     <!-- Search select -->
@@ -261,7 +258,7 @@
                     </article>
 
                     <div class="product">
-                        <h3 class="h3">${ list.product_name }</h3>
+                        <h4 class="h3" style="font-size: 23px; font-weight: bold;">${ list.product_name }</h4>
                         <h4 class="h4">
                             <span class="full">${ list.product_price }</span>원
                         </h4>
@@ -272,6 +269,8 @@
             </tr>
         </table>
     </div>
+    
+   
     	
 </main>
 <!-- End #main -->
@@ -312,6 +311,7 @@
 			location.href = 'product_insert.do';
 		}else{
 			alert("상품등록은 관리자 권한이 필요합니다");
+
 		}
 	}
 
