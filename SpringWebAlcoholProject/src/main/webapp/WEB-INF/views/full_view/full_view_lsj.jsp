@@ -9,10 +9,6 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="#" rel="icon">
-    <link href="#" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link
@@ -47,6 +43,7 @@
 
 </head>
 <body>
+
 <c:if test="${isUser1 ne null}">
     <!-- Button trigger modal -->
     <button type="hidden" id="modalBtn" class="btn btn-primary"
@@ -314,6 +311,7 @@
 			location.href = 'product_insert.do';
 		}else{
 			alert("상품등록은 관리자 권한이 필요합니다");
+
 		}
 	}
 

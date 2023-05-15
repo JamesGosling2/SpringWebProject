@@ -52,9 +52,17 @@ public class FullViewController {
 	@RequestMapping("/search.do")
 	public String search_select(Model model, SearchVO vo) {
 
-		// System.out.println(vo.getProduct_type());
 		List<FullViewVO> product_list = service.search_select(vo);
 		int product_count = service.selectSearchCount(vo);
+		System.out.println(vo.getProducer_name());
+		System.out.println(vo.getTerm());
+		if (vo.getProducer_name() != null) {
+			model.addAttribute("producer_name" + vo.getProducer_name());
+		}
+		if (vo.getTerm() != null) {
+			model.addAttribute("term" + vo.getTerm());
+		}
+		System.out.println(product_list.size());
 		model.addAttribute("product_list", product_list);
 		model.addAttribute("selection", vo);
 		model.addAttribute("product_count", product_count);
@@ -175,6 +183,26 @@ public class FullViewController {
 		model.addAttribute("product_list", product_list);
 		model.addAttribute("product_count", count);
 		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
+	}
+
+	@RequestMapping("/new_product.do")
+	public String new_product(Model model) {
+		List<FullViewVO> new_product_list = service.new_product();
+		int new_product_count = service.new_product_count();
+		model.addAttribute("product_list", new_product_list);
+		model.addAttribute("product_count", new_product_count);
+		model.addAttribute("term", "10");
+		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
+	}
+
+	@RequestMapping("/best_product.do")
+	public String best_product(Model model) {
+		List<FullViewVO> best_product_list = service.best_product();
+		int best_product_count = service.best_product_count();
+		model.addAttribute("product_list", best_product_list);
+		model.addAttribute("product_count", best_product_count);
+		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
+
 	}
 
 }

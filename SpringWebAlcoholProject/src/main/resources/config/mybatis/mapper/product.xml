@@ -125,6 +125,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="producer_name != null">
 				and (producer_name = #{producer_name})
 			</if>
+			<if test="term != null">
+				and (trunc(sysdate - to_Date(product_regidate,
+				'YY/MM/DD'))
+				&lt; #{term})
+			</if>
 		</where>
 	</select>
 
@@ -233,6 +238,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="producer_name != null">
 				and (producer_name = #{producer_name})
+			</if>
+			<if test="term != null">
+				and (trunc(sysdate - to_Date(product_regidate,
+				'YY/MM/DD'))
+				&lt; #{term})
 			</if>
 		</where>
 	</select>
@@ -369,6 +379,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	 
+	<select id="product_new_product" resultType="product">
+		select * from
+		product where trunc(sysdate - to_Date(product_regidate, 'YY/MM/DD'))
+		&lt; 10
+	</select>
+
+	<select id="product_new_product_count" resultType="int">
+		select
+		COUNT(*) from
+		product where trunc(sysdate - to_Date(product_regidate,
+		'YY/MM/DD'))
+		&lt; 10
+	</select>
+
+	<select id="product_best_product" resultType="product">
+		select
+		p.product_idx,p.product_thumbnail_filename, p.product_price,
+		p.product_name, product_simple_content, count(*) count from product p,
+		review r where r.product_idx = p.product_idx group
+		by(p.product_idx,p.product_name,p.product_thumbnail_filename,p.product_price,
+		product_simple_content) order by count desc
+	</select>
+
+	<select id="product_best_product_count" resultType="int">
+		select count(*) from (select p.product_idx,p.product_thumbnail_filename,
+		p.product_price, p.product_name, product_simple_content, count(*)
+		count from product p, review r where r.product_idx = p.product_idx
+		group
+		by(p.product_idx,p.product_name,p.product_thumbnail_filename,p.product_price,
+		product_simple_content))
+	</select>
 </mapper>
 
 

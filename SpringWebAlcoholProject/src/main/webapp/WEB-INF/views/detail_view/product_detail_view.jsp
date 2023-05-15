@@ -38,7 +38,7 @@ pageContext.setAttribute("LF", "\n");
 <%--<link href="${pageContext.request.contextPath}/resources/css/detailview_css/main.css?ver=1"
               rel="stylesheet">--%>
 <link
-	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1"
+	href="${pageContext.request.contextPath}/resources/css/detailview_css/detail.css?ver=1">
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
@@ -140,8 +140,8 @@ pageContext.setAttribute("LF", "\n");
 										<c:if test="${ user1.user1_email eq 'alcohol2@gmail.com'}">
 											<div class="d-flex expi ">
 												<input class="modify" type="button" value="수정"
-													onclick="product_modify(${ vo1.product_idx })"> <input
-													class="delete" type="button" value="삭제"
+													onclick="product_modify(${ vo1.product_idx })">
+												<input class="delete" type="button" value="삭제"
 													onclick="product_delete(${ vo1.product_idx })">
 											</div>
 										</c:if>
@@ -290,7 +290,7 @@ pageContext.setAttribute("LF", "\n");
 					<div class="col-lg-4">
 						<div class="sidebar border rr_box">
 							<form name="ff">
-								<input name="idx" type="hidden"> <input name="price"
+								<%--<input name="idx" type="hidden"> <input name="price"
 									type="hidden"> <input name="amount" type="hidden"
 									value="1">
 								<div style="width: 100%;">
@@ -302,7 +302,17 @@ pageContext.setAttribute("LF", "\n");
 												onclick="cal('-');">-</button>
 											<span class="btn btn-primary center" id="amount">1</span>
 											<button type="button" class="btn btn-primary right"
-												onclick="cal('+');">+</button>
+												onclick="cal('+');">+</button>--%>
+								<input name="idx" type="hidden">
+								<input name="price" type="hidden">
+								<input name="amount" type="hidden" value="1">
+								<div style="width: 100%;">
+									<div style="font-weight: bold; margin: 20px 0;">수량</div>
+									<div class="input_number" style="width: 100%;">
+										<div class="btn-group" role="group" aria-label="Basic example" style="width: 100%;">
+											<button type="button" class="btn btn-primary left" onclick="cal('-');">-</button>
+											<span class="btn btn-primary center" id="amount">1</span>
+											<button type="button" class="btn btn-primary right" onclick="cal('+');">+</button>
 										</div>
 									</div>
 								</div>
@@ -313,12 +323,18 @@ pageContext.setAttribute("LF", "\n");
 								<div class="shopping_basket">
 									<button type="button" class="btn btn-primary number buy"
 										onclick="cart(this.form);">
+									<%--<div style="font-weight: bold; margin: 20px 0;">총 가격</div>
+									<input class="number" name="totPrice" disabled>
+								</div>
+								<div class="shopping_basket">
+									<button type="button" class="btn btn-primary number buy" onclick="cart(this.form);">--%>
 										<i class='bx bx-basket'>장바구니</i>
 									</button>
 								</div>
 								<div class="shopping">
 									<button type="button" class="btn btn-primary number buy"
 										onclick="buying(this.form)">
+									<%--<button type="button" class="btn btn-primary number buy" onclick="buying(this.form)">--%>
 										<i class='bx bx-gift'>구매하기</i>
 									</button>
 								</div>
@@ -360,7 +376,27 @@ pageContext.setAttribute("LF", "\n");
 
         console.log(${review_score});
         var dom = document.getElementById('starpoint_${review_score}');
+		dom.checked = true;
 
+        let idx = '${vo1.product_idx}';
+        document.ff.idx.value = idx;
+        var url = 'buy_product.do';
+        var param = 'idx=' + idx;
+        sendRequest(url, param, resFn, "POST")
+    }
+    let price;
+
+    function resFn() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            price = parseInt(xhr.responseText);
+            document.ff.price.value = price;
+            document.ff.totPrice.value = price + 3000;
+        }
+    }//resFn()
+
+    function show() {
+        var dom = document.getElementById('go_select').submit();
+    }
 
         let idx = '${vo1.product_idx}';
         document.ff.idx.value = idx;

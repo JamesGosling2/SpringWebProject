@@ -91,11 +91,11 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a href="#">베스트</a></li>
+                        <li><a href="best_product.do">베스트</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a href="#">신상품</a></li>
+                        <li><a href="new_product.do">신상품</a></li>
                     </ul>
                     <%--<li><a href="fullview.do">전체상품</a></li>
                                        <li><a href="#">신상품</a></li>
