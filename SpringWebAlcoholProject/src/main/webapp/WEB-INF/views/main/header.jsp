@@ -138,7 +138,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="pay_list.do">
                                 <span>취소/환불 목록</span>
                             </a>
                         </li>
