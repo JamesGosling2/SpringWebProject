@@ -10,8 +10,8 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="#" rel="icon">
-<link href="#" rel="apple-touch-icon">
+<link href="" rel="icon">
+<link href="" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -539,11 +539,20 @@
 							}
 						}
 					}
+					servlet = pt + pad + pp + wr + sr + pr + pbr;
 
-					servlet = pt + pad + pp + wr + sr + pr + pbr + "&producer_name=${producer_name}";
+					var producer_name = "${producer_name}";
+					var term = "${term}";
+					console.log(producer_name);
+					console.log(term);
+					if (producer_name != "") {
+						servlet += "&producer_name=" + producer_name;
 
+					}
+					if (term != "") {
+						servlet += "&term=" + term;
+					}
 					//alert(servlet);
-
 				},
 
 				getSelectionsString : function() {
