@@ -9,6 +9,16 @@ public class SearchVO {
 
 	private String producer_name;
 
+	private String term;
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
 	public String getProducer_name() {
 		return producer_name;
 	}

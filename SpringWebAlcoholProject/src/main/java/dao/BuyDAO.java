@@ -21,7 +21,6 @@ public class BuyDAO {
 		return session.selectOne("b.select_product", product_idx);
 	}
 	public List<FullViewVO> selectProducts(List<OrderListVO> cart) {
-		
 		return session.selectList("b.select_products",cart);
 	}
 	public ProducerVO selectProducer(int idx) {
@@ -52,11 +51,12 @@ public class BuyDAO {
 		return session.update("b.updateOrder",vo);
 		
 	}
-	public int updateOrderlistPaid(int orderlist_idx, UUID id, Timestamp paidDate) {
+	public int updateOrderlistPaid(int orderlist_idx, String id, Timestamp paidDate, String tid) {
 		OrderListVO vo= new OrderListVO();
 		vo.setOrderlist_idx(orderlist_idx);
 		vo.setPay_id(id);
 		vo.setOrderlist_date(paidDate);
+		vo.setTid(tid);
 		return session.update("b.updateOrderPaid",vo);
 		
 	}
@@ -64,7 +64,20 @@ public class BuyDAO {
 		return session.selectList("b.selectdate",user_idx);
 	}
 	
-	public String selectProductName(int product_idx) {
+	public FullViewVO selectProductName(int product_idx) {
 		return session.selectOne("b.selectProductName", product_idx);
+	}
+	public int deleteCart(Timestamp date,int user_idx) {
+		OrderListVO vo = new OrderListVO();
+		vo.setOrderlist_date(date);
+		vo.setUser_idx(user_idx);
+		return session.delete("b.deleteCart", vo);
+	}
+	public int updateOrderRefund(int user_idx, Timestamp date) {
+		OrderListVO vo = new OrderListVO();
+		vo.setOrderlist_date(date);
+		vo.setUser_idx(user_idx);
+		return session.update("b.updateRefund",vo);
+		
 	}
 }

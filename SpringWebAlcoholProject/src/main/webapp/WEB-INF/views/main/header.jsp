@@ -77,7 +77,7 @@
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1>
-                주당들<span>.</span>
+                술앗간<span>.</span>
             </h1>
         </a>
 
@@ -91,11 +91,11 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a href="#">베스트</a></li>
+                        <li><a href="best_product.do">베스트</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a href="#">신상품</a></li>
+                        <li><a href="new_product.do">신상품</a></li>
                     </ul>
                     <%--<li><a href="fullview.do">전체상품</a></li>
                                        <li><a href="#">신상품</a></li>
@@ -138,7 +138,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="pay_list.do">
                                 <span>취소/환불 목록</span>
                             </a>
                         </li>
