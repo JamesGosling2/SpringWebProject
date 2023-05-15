@@ -316,6 +316,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where product_idx = #{product_idx}
 	</update>
 	
+	<select id="recommend" resultType="product" parameterType="search">
+		select * from product 
+		<where>
+			(product_sweet_rating = 
+			<foreach collection="product_sweet_rating" item="item"
+					separator="or product_sweet_rating = ">
+
+					#{item}
+			</foreach>
+			)
+			and (product_sourish_rating = 
+			<foreach collection="product_sourish_rating" item="item"
+					separator="or product_sourish_rating = ">
+
+					#{item}
+			</foreach>
+			)
+			and (product_bodytaste_rating = 
+			<foreach collection="product_bodytaste_rating" item="item"
+					separator="or product_bodytaste_rating = ">
+
+					#{item}
+			</foreach>
+			)
+		</where>
+	</select>
+	<select id="recommend_count" resultType="int" parameterType="search">
+		select count(*) from product
+		<where>
+			(product_sweet_rating = 
+			<foreach collection="product_sweet_rating" item="item"
+					separator="or product_sweet_rating = ">
+
+					#{item}
+			</foreach>
+			)
+			and (product_sourish_rating = 
+			<foreach collection="product_sourish_rating" item="item"
+					separator="or product_sourish_rating = ">
+
+					#{item}
+			</foreach>
+			)
+			and (product_bodytaste_rating = 
+			<foreach collection="product_bodytaste_rating" item="item"
+					separator="or product_bodytaste_rating = ">
+
+					#{item}
+			</foreach>
+			)
+		</where>
+	</select>
+	 
 </mapper>
 
 

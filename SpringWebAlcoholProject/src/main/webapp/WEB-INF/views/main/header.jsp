@@ -77,7 +77,7 @@
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1>
-                주당들<span>.</span>
+                술앗간<span>.</span>
             </h1>
         </a>
 

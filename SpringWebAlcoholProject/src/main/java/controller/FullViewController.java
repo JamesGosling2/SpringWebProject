@@ -40,9 +40,11 @@ public class FullViewController {
 
 	@RequestMapping("/fullview.do")
 	public String selectList(Model model) {
+		List<FullViewVO> product_full = service.selectList();
 		List<FullViewVO> product_list = service.selectList();
 		int product_count = service.selectCount();
 		model.addAttribute("product_count", product_count);
+		model.addAttribute("product_full", product_full);
 		model.addAttribute("product_list", product_list);
 		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
 	}
@@ -164,6 +166,15 @@ public class FullViewController {
 	public String delete(int product_idx) {
 		int i = service.delete(product_idx);
 		return "redirect:/fullview.do";
+	}
+	
+	@RequestMapping("/recommend.do")
+	public String recommend(Model model, SearchVO vo) {
+		List<FullViewVO> product_list = service.recommend(vo);
+		int count = service.recommend_count(vo);
+		model.addAttribute("product_list", product_list);
+		model.addAttribute("product_count", count);
+		return Common.full_view.VIEW_PATH + "full_view_lsj.jsp";
 	}
 
 }

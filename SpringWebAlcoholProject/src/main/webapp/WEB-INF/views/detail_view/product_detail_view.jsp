@@ -307,7 +307,7 @@ pageContext.setAttribute("LF", "\n");
 									</div>
 								</div>
 								<div style="width: 100%;">
-									<div style="font-weight: bold; margin: 20px 0;">총 가격</div>
+									<div style="font-weight: bolder; margin: 20px 0;">총 가격<span style="color : #00665b; font-style:italic;">(배송비 3000원 포함)</span></div>
 									<input class="number" name="totPrice" disabled>
 								</div>
 								<div class="shopping_basket">
